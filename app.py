@@ -1,28 +1,26 @@
 import os
+import json
 import socket
 import logging
+import datetime
 import traceback
 
 from flask_cors import CORS
-from flask import Flask, request, jsonify
+from flask import Flask, request
 
 from logging.config import dictConfig
 from werkzeug.exceptions import HTTPException
 
+from traceback import FrameSummary
+
 import settings
 
-from blueprints import all_blueprints
-from send_alert import send_dingding_alert
 from models.database_model import db
+from blueprints import all_blueprints
 from exceptions import ServerException
+from send_alert import send_dingding_alert
 
 logger = logging.getLogger(__name__)
-
-import json
-
-import datetime
-
-from traceback import FrameSummary, format_exc
 
 
 class JsonEncoder(json.JSONEncoder):
@@ -31,7 +29,6 @@ class JsonEncoder(json.JSONEncoder):
             return value.strftime("%Y-%m-%d %H:%M:%S")
         if isinstance(value, FrameSummary):
             return str(value)
-
 
         return json.JSONEncoder.default(self, value)
 
