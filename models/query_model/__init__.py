@@ -1,7 +1,7 @@
 from flask_restful import reqparse
 
 from models import Field, ApiDataType, BaseModel
-from exceptions import InvalidArgumentException
+from exceptions.exceptions import InvalidArgumentException
 
 
 class QueryField(Field):

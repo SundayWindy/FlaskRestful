@@ -17,8 +17,8 @@ import settings
 
 from models.database_model import db
 from blueprints import all_blueprints
-from exceptions import ServerException
-from send_alert import send_dingding_alert
+from exceptions.exceptions import ServerException
+from exceptions.send_alert import send_dingding_alert
 
 logger = logging.getLogger(__name__)
 
