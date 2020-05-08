@@ -1,0 +1,22 @@
+language: python
+python:
+  - "3.8"
+# command to install dependencies
+os:
+  - linux
+
+services:
+  - mysql
+
+# install dependencies
+before_install:
+  - mysql -e 'CREATE DATABASE test DEFAULT CHARSET utf8 COLLATE utf8_general_ci;'
+  - mysql -e 'CREATE DATABASE dev DEFAULT CHARSET utf8 COLLATE utf8_general_ci;'
+install:
+  - pip install -r requirements.txt
+# command to run tests
+script:
+  -  coverage run --source=mypkg -m pytest tests/
+
+after_success:
+  - coveralls
