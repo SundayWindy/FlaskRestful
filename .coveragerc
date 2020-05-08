@@ -3,3 +3,5 @@ source =
 	./
 omit=
     */site-packages/*
+    */docs/
+    */venv/*
