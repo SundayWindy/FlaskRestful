@@ -3,6 +3,9 @@
 [![standard-readme compliant](https://img.shields.io/badge/standard--readme-OK-green.svg?style=flat-square)](https://github.com/RichardLitt/standard-readme)
 TODO: Put more badges here.
 
+[![Build Status](https://travis-ci.com/RuiCoreSci/flask-restful.svg?branch=master)](https://travis-ci.com/RuiCoreSci/flask-restful)
+
+
 基于 Flask-Restful Api 搭建的网站后台，设计主要参考 v2ex 这个网站
 
 TODO: Fill out this long description.
