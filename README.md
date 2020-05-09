@@ -40,4 +40,4 @@ Small note: If editing the README, please conform to the [standard-readme](https
 
 ## License
 
-Apache2.0 © 2020 ruicore
+MIT © 2020 ruicore
