@@ -19,9 +19,9 @@ It implements the interfaces of the website v2ex as much as possible, but does n
 
 ## Usage
 
-* **First** use command like ```CREATE DATABASE flask DEFAULT CHARSET utf8 ``` or GUI tool to create database in your database.
+* **First** use command like ```CREATE DATABASE flask DEFAULT CHARSET utf8 ``` or GUI tool to create database in your own database.
 * **Then** modify ```SQLALCHEMY_DATABASE_URI``` and ```SQLALCHEMY_DATABASE_BASE``` in settings.py to your own setting.
-* **Last** create run environment and run:
+* **Last** create running environment and run:
 ```sh
 python3.8 -m venv --clear venv
 source ./venv/bin/active
