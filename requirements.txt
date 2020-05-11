@@ -1,3 +1,4 @@
+alembic==1.4.2
 aniso8601==8.0.0
 astroid==2.3.3
 attrs==19.3.0
@@ -10,7 +11,9 @@ coveralls==2.0.0
 docopt==0.6.2
 Flask==1.1.2
 Flask-Cors==3.0.8
+Flask-Migrate==2.5.3
 Flask-RESTful==0.3.8
+Flask-Script==2.0.6
 Flask-SQLAlchemy==2.4.1
 gevent==1.5.0
 greenlet==0.4.15
@@ -19,6 +22,7 @@ isort==4.3.21
 itsdangerous==1.1.0
 Jinja2==2.11.2
 lazy-object-proxy==1.4.3
+Mako==1.1.2
 MarkupSafe==1.1.1
 mccabe==0.6.1
 more-itertools==8.2.0
@@ -26,8 +30,11 @@ packaging==20.3
 pluggy==0.13.1
 py==1.8.1
 pylint==2.4.4
+PyMySQL==0.9.3
 pyparsing==2.4.7
 pytest==5.4.1
+python-dateutil==2.8.1
+python-editor==1.0.4
 pytz==2019.3
 requests==2.23.0
 six==1.14.0

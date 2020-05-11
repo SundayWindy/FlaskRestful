@@ -5,17 +5,16 @@ class ApiDataType(object):
     def mock(self):
         raise NotImplementedError()
 
-    def marshal(self):
+    def marshal(self, value):
         raise NotImplementedError()
 
-    def validate(self):
+    def validate(self, value):
         raise NotImplementedError()
 
     def __str__(self):
         return self.__class__.__name__
 
-    def __repr__(self):
-        raise NotImplementedError()
+    __repr__ = __str__
 
 
 class Field(object):
@@ -70,6 +69,7 @@ class BaseModel(object, metaclass=ModelMetaClass):
             value = kwargs.get(field_name)
             if not drop_missing and not field.nullable and value is None:
                 raise Exception("field [{}] must be initialized".format(field_name))
+        setattr(self, field_name, value)
 
     def marshal(self, values):
         dct = {}

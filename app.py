@@ -13,7 +13,7 @@ from werkzeug.exceptions import HTTPException
 
 from traceback import FrameSummary
 
-import settings
+from configures import settings
 
 from models.database_model import db
 from blueprints import all_blueprints

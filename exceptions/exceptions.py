@@ -7,3 +7,11 @@ class ServerException(Exception):
 
 class InvalidArgumentException(ServerException):
     code = 400
+
+
+class ArgumentRequiredException(ServerException):
+    code = 403
+
+
+class InvalidPattern(ServerException):
+    code = 403

@@ -3,7 +3,7 @@ import enum
 from datetime import datetime
 from flask_sqlalchemy import SQLAlchemy
 
-from settings import date_format
+from configures.settings import date_format
 
 db = SQLAlchemy()
 

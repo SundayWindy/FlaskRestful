@@ -2,4 +2,5 @@ from models import BaseModel
 
 
 class BaseResponseModel(BaseModel):
-    pass
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
