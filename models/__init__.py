@@ -1,7 +1,7 @@
 import pprint
 
 
-class ApiDataType(object):
+class ApiDataType:
     def mock(self):
         raise NotImplementedError()
 
@@ -17,7 +17,7 @@ class ApiDataType(object):
     __repr__ = __str__
 
 
-class Field(object):
+class Field:
     __slots__ = ("name", "field_type", "mock_func", "enum_values", "comment", "nullable", "marshal")
 
     def __init__(self, field_type: ApiDataType, mock_func=None, enum_values: tuple = (), comment="", nullable=True,
@@ -64,14 +64,14 @@ class BaseModel(object, metaclass=ModelMetaClass):
     __fields__ = ()
     __fields_map__ = {}
 
-    def __int__(self, drop_missing=False, **kwargs):
+    def __init__(self, drop_missing=False, **kwargs):
         for field_name, field in self.__fields_map__.items():
             value = kwargs.get(field_name)
             if not drop_missing and not field.nullable and value is None:
                 raise Exception("field [{}] must be initialized".format(field_name))
-        setattr(self, field_name, value)
+            setattr(self, field_name, value)
 
-    def marshal(self, values):
+    def marshal(self, values=None):
         dct = {}
 
         if values is None:

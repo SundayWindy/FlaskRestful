@@ -1,5 +1,6 @@
 import os
 import json
+import types
 import socket
 import logging
 import datetime
@@ -15,10 +16,12 @@ from traceback import FrameSummary
 
 from configures import settings
 
+from models import BaseModel
 from models.database_model import db
 from blueprints import all_blueprints
 from exceptions.exceptions import ServerException
 from exceptions.send_alert import send_dingding_alert
+from resourses import ApiResponse
 
 logger = logging.getLogger(__name__)
 
@@ -29,6 +32,12 @@ class JsonEncoder(json.JSONEncoder):
             return value.strftime("%Y-%m-%d %H:%M:%S")
         if isinstance(value, FrameSummary):
             return str(value)
+        if isinstance(value, ApiResponse):
+            return value.get()
+        if isinstance(value, BaseModel):
+            return value.marshal()
+        if isinstance(value, types.GeneratorType):
+            return [self.default(v) for v in value]
 
         return json.JSONEncoder.default(self, value)
 

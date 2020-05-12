@@ -10,8 +10,8 @@ services:
 
 # install dependencies
 before_install:
-  - mysql -e 'CREATE DATABASE test DEFAULT CHARSET utf8 COLLATE utf8_general_ci;'
-  - mysql -e 'CREATE DATABASE dev DEFAULT CHARSET utf8 COLLATE utf8_general_ci;'
+  - mysql -e 'CREATE DATABASE TEST DEFAULT CHARSET utf8 COLLATE utf8_general_ci;'
+  - mysql -e 'CREATE DATABASE DEV DEFAULT CHARSET utf8 COLLATE utf8_general_ci;'
 install:
   - pip install -r requirements.txt
 # command to run tests

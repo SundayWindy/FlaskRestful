@@ -1,7 +1,7 @@
 import random
 from uuid import uuid1
 from datetime import datetime
-from collections import Iterable
+from collections.abc import Iterable
 from models import ApiDataType
 from configures.help_funcs import str_to_datetime
 

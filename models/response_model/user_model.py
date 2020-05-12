@@ -5,9 +5,9 @@ from models.data_types import *
 
 class UserModel(BaseResponseModel):
     id = Field(IntType(), nullable=False)
-    name = Field(StringType(), nullable=False)
     email = Field(StringType(), nullable=False)
 
+    name = Field(StringType(), nullable=True)
     phone = Field(StringType(), nullable=True, comment='电话号码')
     avatar = Field(StringType(), nullable=True, comment="用户头像")
     website = Field(StringType(), nullable=True, comment="个人网站")

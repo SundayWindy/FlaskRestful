@@ -14,5 +14,5 @@ class CustomApiErrorClass(Exception):
 
 api = Api(api_bp)
 
-api.add_resource(User, "/user/<int:user_id>")
-api.add_resource(Users, "/user/")
+api.add_resource(User, "/users/<int:user_id>")
+api.add_resource(Users, "/users")

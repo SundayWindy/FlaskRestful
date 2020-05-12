@@ -1,8 +1,8 @@
-from models.database_model import Base, Column
+from models.database_model import Base, Column, SurrogatePK
 from sqlalchemy import String, JSON, Integer, DateTime, Boolean, Text, Table, ForeignKey, FLOAT, Enum, Float
 
 
-class User(Base):
+class User(SurrogatePK, Base):
     __tablename__ = 'user'
     id = Column(Integer, primary_key=True)
 

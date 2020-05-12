@@ -54,7 +54,7 @@ class Base(db.Model):
         return self
 
     def _to_json(self, value):
-        if hasattr(self, "as_dict"):
+        if hasattr(value, "as_dict"):
             return value.as_dict()
         elif isinstance(value, datetime):
             return value.strftime(date_format)

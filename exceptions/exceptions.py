@@ -5,12 +5,20 @@ class ServerException(Exception):
     code = 500
 
 
-class InvalidArgumentException(ServerException):
+class InvalidArgument(ServerException):
     code = 400
 
 
-class ArgumentRequiredException(ServerException):
+class ArgumentRequired(ServerException):
     code = 403
+
+
+class ObjectsDuplicated(ServerException):
+    code = 403
+
+
+class ObjectsNotExisted(ServerException):
+    code = 404
 
 
 class InvalidPattern(ServerException):

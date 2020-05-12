@@ -1,2 +1,69 @@
 import inspect
 from functools import wraps
+from flask import jsonify
+
+from models import ApiDataType
+from models.query_model import BaseQueryModel
+from models.response_model import NoValue
+
+schema_mapping = {}
+
+
+class ResourceSchema(object):
+
+    def __init__(self, query_model: BaseQueryModel, response_model: ApiDataType, path_parameters):
+        self.query_model = query_model
+        self.response_model = response_model
+        self.path_parameters = path_parameters
+
+
+def schema(query_model: BaseQueryModel, response_model: ApiDataType):
+    def decorator(func):
+        params = list(inspect.signature(func).parameters)
+        params.remove('self')
+        schema_mapping[func.__qualname__] = ResourceSchema(query_model, response_model, params)
+
+        @wraps(func)
+        def wrapper(self, **kwargs):
+            """args in path occurs in kwargs"""
+            self.query_model = query_model
+            self.response_model = response_model
+            self.parsed_args = self.query_model.parse_and_process_args(**kwargs)
+            return jsonify(func(self, **kwargs))
+
+        return wrapper
+
+    return decorator
+
+
+class ApiResponse:
+    def __init__(self):
+        self.data = {}
+        self.error_code = None
+        self.error_msg = None
+
+    def ok(self, data=None):
+        self.set_data(data)
+        self.error_code = 0
+        self.error_msg = "success"
+        return self
+
+    def error(self, error_code, error_msg):
+        self.error_code = error_code
+        self.error_msg = error_msg
+        return self
+
+    def set_data(self, data):
+        if data is None or data == {}:
+            data = NoValue()
+        self.data = data
+        return self
+
+    def get(self):
+        if self.error_code is None or self.error_msg is None:
+            raise Exception("ApiResponse not ready.")
+        return {
+            "data": self.data,
+            "error_code": self.error_code,
+            "error_msg": self.error_msg,
+        }

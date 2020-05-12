@@ -1,7 +1,8 @@
+import pprint
 from flask_restful import reqparse
 
 from models import Field, ApiDataType, BaseModel
-from exceptions.exceptions import InvalidArgumentException
+from exceptions.exceptions import InvalidArgument
 
 
 class QueryField(Field):
@@ -14,14 +15,14 @@ class QueryField(Field):
         self.location = location
         self.parser_kwargs = kwargs
         self.required = required
-        self.parse_func = parser_func
+        self.parse_func = parser_func or self.field_type.marshal
         if 'default' in kwargs:
             self.default = kwargs['default']
 
 
 class BaseQueryModel(BaseModel):
 
-    def __init__(self, **kwargs):
+    def __init__(self, **kwargs: dict):
         super().__init__(drop_missing=False, **kwargs)
         self.__storage__ = kwargs
         for field_name in self.__fields_map__.keys():
@@ -33,18 +34,29 @@ class BaseQueryModel(BaseModel):
         parser = reqparse.RequestParser()
 
         for field in cls.__fields__:
-            parser.add_argument(field.name, type=field.parse_func, location=field.location, required=field.required,
-                                nullable=field.nullable, **field.kwargs)
+            name = field.name
+            location = field.location
+            required = field.required
+            nullable = field.nullable
+            parser.add_argument(name, location=location, required=required, nullable=nullable, **field.parser_kwargs)
+
         parsed = parser.parse_args()
 
         for field in cls.__fields__:
             if field.enum_values and field.name in parsed:
                 value = parsed[field.name]
                 if value is not None and value not in field.enum_values:
-                    raise InvalidArgumentException("参数 [{}] 的值必须在 [{}] 中".format(field.name, field.enum_values))
+                    raise InvalidArgument("参数 [{}] 的值必须在 [{}] 中".format(field.name, field.enum_values))
 
         instance = cls(**parsed)
         return instance
+
+    def process_args(self, **kwargs) -> dict:
+        return self.as_dict()
+
+    @classmethod
+    def parse_and_process_args(cls, **kwargs):
+        return cls.parse_args().process_args(**kwargs)
 
     def as_dict(self):
         return self.__storage__
