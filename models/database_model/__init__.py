@@ -1,9 +1,9 @@
 import enum
-
 from datetime import datetime
+
 from flask_sqlalchemy import SQLAlchemy
 
-from settings import date_format
+from configures.settings import date_format
 
 db = SQLAlchemy()
 
@@ -13,12 +13,13 @@ relationship = db.relationship
 
 class Base(db.Model):
     """DataBase Model that Contains CRUD Operations"""
+
     __abstract__ = True
 
     @classmethod
     def parse_schema(cls, **kwargs):
         column_names = cls.__table__.columns.keys()
-        for key in filter(lambda col_name: col_name not in column_names, kwargs.keys()):
+        for key in filter(lambda col_name: col_name not in column_names, kwargs.copy().keys()):
             kwargs.pop(key)
 
         return kwargs
@@ -54,7 +55,7 @@ class Base(db.Model):
         return self
 
     def _to_json(self, value):
-        if hasattr(self, "as_dict"):
+        if hasattr(value, "as_dict"):
             return value.as_dict()
         elif isinstance(value, datetime):
             return value.strftime(date_format)
@@ -83,8 +84,10 @@ class SurrogatePK(object):
     def get_by_id(cls, record_id):
         """Get record by ID."""
         if any(
-                (isinstance(record_id, (str, bytes)) and record_id.isdigit(),
-                 isinstance(record_id, (int, float)))
+            (
+                isinstance(record_id, (str, bytes)) and record_id.isdigit(),
+                isinstance(record_id, (int, float)),
+            )
         ):
             return cls.query.get(int(record_id))
         return None
@@ -98,6 +101,4 @@ def reference_col(table_name, nullable=False, pk_name='id', **kwargs):
         category_id = reference_col('category')
         category = relationship('Category', backref='categories')
     """
-    return Column(
-        db.ForeignKey('{0}.{1}'.format(table_name, pk_name)),
-        nullable=nullable, **kwargs)
+    return Column(db.ForeignKey('{0}.{1}'.format(table_name, pk_name)), nullable=nullable, **kwargs)
