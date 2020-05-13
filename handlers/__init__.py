@@ -1,4 +1,5 @@
 from exceptions import exceptions
+
 from models.database_model import Base as Model
 
 

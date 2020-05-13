@@ -1,26 +1,23 @@
-import os
-import json
-import types
-import socket
-import logging
 import datetime
+import json
+import logging
+import os
+import socket
 import traceback
-
-from flask_cors import CORS
-from flask import Flask, request
-
-from logging.config import dictConfig
-from werkzeug.exceptions import HTTPException
-
-from traceback import FrameSummary
-
-from configures import settings
-
-from models import BaseModel
-from models.database_model import db
-from blueprints import all_blueprints
+import types
 from exceptions.exceptions import ServerException
 from exceptions.send_alert import send_dingding_alert
+from logging.config import dictConfig
+from traceback import FrameSummary
+
+from flask import Flask, request
+from flask_cors import CORS
+from werkzeug.exceptions import HTTPException
+
+from blueprints import all_blueprints
+from configures import settings
+from models import BaseModel
+from models.database_model import db
 from resourses import ApiResponse
 
 logger = logging.getLogger(__name__)
@@ -92,12 +89,10 @@ def init_logging():
         'version': 1,
         'disable_existing_loggers': False,
         'formatters': {
-            'brief': {
-                'format': '%(message)s'
-            },
+            'brief': {'format': '%(message)s'},
             'standard': {
                 'format': '[%(asctime)s] [%(levelname)s]  [%(filename)s.%(funcName)s:%(lineno)3d]  [%(process)d::%(thread)d] %(message)s'
-            }
+            },
         },
         'handlers': {
             'default': {
@@ -107,13 +102,9 @@ def init_logging():
                 'filename': '{}/server.log'.format(dir_name),
                 'when': 'midnight',
                 'interval': 1,
-                'encoding': 'utf8'
+                'encoding': 'utf8',
             },
-            'console': {
-                'level': level,
-                'formatter': 'standard',
-                'class': 'logging.StreamHandler'
-            },
+            'console': {'level': level, 'formatter': 'standard', 'class': 'logging.StreamHandler'},
             'default_access': {
                 'level': level,
                 'formatter': 'brief',
@@ -121,26 +112,22 @@ def init_logging():
                 'filename': '{}/access.log'.format(dir_name),
                 'when': 'midnight',
                 'interval': 1,
-                'encoding': 'utf8'
+                'encoding': 'utf8',
             },
             'console_access': {
                 'level': level,
                 'formatter': 'brief',
-                'class': 'logging.StreamHandler'
-            }
+                'class': 'logging.StreamHandler',
+            },
         },
         'loggers': {
             'werkzeug': {
                 'handlers': ['default_access', 'console_access'],
                 'level': level,
-                'propagate': False
+                'propagate': False,
             },
-            '': {
-                'handlers': ['default', 'console'],
-                'level': level,
-                'propagate': False
-            }
-        }
+            '': {'handlers': ['default', 'console'], 'level': level, 'propagate': False},
+        },
     }
 
     def patch_wsgi_handler():
@@ -148,6 +135,7 @@ def init_logging():
         忽略WSGIServer log标签
         """
         from gevent.pywsgi import WSGIHandler
+
         logger = logging.getLogger('werkzeug')
 
         def log_request(self):

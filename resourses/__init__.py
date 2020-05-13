@@ -1,5 +1,6 @@
 import inspect
 from functools import wraps
+
 from flask import jsonify
 
 from models import ApiDataType
@@ -10,7 +11,6 @@ schema_mapping = {}
 
 
 class ResourceSchema(object):
-
     def __init__(self, query_model: BaseQueryModel, response_model: ApiDataType, path_parameters):
         self.query_model = query_model
         self.response_model = response_model

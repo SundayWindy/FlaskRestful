@@ -1,9 +1,10 @@
 import random
-from uuid import uuid1
-from datetime import datetime
 from collections.abc import Iterable
-from models import ApiDataType
+from datetime import datetime
+from uuid import uuid1
+
 from configures.help_funcs import str_to_datetime
+from models import ApiDataType
 
 
 class IntType(ApiDataType):
@@ -51,7 +52,11 @@ class BooleanType(ApiDataType):
                 value = True
             elif value.lower() == "false":
                 value = False
-        assert (value in (True, False, None)), "[Boolean] should be [True] or [False]. Actual: [{}]".format(type(value))
+        assert value in (
+            True,
+            False,
+            None,
+        ), "[Boolean] should be [True] or [False]. Actual: [{}]".format(type(value))
 
         return value
 
@@ -99,7 +104,6 @@ class ListType(ApiDataType):
 
 
 class DictType(ApiDataType):
-
     def mock(self):
         return {uuid1().hex: uuid1().hex}
 

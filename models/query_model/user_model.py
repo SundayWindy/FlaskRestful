@@ -1,4 +1,4 @@
-from models.data_types import *
+from models.data_types import BooleanType, IntType, StringType
 from models.query_model import BaseQueryModel, QueryField
 
 

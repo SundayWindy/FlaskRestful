@@ -1,4 +1,5 @@
 from unittest import TestCase
+
 from sqlalchemy import create_engine
 
 from app import create_app
@@ -12,11 +13,6 @@ class BaseTestCase(TestCase):
         cls.engine = create_engine(settings.SQLALCHEMY_DATABASE_BASE)
         cls.engine.execute("DROP DATABASE  IF EXISTS  %s" % settings.TEST_DATABASE)
         cls.engine.execute("CREATE DATABASE IF NOT EXISTS %s" % settings.TEST_DATABASE)
-
-    @classmethod
-    def tearDownClass(cls) -> None:
-        cls.engine = create_engine(settings.SQLALCHEMY_DATABASE_BASE)
-        cls.engine.execute("drop database %s" % settings.TEST_DATABASE)
 
     def setUp(self):
         self.maxDiff = None

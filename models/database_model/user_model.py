@@ -1,5 +1,18 @@
+from sqlalchemy import (
+    FLOAT,
+    JSON,
+    Boolean,
+    DateTime,
+    Enum,
+    Float,
+    ForeignKey,
+    Integer,
+    String,
+    Table,
+    Text,
+)
+
 from models.database_model import Base, Column, SurrogatePK
-from sqlalchemy import String, JSON, Integer, DateTime, Boolean, Text, Table, ForeignKey, FLOAT, Enum, Float
 
 
 class User(SurrogatePK, Base):

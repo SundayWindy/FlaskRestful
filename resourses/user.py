@@ -3,7 +3,7 @@ from flask_restful import Resource
 from handlers.user_handler import UserHandler
 from models.query_model.user_model import UserQueryModel
 from models.response_model.user_model import UserModel
-from resourses import schema, ApiResponse
+from resourses import ApiResponse, schema
 
 
 class Users(Resource):

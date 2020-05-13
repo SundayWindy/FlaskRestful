@@ -1,6 +1,6 @@
 from models import Field
+from models.data_types import BooleanType, IntType, StringType
 from models.response_model import BaseResponseModel
-from models.data_types import *
 
 
 class UserModel(BaseResponseModel):

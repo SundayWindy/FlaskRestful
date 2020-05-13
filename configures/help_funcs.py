@@ -1,6 +1,7 @@
-import re
 import datetime
+import re
 from exceptions import exceptions
+
 from configures.const import DATE_FORMATS
 
 
@@ -14,7 +15,11 @@ def str_to_datetime(value):
             except ValueError:
                 pass
         if not ret:
-            raise Exception("[date] [time] [datetime] format must be {}, Actual: [{}]".format(DATE_FORMATS, value))
+            raise Exception(
+                "[date] [time] [datetime] format must be {}, Actual: [{}]".format(
+                    DATE_FORMATS, value
+                )
+            )
     return ret
 
 
@@ -42,10 +47,10 @@ class BaseChecker:
 
 
 class EmailChecker(BaseChecker):
-    ALLOWED_PATTERN = "(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)"
+    ALLOWED_PATTERN = r"(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)"
     ERROR_MSG = '邮箱格式错误'
 
 
 class PassWordChecker(BaseChecker):
-    ALLOWED_PATTERN = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*#?&]{8,}"
-    ERROR_MSG = "至少8个字符，至少1个大写字母，1个小写字母，1个数字和1个特殊字符,不能含有空格"
+    ALLOWED_PATTERN = r"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*#?&]{8,}"
+    ERROR_MSG = "密码至少8个字符，至少1个大写字母，1个小写字母，1个数字和1个特殊字符,不能含有空格"

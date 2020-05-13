@@ -1,11 +1,11 @@
-from werkzeug.security import generate_password_hash, check_password_hash
-
 from exceptions import exceptions
+
+from werkzeug.security import check_password_hash, generate_password_hash
+
+from configures.help_funcs import EmailChecker, PassWordChecker
+from handlers import BaseHandler
 from models.database_model.user_model import User
 from models.response_model.user_model import UserModel as ResponseUser
-from configures.help_funcs import EmailChecker, PassWordChecker
-
-from handlers import BaseHandler
 
 
 class UserHandler(BaseHandler):
@@ -21,7 +21,9 @@ class UserHandler(BaseHandler):
 
     @staticmethod
     def get_users():
-        yield from (ResponseUser(**instance.as_dict()) for instance in User.query.filter_by(deleted=False))
+        yield from (
+            ResponseUser(**instance.as_dict()) for instance in User.query.filter_by(deleted=False)
+        )
 
     @staticmethod
     def create(**kwargs):
@@ -34,6 +36,8 @@ class UserHandler(BaseHandler):
         if user:
             raise exceptions.ObjectsDuplicated("邮件为 <%s> 的用户已经注册" % email)
 
+        if password is None:
+            raise exceptions.ArgumentRequired("密码不能为空")
         password = password.strip()
 
         if not EmailChecker.is_allowed(email):
@@ -65,12 +69,12 @@ class UserHandler(BaseHandler):
             raise exceptions.InvalidArgument(PassWordChecker.ERROR_MSG)
             # 验证密码，验证权限
 
-        password_hash = generate_password_hash(password)
+        if password:
+            password_hash = generate_password_hash(password)
+            kwargs.pop("password")
+            kwargs["password_hash"] = password_hash
 
-        kwargs.pop("password")
-        kwargs.pop("email")
-
-        ins = user.update(password_hash=password_hash, email=email, **kwargs)
+        ins = user.update(**kwargs)
 
         return ResponseUser(**ins.as_dict())
 
