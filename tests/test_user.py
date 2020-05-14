@@ -1,4 +1,5 @@
 from datetime import datetime
+
 from tests import BaseTestCase
 
 
@@ -11,7 +12,11 @@ class TestUsers(BaseTestCase):
         exist_user = self.client.get(self.url_prefix).json["data"]
         self.assertEqual(len(exist_user), 0)
 
-        new_user = {"email": "suepr76rui@icloud.com", "password": "b22sw1*#DJfyxoUaq", "create_time": datetime.now()}
+        new_user = {
+            "email": "suepr76rui@icloud.com",
+            "password": "b22sw1*#DJfyxoUaq",
+            "create_time": datetime.now(),
+        }
         self.client.post(self.url_prefix, json=new_user)
         users = self.client.get(self.url_prefix).json["data"]
         self.assertEqual(len(users), 1)

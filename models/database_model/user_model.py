@@ -10,7 +10,7 @@ from sqlalchemy import (
     String,
     Table,
     Text,
-    func
+    func,
 )
 
 from models.database_model import Base, Column
