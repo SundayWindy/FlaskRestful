@@ -10,12 +10,13 @@ from sqlalchemy import (
     String,
     Table,
     Text,
+    func
 )
 
-from models.database_model import Base, Column, SurrogatePK
+from models.database_model import Base, Column
 
 
-class User(SurrogatePK, Base):
+class User(Base):
     __tablename__ = 'user'
     id = Column(Integer, primary_key=True)
 
@@ -55,3 +56,4 @@ class User(SurrogatePK, Base):
     time_zone = Column(String(256), default="utc", comment="默认使用的时区")
 
     deleted = Column(Boolean, default=0, comment="该用户是否注销")
+    create_time = Column(DateTime, nullable=False, server_default=func.now())
