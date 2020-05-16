@@ -1,9 +1,9 @@
 import pprint
-from exceptions.exceptions import InvalidArgument
+from exceptions.exceptions import ArgumentInvalid
 
 from flask_restful import reqparse
 
-from models import ApiDataType, BaseModel, Field
+from models.base_model import ApiDataType, BaseModel, Field
 
 
 class QueryField(Field):
@@ -69,7 +69,7 @@ class BaseQueryModel(BaseModel):
             if field.enum_values and field.name in parsed:
                 value = parsed[field.name]
                 if value is not None and value not in field.enum_values:
-                    raise InvalidArgument(
+                    raise ArgumentInvalid(
                         "参数 [{}] 的值必须在 [{}] 中".format(field.name, field.enum_values)
                     )
 

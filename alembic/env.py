@@ -1,15 +1,15 @@
 import os
 import sys
+
+sys.path.append(os.path.dirname(os.path.abspath(__file__)) + "/../")
+
 from logging.config import fileConfig
 
 from sqlalchemy import engine_from_config, pool
 
 from alembic import context
 from configures.settings import SQLALCHEMY_DATABASE_URI
-from models.database_model import Meta, User
-
-sys.path.append(os.path.dirname(os.path.abspath(__file__)) + "/../")
-
+from models.database_models import *
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.

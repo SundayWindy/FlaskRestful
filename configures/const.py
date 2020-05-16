@@ -1,5 +1,7 @@
 from configures import BaseEnumType
 
+PER_PAGE = 50
+POST_MINIMUM_WORDS = 5
 BLANK = ""
 
 DATE_FORMATS = [
