@@ -2,6 +2,7 @@ import enum
 from datetime import datetime
 
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import Boolean, DateTime, func
 from sqlalchemy.ext.declarative import declarative_base
 
 from configures.settings import date_format
@@ -24,10 +25,10 @@ class SurrogatePK:
     def get_by_id(cls, record_id):
         """Get record by ID."""
         if any(
-            (
-                isinstance(record_id, (str, bytes)) and record_id.isdigit(),
-                isinstance(record_id, (int, float)),
-            )
+                (
+                        isinstance(record_id, (str, bytes)) and record_id.isdigit(),
+                        isinstance(record_id, (int, float)),
+                )
         ):
             return cls.query.get(int(record_id))
         return None

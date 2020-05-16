@@ -1,10 +1,13 @@
+import importlib
 import random
 from collections.abc import Iterable
 from datetime import datetime
+from exceptions import exceptions
 from uuid import uuid1
 
 from configures.help_funcs import str_to_datetime
-from models import ApiDataType
+from models.base_model import ApiDataType
+from models.response_models.base_model import BaseResponseModel
 
 
 class IntType(ApiDataType):
@@ -112,3 +115,69 @@ class DictType(ApiDataType):
 
     def validate(self, value):
         assert isinstance(value, dict)
+
+
+class LazyWrapper:
+    def __init__(self, func):
+        self._func = func
+        self._object = None
+
+    @property
+    def object(self):
+        if self._object is None:
+            self._object = self._func()
+        return self._object
+
+    def __getattr__(self, item):
+        return getattr(self.object, item)
+
+
+class ApiDefineType(ApiDataType):
+    mod = LazyWrapper(lambda: importlib.import_module("models.response_models"))
+
+    def __init__(self, schema):
+        if isinstance(schema, str):
+            self.schema_name = schema
+            self._real_data_type = None
+        elif issubclass(schema, BaseResponseModel):
+            self.schema_name = schema.__name__
+            self._real_data_type = schema
+        else:
+            raise exceptions.ServerException(
+                "schema of ApiDefineType should be a Model or name of a Model"
+            )
+
+        self._real_data = None
+
+    def _ensure_schema_parsed(self):
+        if self._real_data_type is None:
+            self._real_data_type = self._parse_schema_name(self.schema_name)
+
+    @property
+    def data_type(self):
+        self._ensure_schema_parsed()
+        return self._real_data_type
+
+    @classmethod
+    def _parse_schema_name(cls, schema_name):
+        schema = getattr(cls.mod, schema_name)
+        return schema
+
+    def mock(self):
+        raise NotImplementedError()
+
+    def marshal(self, data):
+        self._ensure_schema_parsed()
+        if data is None:
+            return None
+        _data = self.data_type(True)
+        return _data.marshal(data)
+
+    def validate(self, data):
+        assert isinstance(data, self.data_type), "Expect: {} - Actual: {}".format(
+            self.data_type.__name__, type(data)
+        )
+        self.marshal(data)
+
+    def __str__(self):
+        return self.schema_name

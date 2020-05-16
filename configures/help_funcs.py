@@ -42,7 +42,7 @@ class BaseChecker:
     @classmethod
     def check(cls, value: str):
         if not cls.is_allowed(value):
-            raise exceptions.InvalidPattern(cls.ERROR_MSG)
+            raise exceptions.PatternInvalid(cls.ERROR_MSG)
         return value
 
 
@@ -54,3 +54,8 @@ class EmailChecker(BaseChecker):
 class PassWordChecker(BaseChecker):
     ALLOWED_PATTERN = r"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*#?&]{8,}"
     ERROR_MSG = "密码至少8个字符，至少1个大写字母，1个小写字母，1个数字和1个特殊字符,不能含有空格"
+
+
+class BasicNameChecker(BaseChecker):
+    ALLOWED_PATTERN = '^[\\w\u4e00-\u9fa5-]+$'
+    ERROR_MSG = '名称中只允许出现【中文，英文，数字，下换线，连接符'

@@ -122,6 +122,8 @@ class TestUsers(BaseTestCase):
 
         update_user = resp.json["data"]
         self.assertEqual(200, resp.status_code)
+        update_user.pop("update_time")
+        update_user.pop("create_time")
         self.assertDictEqual(update_user, expect_user)
 
     def test_update_user_with_wrong_email(self):

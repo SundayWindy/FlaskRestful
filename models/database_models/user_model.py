@@ -1,19 +1,6 @@
-from sqlalchemy import (
-    FLOAT,
-    JSON,
-    Boolean,
-    DateTime,
-    Enum,
-    Float,
-    ForeignKey,
-    Integer,
-    String,
-    Table,
-    Text,
-    func,
-)
+from sqlalchemy import Boolean, DateTime, Integer, String, func
 
-from models.database_model import Base, Column
+from models.database_models.base_model import Base, Column
 
 
 class User(Base):
@@ -48,12 +35,13 @@ class User(Base):
     Coding_net = Column(String(256), nullable=True, comment="Coding.net")
     Personal_Introduction = Column(String(256), nullable=True, comment="个人简介")
     state_update_view_permission = Column(Integer, default=0, comment="状态更新查看权限")
-    community_rich_rank = Column(Boolean, default=0, comment="社区财富排行榜")
+    community_rich_rank = Column(Boolean, default=False, comment="社区财富排行榜")
     money = Column(Integer, default=0, comment="余额")
     show_remain_money = Column(Boolean, default=0, comment="是否显示余额")
     use_avatar_for_favicon = Column(Boolean, default=0, comment="使用节点头像作为页面 favicon")
     use_high_resolution_avatar = Column(Boolean, default=0, comment="使用高精度头像")
     time_zone = Column(String(256), default="utc", comment="默认使用的时区")
 
-    deleted = Column(Boolean, default=0, comment="该用户是否注销")
-    create_time = Column(DateTime, nullable=False, server_default=func.now())
+    create_time = Column(DateTime, server_default=func.now(), comment="创建时间")
+    update_time = Column(DateTime, server_default=func.now(), onupdate=func.now(), comment="更新时间")
+    deleted = Column(Boolean, default=False, comment="改项目是否被删除")

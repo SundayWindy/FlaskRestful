@@ -16,9 +16,9 @@ from werkzeug.exceptions import HTTPException
 
 from blueprints import all_blueprints
 from configures import settings
-from models import BaseModel
-from models.database_model import db
-from resourses import ApiResponse
+from models.base_model import BaseModel
+from models.database_models import db
+from resources import ApiResponse
 
 logger = logging.getLogger(__name__)
 
