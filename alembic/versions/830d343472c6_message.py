@@ -1,8 +1,8 @@
 """message
 
-Revision ID: b21d8d35b74c
-Revises: 
-Create Date: 2020-05-16 18:10:35.550766
+Revision ID: 830d343472c6
+Revises: 2583a49a57d4
+Create Date: 2020-05-16 21:45:28.528792
 
 """
 from alembic import op
@@ -10,8 +10,8 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'b21d8d35b74c'
-down_revision = None
+revision = '830d343472c6'
+down_revision = '2583a49a57d4'
 branch_labels = None
 depends_on = None
 
@@ -25,7 +25,7 @@ def upgrade():
     sa.Column('content', sa.Text(), nullable=False, comment='用户的评论'),
     sa.Column('create_time', sa.DateTime(), server_default=sa.text('now()'), nullable=True, comment='创建时间'),
     sa.Column('update_time', sa.DateTime(), server_default=sa.text('now()'), nullable=True, comment='更新时间'),
-    sa.Column('deleted', sa.Boolean(), nullable=True, comment='改项目是否被删除'),
+    sa.Column('deleted', sa.Boolean(), server_default=sa.text('0'), nullable=False, comment='该项目是否被删除'),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('post',
@@ -37,7 +37,7 @@ def upgrade():
     sa.Column('tags', sa.JSON(), nullable=True, comment='文章的 tag'),
     sa.Column('create_time', sa.DateTime(), server_default=sa.text('now()'), nullable=True, comment='创建时间'),
     sa.Column('update_time', sa.DateTime(), server_default=sa.text('now()'), nullable=True, comment='更新时间'),
-    sa.Column('deleted', sa.Boolean(), nullable=True, comment='改项目是否被删除'),
+    sa.Column('deleted', sa.Boolean(), server_default=sa.text('0'), nullable=False, comment='该项目是否被删除'),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('topic',
@@ -45,7 +45,7 @@ def upgrade():
     sa.Column('name', sa.String(length=256), nullable=False),
     sa.Column('create_time', sa.DateTime(), server_default=sa.text('now()'), nullable=True, comment='创建时间'),
     sa.Column('update_time', sa.DateTime(), server_default=sa.text('now()'), nullable=True, comment='更新时间'),
-    sa.Column('deleted', sa.Boolean(), nullable=True, comment='该项目是否被删除'),
+    sa.Column('deleted', sa.Boolean(), server_default=sa.text('0'), nullable=False, comment='该项目是否被删除'),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('user',
@@ -85,7 +85,7 @@ def upgrade():
     sa.Column('time_zone', sa.String(length=256), nullable=True, comment='默认使用的时区'),
     sa.Column('create_time', sa.DateTime(), server_default=sa.text('now()'), nullable=True, comment='创建时间'),
     sa.Column('update_time', sa.DateTime(), server_default=sa.text('now()'), nullable=True, comment='更新时间'),
-    sa.Column('deleted', sa.Boolean(), nullable=True, comment='改项目是否被删除'),
+    sa.Column('deleted', sa.Boolean(), server_default=sa.text('0'), nullable=False, comment='该项目是否被删除'),
     sa.PrimaryKeyConstraint('id')
     )
     # ### end Alembic commands ###

@@ -16,7 +16,7 @@ class UserHandler(BaseHandler):
         self.error_msg = f"用户 <{id}> 不存在"
 
     def get_user(self):
-        user = self.get_sqlalchemy_instance()
+        user = self._get_sqlalchemy_instance()
         return ResponseUser(**user.as_dict())
 
     @staticmethod
@@ -57,7 +57,7 @@ class UserHandler(BaseHandler):
 
     def update(self, **kwargs):
 
-        user = self.get_sqlalchemy_instance()
+        user = self._get_sqlalchemy_instance()
         email = kwargs.get("email")
         password = kwargs.get("password")
 
@@ -79,7 +79,7 @@ class UserHandler(BaseHandler):
         return ResponseUser(**ins.as_dict())
 
     def delete(self):
-        user = self.get_sqlalchemy_instance()
+        user = self._get_sqlalchemy_instance()
         user.update(deleted=True)
 
         return

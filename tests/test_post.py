@@ -75,3 +75,18 @@ class TestPost(BaseTestCase):
 
         resp = self.client.get(self.url_prefix).json['data']
         self.assertEqual(0, len(resp))
+
+    def test_get_posts(self):
+        posts = {"user_id": 1, "content": ""}
+        user = {"email": "hrui8005@gmail.com", "password": "11Aa*%$#"}
+        self.client.post("/api/topics", json=self.topic1)
+        self.client.post("/api/users", json=user)
+        for i in range(1, 11):
+            posts["content"] = "this is post {}".format(str(i))
+            self.client.post("/api/topics/1/posts", json=posts)
+
+        topics = self.client.get(self.url_prefix, json={"per_page": 2}).json["data"]
+        self.assertEqual(2, len(topics))
+
+        topics = self.client.get(self.url_prefix, json={"per_page": 2, "offset": 5}).json["data"]
+        self.assertEqual("this is post 6", topics[0]["content"])

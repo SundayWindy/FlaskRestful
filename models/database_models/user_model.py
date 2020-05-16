@@ -1,4 +1,4 @@
-from sqlalchemy import Boolean, DateTime, Integer, String, func
+from sqlalchemy import Boolean, DateTime, Integer, String, func, text
 
 from models.database_models.base_model import Base, Column
 
@@ -44,4 +44,4 @@ class User(Base):
 
     create_time = Column(DateTime, server_default=func.now(), comment="创建时间")
     update_time = Column(DateTime, server_default=func.now(), onupdate=func.now(), comment="更新时间")
-    deleted = Column(Boolean, default=False, comment="改项目是否被删除")
+    deleted = Column(Boolean, default=False, server_default=text('0'), nullable=False, comment="该项目是否被删除")

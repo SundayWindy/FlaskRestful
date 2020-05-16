@@ -18,6 +18,7 @@ class TestTopics(BaseTestCase):
 
         resp = self.client.post(self.url_prefix, json=self.topic1).json["data"]
         resp.pop("id")
+        self.topic1["posts_count"] = 0
         self.assertDictEqual(self.topic1, resp)
 
     def test_add_topic_with_invalid_name(self):
@@ -47,6 +48,7 @@ class TestTopics(BaseTestCase):
 
         resp = self.client.put(self.url_prefix + "/1", json=self.topic6).json["data"]
         resp.pop("id")
+        self.topic6["posts_count"] = 0
         self.assertDictEqual(self.topic6, resp)
 
     def test_update_topic_with_invalid_name(self):
@@ -85,3 +87,16 @@ class TestTopics(BaseTestCase):
 
         resp = self.client.get(self.url_prefix).json["data"]
         self.assertEqual(1, len(resp))
+
+    def test_get_topic_with_some_posts(self):
+        self.client.post("/api/topics", json={"name": "Topic1"})  # create topic
+        self.client.post("/api/users", json={"email": "hrui8005@gmail.com", "password": "11Aa*%$#"})  # create user
+
+        posts = {"user_id": 1, "content": "this is post1"}
+        for _ in range(10):
+            self.client.post("/api/topics/1/posts", json=posts)
+
+        resp = self.client.get(self.url_prefix).json["data"]
+
+        expect = [{'id': 1, 'name': 'Topic1', 'posts_count': 10}]
+        self.assertListEqual(expect, resp)

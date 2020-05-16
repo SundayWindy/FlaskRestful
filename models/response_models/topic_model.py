@@ -6,3 +6,4 @@ from models.response_models.base_model import BaseResponseModel
 class TopicResponseModel(BaseResponseModel):
     id = Field(IntType(), nullable=False)
     name = Field(StringType(), nullable=False, comment="主题名称")
+    posts_count = Field(IntType(), nullable=False, comment="评论总数")

@@ -3,7 +3,8 @@ from exceptions import exceptions
 from sqlalchemy import and_
 
 from handlers import BaseHandler
-from models.database_models.post_model import Post, Comment
+from models.database_models.post_model import Post
+from models.database_models import Comment
 from models.database_models.topic_model import Topic
 from models.database_models.user_model import User
 from models.response_models.post_model import ResponsePostModel
@@ -37,13 +38,19 @@ class PostHandler(BaseHandler):
         if self.id is None:
             raise exceptions.ArgumentInvalid("post_id 不能为 None")
 
+    def get_comment_count(self, instance: Comment) -> int:
+        condition = and_(Comment.deleted == False, Comment.post_id == instance.id)
+        total = Comment.query.filter(condition).count()
+
+        return total
+
     def get_post(self):
         self.assert_post_id_is_not_none()
 
-        post = self.get_sqlalchemy_instance()
-        condition = and_(Comment.deleted == False, Comment.post_id == self.id)
-        comments_count = Comment.query.filter(condition).count()
+        post = self._get_sqlalchemy_instance()
+        post.update(click_times=post.click_times + 1)
 
+        comments_count = self.get_comment_count(post)
         return ResponsePostModel(comments_count=comments_count, **post.as_dict())
 
     def get_posts(self, **kwargs):
@@ -52,8 +59,11 @@ class PostHandler(BaseHandler):
         offset = kwargs["offset"]
 
         condition = and_(Post.deleted == False, Post.topic_id == self.topic_id)
-        posts = self._model.query.filter(condition).offset(offset).limit(per_page)
-        yield from (ResponsePostModel(comments_count=0, **instance.as_dict()) for instance in posts)
+        posts = self._model.query.filter(condition).offset(offset).limit(per_page)  # 分页
+        for post in posts:
+            post.update(click_times=post.click_times + 1)
+            comments_count = self.get_comment_count(post)
+            yield ResponsePostModel(comments_count=comments_count, **post.as_dict())
 
     def create_post(self, **kwargs):
         self.assert_topic_id_is_not_none()
@@ -67,7 +77,7 @@ class PostHandler(BaseHandler):
             raise exceptions.ArgumentInvalid(f"Post 文章字数不能少于 <{POST_MINIMUM_WORDS}> 个")
 
         post = self._model.create(topic_id=self.topic_id, **kwargs)
-        return ResponsePostModel(comments_count=-1, **post.as_dict())
+        return ResponsePostModel(comments_count=0, **post.as_dict())
 
     def update_post(self, **kwargs):
         self.assert_topic_id_is_not_none()
@@ -76,13 +86,13 @@ class PostHandler(BaseHandler):
         user_id = kwargs["user_id"]
         self.assert_user_exist(user_id)
 
-        post = self.get_sqlalchemy_instance()
+        post = self._get_sqlalchemy_instance()
         post.update(**kwargs)
 
         return self.get_post()
 
     def delete_post(self):
-        instance = self.get_sqlalchemy_instance()
+        instance = self._get_sqlalchemy_instance()
         instance.update(deleted=True)
 
         return

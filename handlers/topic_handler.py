@@ -2,8 +2,9 @@ from exceptions import exceptions
 
 from sqlalchemy import and_
 
-from configures.help_funcs import BasicNameChecker
+from configures.help_funcs import NameChecker
 from handlers import BaseHandler
+from models.database_models.post_model import Post
 from models.database_models.topic_model import Topic
 from models.response_models.topic_model import TopicResponseModel
 
@@ -21,17 +22,25 @@ class TopicHandler(BaseHandler):
         name = kwargs.get("name")
         if name is None:
             raise exceptions.ArgumentRequired("主题名不能为空")
-        if not BasicNameChecker.is_allowed(name):
-            raise exceptions.ArgumentInvalid(BasicNameChecker.ERROR_MSG)
+        if not NameChecker.is_allowed(name):
+            raise exceptions.ArgumentInvalid(NameChecker.ERROR_MSG)
+
+    def get_post_count(self, instance: Post) -> int:
+        condition = and_(Post.deleted == False, Post.topic_id == instance.id)
+        total = Post.query.filter(condition).count()
+        return total
 
     def get_topic(self) -> TopicResponseModel:
-        instance = self.get_sqlalchemy_instance()
+        instance = self._get_sqlalchemy_instance()
+        total = self.get_post_count(instance)
 
-        return TopicResponseModel(**instance.as_dict())
+        return TopicResponseModel(posts_count=total, **instance.as_dict())
 
     def get_topics(self):
         instances = self._model.query.filter_by(deleted=False)
-        yield from (TopicResponseModel(**ins.as_dict()) for ins in instances)
+        for instance in instances:
+            total = self.get_post_count(instance)
+            yield TopicResponseModel(posts_count=total, **instance.as_dict())
 
     def create_topic(self, **kwargs) -> TopicResponseModel:
         self.assert_name_is_not_none(**kwargs)
@@ -44,7 +53,7 @@ class TopicHandler(BaseHandler):
 
         instance = self._model.create(**kwargs)
 
-        return TopicResponseModel(**instance.as_dict())
+        return TopicResponseModel(posts_count=0, **instance.as_dict())
 
     def update_topic(self, **kwargs) -> TopicResponseModel:
 
@@ -60,13 +69,15 @@ class TopicHandler(BaseHandler):
         if instance:
             raise exceptions.ObjectsDuplicated(f"名称为 <{name}> 的 Topic 已经创建")
 
-        instance = self.get_sqlalchemy_instance()
+        instance = self._get_sqlalchemy_instance()
         instance.update(name=name)
 
-        return TopicResponseModel(**instance.as_dict())
+        total = self.get_post_count(instance)
+
+        return TopicResponseModel(posts_count=total, **instance.as_dict())
 
     def delete_topic(self) -> None:
-        instance = self.get_sqlalchemy_instance()
+        instance = self._get_sqlalchemy_instance()
         instance.update(deleted=True)
 
         return

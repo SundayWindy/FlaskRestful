@@ -14,7 +14,7 @@ class BaseHandler:
         if self.id is None:
             raise exceptions.ServerException("id must not be None.")
 
-    def get_sqlalchemy_instance(self) -> Model:
+    def _get_sqlalchemy_instance(self) -> Model:
         self.assert_id_is_not_none()
         instance = self._model.get_by_id(self.id)
         if not instance or getattr(instance, 'deleted', False):

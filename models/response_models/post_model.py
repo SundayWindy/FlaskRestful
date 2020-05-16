@@ -1,5 +1,5 @@
 from models.base_model import Field
-from models.data_types import ApiDefineType, DateTimeType, IntType, ListType, StringType
+from models.data_types import DateTimeType, IntType, ListType, StringType
 from models.response_models.base_model import BaseResponseModel
 
 
@@ -17,11 +17,3 @@ class ResponsePostModel(BaseResponseModel):
     update_time = Field(DateTimeType(), nullable=False)
 
 
-class ResponseCommentModel(BaseResponseModel):
-    id = Field(IntType(), nullable=False)
-    user_id = Field(IntType(), nullable=False)
-    post_id = Field(IntType(), nullable=False)
-    content = Field(StringType(), nullable=False)
-
-    create_time = Field(DateTimeType(), nullable=False)
-    update_time = Field(DateTimeType(), nullable=False)

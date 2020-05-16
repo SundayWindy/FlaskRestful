@@ -23,3 +23,7 @@ class ObjectsNotExist(ServerException):
 
 class PatternInvalid(ServerException):
     code = 403
+
+
+class ActionNotAllowed(ServerException):
+    code = 404
