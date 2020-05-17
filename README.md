@@ -7,7 +7,9 @@ It implements the interfaces of the website v2ex as much as possible, but does n
 
 ## Table of Contents
 - [Require](#require)
-- [Usage](#usage)
+- [Run](#run)
+    - [Docker(Recommand)](#dockerrecommand)
+    - [Shell](#shell)
 - [Maintainers](#maintainers)
 - [Contributing](#contributing)
 - [License](#license)
@@ -17,14 +19,27 @@ It implements the interfaces of the website v2ex as much as possible, but does n
 * Python3.8
 * MySql（5.6 or above）
 
-## Usage
+## Run
 
+### Docker(Recommand)
+* install [docker](https://docs.docker.com/get-docker/) 
+* cd to project directory，run  ```make run ``` until it is finished，and then run ```make init``` to initial database。
+* go to [localhost](http://0.0.0.0:24579/health) 
+
+### Shell
 * **First** use command like ```CREATE DATABASE flask DEFAULT CHARSET utf8 ``` or GUI tool to create database in your own database.
 * **Then** modify ```SQLALCHEMY_DATABASE_URI``` and ```SQLALCHEMY_DATABASE_BASE``` in settings.py to your own setting.
-* **Last** create running environment and run:
-```sh
+* **Last** run:
+```shell script
 python3.8 -m venv --clear venv
+```
+```shell script
 source ./venv/bin/active
+```
+```shell script
+pip install -r requirements.txt 
+```
+```shell script
 python server.py
 ```
 

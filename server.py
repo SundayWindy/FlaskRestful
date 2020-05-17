@@ -20,9 +20,4 @@ def run():
 
 
 if __name__ == "__main__":
-    debug = True
-    if debug:
-        init_logging()
-        create_app().run(host='0.0.0.0', port=24579, debug=debug)
-    else:
-        run()
+    run()
