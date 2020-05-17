@@ -1,9 +1,9 @@
-from models import Field
-from models.data_types import BooleanType, IntType, StringType
-from models.response_model import BaseResponseModel
+from models.base_model import Field
+from models.data_types import BooleanType, DateTimeType, IntType, StringType
+from models.response_models.base_model import BaseResponseModel
 
 
-class UserModel(BaseResponseModel):
+class ResponseUserModel(BaseResponseModel):
     id = Field(IntType(), nullable=False)
     email = Field(StringType(), nullable=False)
 
@@ -38,3 +38,6 @@ class UserModel(BaseResponseModel):
     use_avatar_for_favicon = Field(BooleanType(), comment="使用节点头像作为页面 favicon")
     use_high_resolution_avatar = Field(BooleanType(), comment="使用高精度头像")
     time_zone = Field(StringType(), comment="默认使用的时区")
+
+    create_time = Field(DateTimeType(), nullable=False)
+    update_time = Field(DateTimeType(), nullable=False)

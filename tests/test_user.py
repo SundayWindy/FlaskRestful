@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from tests import BaseTestCase
 
 
@@ -10,7 +12,11 @@ class TestUsers(BaseTestCase):
         exist_user = self.client.get(self.url_prefix).json["data"]
         self.assertEqual(len(exist_user), 0)
 
-        new_user = {"email": "suepr76rui@icloud.com", "password": "b22sw1*#DJfyxoUaq"}
+        new_user = {
+            "email": "suepr76rui@icloud.com",
+            "password": "b22sw1*#DJfyxoUaq",
+            "create_time": datetime.now(),
+        }
         self.client.post(self.url_prefix, json=new_user)
         users = self.client.get(self.url_prefix).json["data"]
         self.assertEqual(len(users), 1)
@@ -116,6 +122,8 @@ class TestUsers(BaseTestCase):
 
         update_user = resp.json["data"]
         self.assertEqual(200, resp.status_code)
+        update_user.pop("update_time")
+        update_user.pop("create_time")
         self.assertDictEqual(update_user, expect_user)
 
     def test_update_user_with_wrong_email(self):
@@ -162,3 +170,12 @@ class TestUsers(BaseTestCase):
 
         resp = self.client.get(self.url_prefix).json["data"]
         self.assertEqual(0, len(resp))
+
+    def test_get_user_not_existed(self):
+        resp = self.client.get(self.url_prefix + "/1")
+
+        error_msg = resp.json
+        error_msg.pop("traceback")
+
+        expect_error_msg = {'error_code': 404, 'error_msg': '用户 <1> 不存在'}
+        self.assertDictEqual(error_msg, expect_error_msg)

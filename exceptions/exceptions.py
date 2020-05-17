@@ -5,7 +5,7 @@ class ServerException(Exception):
     code = 500
 
 
-class InvalidArgument(ServerException):
+class ArgumentInvalid(ServerException):
     code = 400
 
 
@@ -17,9 +17,13 @@ class ObjectsDuplicated(ServerException):
     code = 403
 
 
-class ObjectsNotExisted(ServerException):
+class ObjectsNotExist(ServerException):
     code = 404
 
 
-class InvalidPattern(ServerException):
+class PatternInvalid(ServerException):
     code = 403
+
+
+class ActionNotAllowed(ServerException):
+    code = 404

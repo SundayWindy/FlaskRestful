@@ -4,8 +4,8 @@ from werkzeug.security import check_password_hash, generate_password_hash
 
 from configures.help_funcs import EmailChecker, PassWordChecker
 from handlers import BaseHandler
-from models.database_model.user_model import User
-from models.response_model.user_model import UserModel as ResponseUser
+from models.database_models.user_model import User
+from models.response_models.user_model import ResponseUserModel as ResponseUser
 
 
 class UserHandler(BaseHandler):
@@ -13,10 +13,10 @@ class UserHandler(BaseHandler):
 
     def __init__(self, id=None):
         super().__init__(id)
-        self.error_msg = "用户 <%s> 不存在" % id
+        self.error_msg = f"用户 <{id}> 不存在"
 
     def get_user(self):
-        user = self.get_sqlalchemy_instance(self.error_msg)
+        user = self._get_sqlalchemy_instance()
         return ResponseUser(**user.as_dict())
 
     @staticmethod
@@ -41,10 +41,10 @@ class UserHandler(BaseHandler):
         password = password.strip()
 
         if not EmailChecker.is_allowed(email):
-            raise exceptions.InvalidArgument(EmailChecker.ERROR_MSG)
+            raise exceptions.ArgumentInvalid(EmailChecker.ERROR_MSG)
 
         if not PassWordChecker.is_allowed(password):
-            raise exceptions.InvalidArgument(PassWordChecker.ERROR_MSG)
+            raise exceptions.ArgumentInvalid(PassWordChecker.ERROR_MSG)
 
         password_hash = generate_password_hash(password)
 
@@ -57,16 +57,16 @@ class UserHandler(BaseHandler):
 
     def update(self, **kwargs):
 
-        user = self.get_sqlalchemy_instance(self.error_msg)
+        user = self._get_sqlalchemy_instance()
         email = kwargs.get("email")
         password = kwargs.get("password")
 
         if email and not EmailChecker.is_allowed(email):
-            raise exceptions.InvalidArgument(EmailChecker.ERROR_MSG)
+            raise exceptions.ArgumentInvalid(EmailChecker.ERROR_MSG)
             # 验证邮箱
 
         if password and not PassWordChecker.is_allowed(password):
-            raise exceptions.InvalidArgument(PassWordChecker.ERROR_MSG)
+            raise exceptions.ArgumentInvalid(PassWordChecker.ERROR_MSG)
             # 验证密码，验证权限
 
         if password:
@@ -79,7 +79,7 @@ class UserHandler(BaseHandler):
         return ResponseUser(**ins.as_dict())
 
     def delete(self):
-        user = self.get_sqlalchemy_instance(self.error_msg)
+        user = self._get_sqlalchemy_instance()
         user.update(deleted=True)
 
         return

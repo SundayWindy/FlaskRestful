@@ -1,6 +1,6 @@
 from exceptions import exceptions
 
-from models.database_model import Base as Model
+from models.database_models.base_model import Base as Model
 
 
 class BaseHandler:
@@ -8,13 +8,15 @@ class BaseHandler:
 
     def __init__(self, id=None):
         self.id = id
+        self.error_msg = f"{self._model.__name__} {self.id} 不存在"
 
-    def get_sqlalchemy_instance(self, error_msg=None) -> Model:
+    def assert_id_is_not_none(self):
         if self.id is None:
             raise exceptions.ServerException("id must not be None.")
+
+    def _get_sqlalchemy_instance(self) -> Model:
+        self.assert_id_is_not_none()
         instance = self._model.get_by_id(self.id)
         if not instance or getattr(instance, 'deleted', False):
-            if not error_msg:
-                error_msg = "{model} {id} 不存在".format(model=self._model.__name__, id=self.id)
-            raise exceptions.ObjectsNotExisted(error_msg)
+            raise exceptions.ObjectsNotExist(self.error_msg)
         return instance

@@ -3,9 +3,9 @@ from functools import wraps
 
 from flask import jsonify
 
-from models import ApiDataType
-from models.query_model import BaseQueryModel
-from models.response_model import NoValue
+from models.base_model import ApiDataType
+from models.query_models.base_model import BaseQueryModel
+from models.response_models.base_model import NoValue
 
 schema_mapping = {}
 

@@ -2,16 +2,39 @@ import enum
 from datetime import datetime
 
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import Boolean, DateTime, func
+from sqlalchemy.ext.declarative import declarative_base
 
 from configures.settings import date_format
 
-db = SQLAlchemy()
+Meta = declarative_base()
+db = SQLAlchemy(model_class=Meta)
 
 Column = db.Column
 relationship = db.relationship
 
 
-class Base(db.Model):
+class SurrogatePK:
+    """A mixin that adds a surrogate integer 'primary key' column named ``id`` to any declarative-mapped class."""
+
+    __table_args__ = {'extend_existing': True}
+
+    id = Column(db.Integer, primary_key=True)
+
+    @classmethod
+    def get_by_id(cls, record_id):
+        """Get record by ID."""
+        if any(
+                (
+                        isinstance(record_id, (str, bytes)) and record_id.isdigit(),
+                        isinstance(record_id, (int, float)),
+                )
+        ):
+            return cls.query.get(int(record_id))
+        return None
+
+
+class Base(db.Model, SurrogatePK):
     """DataBase Model that Contains CRUD Operations"""
 
     __abstract__ = True
@@ -71,26 +94,6 @@ class Base(db.Model):
     def as_dict(self):
         column_names = self.__table__.columns.keys()
         return {c: self._to_json(getattr(self, c)) for c in column_names}
-
-
-class SurrogatePK(object):
-    """A mixin that adds a surrogate integer 'primary key' column named ``id`` to any declarative-mapped class."""
-
-    __table_args__ = {'extend_existing': True}
-
-    id = Column(db.Integer, primary_key=True)
-
-    @classmethod
-    def get_by_id(cls, record_id):
-        """Get record by ID."""
-        if any(
-            (
-                isinstance(record_id, (str, bytes)) and record_id.isdigit(),
-                isinstance(record_id, (int, float)),
-            )
-        ):
-            return cls.query.get(int(record_id))
-        return None
 
 
 def reference_col(table_name, nullable=False, pk_name='id', **kwargs):

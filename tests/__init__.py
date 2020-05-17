@@ -4,7 +4,7 @@ from sqlalchemy import create_engine
 
 from app import create_app
 from configures import settings
-from models.database_model import db
+from models.database_models import db
 
 
 class BaseTestCase(TestCase):
