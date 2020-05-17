@@ -37,6 +37,9 @@ python3.8 -m venv --clear venv
 source ./venv/bin/active
 ```
 ```shell script
+pip install -r requirements.txt 
+```
+```shell script
 python server.py
 ```
 
