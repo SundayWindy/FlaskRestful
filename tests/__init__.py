@@ -10,7 +10,7 @@ from models.database_models import db
 class BaseTestCase(TestCase):
     @classmethod
     def setUpClass(cls) -> None:
-        cls.engine = create_engine(settings.SQLALCHEMY_DATABASE_BASE)
+        cls.engine = create_engine(settings.TEST_SQLALCHEMY_DATABASE_URI)
         cls.engine.execute("DROP DATABASE  IF EXISTS  %s" % settings.TEST_DATABASE)
         cls.engine.execute("CREATE DATABASE IF NOT EXISTS %s" % settings.TEST_DATABASE)
 
