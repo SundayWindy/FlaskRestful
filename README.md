@@ -327,7 +327,7 @@ for user in users:
 * Another problem is url mixed,in REST,each resource need a url,when there are many resources, managing these urls could be a difficult problem.
 * Because of all these, another framework **Graphql** is invented by FaceBook.
 * In **Graphql**, there is one url,and you write query to request the fields that you want to get. It fix REST's problem.
-* If you want to know more about graphql, check it out **here**.
+* If you want to know more about graphql, check it out **[here](https://graphql.org/learn/)**.
 
 ## 11. Improvements
 * In this project, some code can be abstracted as a base class. In **Handlers**, basically they all did CRUD work, with only different args and slightly different logic.
