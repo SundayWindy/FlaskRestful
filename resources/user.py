@@ -8,13 +8,13 @@ from resources import ApiResponse, schema
 
 class Users(Resource):
     @schema(query_model=UserQueryModel, response_model=ResponseUserModel)
-    def get(self):
+    def get(self) -> ApiResponse:
         # 获取所有的用户
         users = UserHandler.get_users()
         return ApiResponse().ok(users)
 
     @schema(query_model=UserQueryModel, response_model=ResponseUserModel)
-    def post(self):
+    def post(self) -> ApiResponse:
         # 新增一个用户
         kwargs = self.parsed_args
         user = UserHandler.create(**kwargs)
@@ -23,17 +23,17 @@ class Users(Resource):
 
 class User(Resource):
     @schema(query_model=UserQueryModel, response_model=ResponseUserModel)
-    def get(self, user_id):
+    def get(self, user_id) -> ApiResponse:
         user = UserHandler(user_id).get_user()
         return ApiResponse().ok(user)
 
     @schema(query_model=UserQueryModel, response_model=ResponseUserModel)
-    def put(self, user_id):
+    def put(self, user_id) -> ApiResponse:
         kwargs = self.parsed_args
         user = UserHandler(user_id).update(**kwargs)
         return ApiResponse().ok(user)
 
     @schema(query_model=UserQueryModel, response_model=ResponseUserModel)
-    def delete(self, user_id):
+    def delete(self, user_id) -> ApiResponse:
         UserHandler(user_id).delete()
         return ApiResponse().ok()

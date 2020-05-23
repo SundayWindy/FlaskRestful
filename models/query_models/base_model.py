@@ -1,9 +1,12 @@
 import pprint
-from exceptions.exceptions import ArgumentInvalid
 
 from flask_restful import reqparse
+from typing import Callable, TypeVar, Dict, Any
 
+from exceptions.exceptions import ArgumentInvalid
 from models.base_model import ApiDataType, BaseModel, Field
+
+T = TypeVar("T", bound=BaseModel)
 
 
 class QueryField(Field):
@@ -22,17 +25,17 @@ class QueryField(Field):
     )
 
     def __init__(
-        self,
-        field_type: ApiDataType,
-        location,
-        parser_func=None,
-        required=False,
-        mock_func=False,
-        enum_values: tuple = (),
-        comment="",
-        nullable=True,
-        **kwargs
-    ):
+            self,
+            field_type: ApiDataType,
+            location: str,
+            parser_func: Callable = None,
+            required: bool = False,
+            mock_func: bool = False,
+            enum_values: tuple = (),
+            comment: str = "",
+            nullable: bool = True,
+            **kwargs
+    ) -> None:
         super().__init__(field_type, mock_func, enum_values, comment, nullable)
         self.location = location
         self.parser_kwargs = kwargs
@@ -51,7 +54,7 @@ class BaseQueryModel(BaseModel):
                 delattr(self, field_name)
 
     @classmethod
-    def parse_args(cls):
+    def parse_args(cls) -> T:
         parser = reqparse.RequestParser()
 
         for field in cls.__fields__:
@@ -76,17 +79,17 @@ class BaseQueryModel(BaseModel):
         instance = cls(**parsed)
         return instance
 
-    def process_args(self, **kwargs) -> dict:
+    def process_args(self, **kwargs) -> Dict[Any, Any]:
         return self.as_dict()
 
     @classmethod
-    def parse_and_process_args(cls, **kwargs):
+    def parse_and_process_args(cls, **kwargs) -> Dict[Any, Any]:
         return cls.parse_args().process_args(**kwargs)
 
-    def as_dict(self):
+    def as_dict(self) -> Dict[Any, Any]:
         return self.__storage__
 
-    def get(self, item, default=None):
+    def get(self, item, default=None) -> Any:
         return self.__storage__.get(item, default)
 
     def __contains__(self, item):

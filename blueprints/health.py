@@ -1,15 +1,16 @@
+from typing import Tuple, Dict
 from flask import Blueprint
 from flask_restful import Api, Resource
 
 
 class HealthState(Resource):
-    def get(self):
+    def get(self) -> Tuple[Dict[str, str], int]:
         return {"state": "OK"}, 200
 
 
 class FaviconIco(Resource):
-    def get(self):
-        return {}, 200
+    def get(self) -> Tuple[Dict[str, None], int]:
+        return {"favicon": None}, 200
 
 
 health_bp = Blueprint("health", __name__, url_prefix='')

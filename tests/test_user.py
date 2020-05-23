@@ -50,7 +50,7 @@ class TestUsers(BaseTestCase):
         error_msg = resp.json
         error_msg.pop("traceback")
 
-        expect_error_msg = {'error_code': 403, 'error_msg': '邮件地址不能为空'}
+        expect_error_msg = {'error_code': 400, 'error_msg': '邮件地址不能为空'}
         self.assertDictEqual(error_msg, expect_error_msg)
 
     def test_add_user_without_password(self):
@@ -60,7 +60,7 @@ class TestUsers(BaseTestCase):
         error_msg = resp.json
         error_msg.pop("traceback")
 
-        expect_error_msg = {'error_code': 403, 'error_msg': '密码不能为空'}
+        expect_error_msg = {'error_code': 400, 'error_msg': '密码不能为空'}
         self.assertDictEqual(error_msg, expect_error_msg)
 
     def test_add_user_with_duplicate_email(self):

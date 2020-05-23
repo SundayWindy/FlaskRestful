@@ -57,3 +57,11 @@ class TestRootTopic(BaseTestCase):
 
         expect_error_msg = {'error_code': 400, 'error_msg': '名称中只允许出现【中文，英文，数字，下划线，连接符】,并且不允许全部是空白字符'}
         self.assertDictEqual(expect_error_msg, error_msg)
+
+        new_root_topic = {}
+        resp = self.client.post(self.url_prefix, json=new_root_topic)
+        error_msg = resp.json
+        error_msg.pop("traceback")
+
+        expect_error_msg = {'error_code': 400, 'error_msg': '根主题名不能为空'}
+        self.assertDictEqual(expect_error_msg, error_msg)

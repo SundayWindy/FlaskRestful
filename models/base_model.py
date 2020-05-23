@@ -1,14 +1,16 @@
 import pprint
 
+from typing import Callable, Dict, Any
+
 
 class ApiDataType:
-    def mock(self):
+    def mock(self) -> None:
         raise NotImplementedError()
 
-    def marshal(self, value):
+    def marshal(self, value) -> None:
         raise NotImplementedError()
 
-    def validate(self, value):
+    def validate(self, value) -> None:
         raise NotImplementedError()
 
     def __str__(self):
@@ -21,14 +23,14 @@ class Field:
     __slots__ = ("name", "field_type", "mock_func", "enum_values", "comment", "nullable", "marshal")
 
     def __init__(
-        self,
-        field_type: ApiDataType,
-        mock_func=None,
-        enum_values: tuple = (),
-        comment="",
-        nullable=True,
-        marshal: callable = None,
-    ):
+            self,
+            field_type: ApiDataType,
+            mock_func: Callable = None,
+            enum_values: tuple = (),
+            comment: str = "",
+            nullable: bool = True,
+            marshal: Callable = None,
+    ) -> None:
         self.name = ''
         self.field_type = field_type
         self.mock_func = mock_func
@@ -70,14 +72,14 @@ class BaseModel(object, metaclass=ModelMetaClass):
     __fields__ = ()
     __fields_map__ = {}
 
-    def __init__(self, drop_missing=False, **kwargs):
+    def __init__(self, drop_missing=False, **kwargs) -> None:
         for field_name, field in self.__fields_map__.items():
             value = kwargs.get(field_name)
             if not drop_missing and not field.nullable and value is None:
                 raise Exception("field [{}] must be initialized".format(field_name))
             setattr(self, field_name, value)
 
-    def marshal(self, values=None):
+    def marshal(self, values=None) -> Dict[str, str]:
         dct = {}
 
         if values is None:
@@ -88,7 +90,7 @@ class BaseModel(object, metaclass=ModelMetaClass):
 
         return dct
 
-    def get(self, item, default=None):
+    def get(self, item, default=None) -> Any:
         return getattr(self, item, default)
 
     def __str__(self):
