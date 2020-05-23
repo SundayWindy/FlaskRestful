@@ -8,19 +8,19 @@ from resources import ApiResponse, schema
 
 class Post(Resource):
     @schema(query_model=PostQueryModel, response_model=ResponsePostModel)
-    def get(self, topic_id, post_id):
+    def get(self, topic_id, post_id) -> ApiResponse:
         post = PostHandler(topic_id=topic_id, post_id=post_id).get_post()
         return ApiResponse().ok(post)
 
     @schema(query_model=PostQueryModel, response_model=ResponsePostModel)
-    def put(self, topic_id, post_id):
+    def put(self, topic_id, post_id) -> ApiResponse:
         kwargs = self.parsed_args
         post = PostHandler(topic_id, post_id).update_post(**kwargs)
 
         return ApiResponse().ok(post)
 
     @schema(query_model=PostQueryModel, response_model=ResponsePostModel)
-    def delete(self, topic_id, post_id):
+    def delete(self, topic_id, post_id) -> ApiResponse:
         PostHandler(topic_id, post_id).delete_post()
 
         return ApiResponse().ok()
@@ -28,14 +28,14 @@ class Post(Resource):
 
 class Posts(Resource):
     @schema(query_model=PostQueryModel, response_model=ResponsePostModel)
-    def get(self, topic_id):
+    def get(self, topic_id) -> ApiResponse:
         kwargs = self.parsed_args
         posts = PostHandler(topic_id).get_posts(**kwargs)
 
         return ApiResponse().ok(posts)
 
     @schema(query_model=PostQueryModel, response_model=ResponsePostModel)
-    def post(self, topic_id):
+    def post(self, topic_id) -> ApiResponse:
         kwargs = self.parsed_args
         post = PostHandler(topic_id).create_post(**kwargs)
         return ApiResponse().ok(post)

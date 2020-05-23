@@ -37,12 +37,6 @@ class BaseChecker:
         is_match = re.search(pattern, value)
         return True if is_match else False
 
-    @classmethod
-    def check(cls, value: str):
-        if not cls.is_allowed(value):
-            raise exceptions.PatternInvalid(cls.ERROR_MSG)
-        return value
-
 
 class EmailChecker(BaseChecker):
     ALLOWED_PATTERN = r"(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)"

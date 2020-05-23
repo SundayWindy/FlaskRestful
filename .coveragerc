@@ -5,3 +5,4 @@ omit=
     */site-packages/*
     */docs/
     */venv/*
+    */server.py

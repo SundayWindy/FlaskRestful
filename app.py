@@ -1,34 +1,34 @@
-import datetime
-import json
-import logging
 import os
-import socket
-import traceback
+import json
 import types
-from exceptions.exceptions import ServerException
-from exceptions.send_alert import send_dingding_alert
-from logging.config import dictConfig
-from traceback import FrameSummary
+import socket
+import logging
+import datetime
+import traceback
 
-from flask import Flask, request
 from flask_cors import CORS
+from flask import Flask, request
 from werkzeug.exceptions import HTTPException
 
-from blueprints import all_blueprints
+from logging.config import dictConfig
+from typing import Tuple, Union, Dict, Any
+
 from configures import settings
-from models.base_model import BaseModel
-from models.database_models import db
 from resources import ApiResponse
+from blueprints import all_blueprints
+from models.database_models import db
+from models.base_model import BaseModel
+
+from exceptions.exceptions import ServerException
+from exceptions.send_alert import send_dingding_alert
 
 logger = logging.getLogger(__name__)
 
 
 class JsonEncoder(json.JSONEncoder):
-    def default(self, value):
+    def default(self, value) -> Any:
         if isinstance(value, (datetime.datetime, datetime.date)):
             return value.strftime("%Y-%m-%d %H:%M:%S")
-        if isinstance(value, FrameSummary):
-            return str(value)
         if isinstance(value, ApiResponse):
             return value.get()
         if isinstance(value, BaseModel):
@@ -39,7 +39,7 @@ class JsonEncoder(json.JSONEncoder):
         return json.JSONEncoder.default(self, value)
 
 
-def create_app():
+def create_app() -> Flask:
     app = Flask(__name__)
     CORS(app, supports_credentials=True)
     init_config(app)
@@ -48,7 +48,7 @@ def create_app():
     return app
 
 
-def init_config(app):
+def init_config(app) -> None:
     app.config["SQLALCHEMY_DATABASE_URI"] = settings.SQLALCHEMY_DATABASE_URI
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = settings.SQLALCHEMY_TRACK_MODIFICATIONS
 
@@ -60,14 +60,14 @@ def init_config(app):
     return
 
 
-def register_blueprints(app):
+def register_blueprints(app) -> None:
     for blueprint in all_blueprints:
         app.register_blueprint(blueprint)
 
     return
 
 
-def handle_exception(e):
+def handle_exception(e) -> Tuple[Dict[str, Union[Union[int, str, list], Any]], Union[int, Any]]:
     code = 500
     if isinstance(e, (HTTPException, ServerException)):
         code = e.code
@@ -79,7 +79,7 @@ def handle_exception(e):
     return {'error_code': code, 'error_msg': str(e), 'traceback': exc}, code
 
 
-def init_logging():
+def init_logging() -> None:
     level = 'INFO' if settings.NAMESPACE == 'PRODUCTION' else 'DEBUG'
     dir_name = "./logs/{}".format(socket.gethostname())
     if not os.path.exists(dir_name):

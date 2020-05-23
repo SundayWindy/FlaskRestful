@@ -1,8 +1,8 @@
 import enum
 from datetime import datetime
 
+from typing import Optional, Dict, List, TypeVar
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import Boolean, DateTime, func
 from sqlalchemy.ext.declarative import declarative_base
 
 from configures.settings import date_format
@@ -13,6 +13,8 @@ db = SQLAlchemy(model_class=Meta)
 Column = db.Column
 relationship = db.relationship
 
+T = TypeVar("T", bound=db.Model)
+
 
 class SurrogatePK:
     """A mixin that adds a surrogate integer 'primary key' column named ``id`` to any declarative-mapped class."""
@@ -22,7 +24,7 @@ class SurrogatePK:
     id = Column(db.Integer, primary_key=True)
 
     @classmethod
-    def get_by_id(cls, record_id):
+    def get_by_id(cls, record_id) -> Optional[SQLAlchemy]:
         """Get record by ID."""
         if any(
                 (
@@ -40,7 +42,7 @@ class Base(db.Model, SurrogatePK):
     __abstract__ = True
 
     @classmethod
-    def parse_schema(cls, **kwargs):
+    def parse_schema(cls, **kwargs) -> Dict:
         column_names = cls.__table__.columns.keys()
         for key in filter(lambda col_name: col_name not in column_names, kwargs.copy().keys()):
             kwargs.pop(key)
@@ -55,7 +57,7 @@ class Base(db.Model, SurrogatePK):
         return instance.save(commit)
 
     @classmethod
-    def create_many(cls, kwargs_list):
+    def create_many(cls, kwargs_list) -> List[T]:
         return [cls.create(**kwargs) for kwargs in kwargs_list]
 
     def update(self, commit=True, **kwargs):
@@ -70,7 +72,7 @@ class Base(db.Model, SurrogatePK):
         db.session.delete(self)
         return commit and db.session.commit()
 
-    def save(self, commit=True):
+    def save(self, commit=True) -> T:
         """Save the record."""
         db.session.add(self)
         if commit:

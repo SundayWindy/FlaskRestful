@@ -1,17 +1,19 @@
 import inspect
-from functools import wraps
 
 from flask import jsonify
+from functools import wraps
+from typing import Callable, Any, TypeVar, Dict
 
 from models.base_model import ApiDataType
 from models.query_models.base_model import BaseQueryModel
 from models.response_models.base_model import NoValue
 
 schema_mapping = {}
+Api = TypeVar("Api")
 
 
-class ResourceSchema(object):
-    def __init__(self, query_model: BaseQueryModel, response_model: ApiDataType, path_parameters):
+class ResourceSchema:
+    def __init__(self, query_model: BaseQueryModel, response_model: ApiDataType, path_parameters) -> None:
         self.query_model = query_model
         self.response_model = response_model
         self.path_parameters = path_parameters
@@ -24,7 +26,7 @@ def schema(query_model: BaseQueryModel, response_model: ApiDataType):
         schema_mapping[func.__qualname__] = ResourceSchema(query_model, response_model, params)
 
         @wraps(func)
-        def wrapper(self, **kwargs):
+        def wrapper(self, **kwargs) -> Callable:
             """args in path occurs in kwargs"""
             self.query_model = query_model
             self.response_model = response_model
@@ -37,29 +39,29 @@ def schema(query_model: BaseQueryModel, response_model: ApiDataType):
 
 
 class ApiResponse:
-    def __init__(self):
+    def __init__(self) -> None:
         self.data = {}
         self.error_code = None
         self.error_msg = None
 
-    def ok(self, data=None):
+    def ok(self, data: Any = None) -> Api:
         self.set_data(data)
         self.error_code = 0
         self.error_msg = "success"
         return self
 
-    def error(self, error_code, error_msg):
+    def error(self, error_code, error_msg) -> Api:
         self.error_code = error_code
         self.error_msg = error_msg
         return self
 
-    def set_data(self, data):
+    def set_data(self, data) -> Api:
         if data is None or data == {}:
             data = NoValue()
         self.data = data
         return self
 
-    def get(self):
+    def get(self) -> Dict[str, Any]:
         if self.error_code is None or self.error_msg is None:
             raise Exception("ApiResponse not ready.")
         return {

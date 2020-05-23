@@ -7,7 +7,7 @@ class ArgumentInvalid(ServerException):
 
 
 class ArgumentRequired(ServerException):
-    code = 403
+    code = 400
 
 
 class ObjectsDuplicated(ServerException):
@@ -19,7 +19,7 @@ class ObjectsNotExist(ServerException):
 
 
 class PatternInvalid(ServerException):
-    code = 403
+    code = 400
 
 
 class ActionNotAllowed(ServerException):

@@ -1,33 +1,34 @@
-from typing import TypeVar, Generator, Tuple, Iterator, Dict, Any, List
 from sqlalchemy import and_
+from flask_sqlalchemy import SQLAlchemy
 
 from itertools import groupby
+from typing import TypeVar, Generator, List, Optional
+
 from models.database_models import RootTopic, Topic
-from models.response_models.topic_model import TopicResponseModel, RootTopicResponseModel, BaseResponseModel
+from models.response_models.topic_model import TopicResponseModel, RootTopicResponseModel
 
 from handlers import BaseHandler
 from handlers.utils import assert_name_is_valid
 
 from exceptions.exceptions import ObjectsDuplicated, ActionNotAllowed
 
-ResponseModel = TypeVar("ResponseModel", bound=BaseResponseModel)
-SqlAlchemyModel = TypeVar("SqlAlchemyModel")
+SqlAlchemyModel = TypeVar("SqlAlchemyModel", bound=SQLAlchemy)
 
 
 class RootTopicHandler(BaseHandler):
     _model = RootTopic
 
-    def __init__(self, id=None):
+    def __init__(self, id: int = None) -> None:
         super().__init__(id)
         self.error_msg = f"Root Topic <{id}> 不存在"
 
-    def get_topic(self) -> ResponseModel:
+    def get_topic(self) -> Generator[RootTopicResponseModel, None, None]:
         instance = self._get_sqlalchemy_instance()
 
         condition = and_(Topic.deleted == False, Topic.root_topic_id == self.id)
         child_topics = (TopicResponseModel(**topic.as_dict()) for topic in Topic.query.filter(condition))
 
-        return RootTopicResponseModel(child_topics=child_topics, **instance.as_dict())
+        yield RootTopicResponseModel(child_topics=child_topics, **instance.as_dict())
 
     @staticmethod
     def sort_and_group_child_topic(root_topic_ids) -> Generator[List[SqlAlchemyModel], None, None]:
@@ -37,7 +38,7 @@ class RootTopicHandler(BaseHandler):
         groups = {k: list(v) for k, v in groupby(child_topics, key=lambda x: x.root_topic_id)}
         yield from map(lambda k: groups.get(k, []), root_topic_ids)
 
-    def get_topics(self):
+    def get_topics(self) -> Generator[RootTopicResponseModel, None, None]:
         root_topics = self._model.query.filter_by(deleted=False)
         root_topic_ids = [ins.id for ins in root_topics]
         child_topics = self.sort_and_group_child_topic(root_topic_ids)
@@ -46,7 +47,7 @@ class RootTopicHandler(BaseHandler):
             ch_topics = (TopicResponseModel(**t.as_dict()) for t in topic)
             yield RootTopicResponseModel(child_topics=ch_topics, **root_topic.as_dict())
 
-    def create_topic(self, **kwargs) -> ResponseModel:
+    def create_topic(self, **kwargs) -> Generator[RootTopicResponseModel, None, None]:
         assert_name_is_valid(message="根主题名不能为空", **kwargs)
 
         name = kwargs["name"]
@@ -56,9 +57,9 @@ class RootTopicHandler(BaseHandler):
             raise ObjectsDuplicated(f"名称为 <{name}> 的根 Topic 已经创建")
 
         instance = self._model.create(**kwargs)
-        return RootTopicResponseModel(child_topics=[], **instance.as_dict())
+        yield RootTopicResponseModel(child_topics=[], **instance.as_dict())
 
-    def update_topic(self, **kwargs) -> ResponseModel:
+    def update_topic(self, **kwargs) -> Generator[RootTopicResponseModel, None, None]:
         assert_name_is_valid(message="主题名不能为空", **kwargs)
         name = kwargs["name"]
         condition = and_(
@@ -71,7 +72,7 @@ class RootTopicHandler(BaseHandler):
         instance = self._get_sqlalchemy_instance()
         instance.update(name=name)
 
-        return RootTopicResponseModel(child_topics=[], **instance.as_dict())
+        yield RootTopicResponseModel(child_topics=[], **instance.as_dict())
 
     def delete_topic(self) -> None:
         raise ActionNotAllowed("根主题不允许被删除")
