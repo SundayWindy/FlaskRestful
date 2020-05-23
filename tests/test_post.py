@@ -5,6 +5,9 @@ class TestPost(BaseTestCase):
     def setUp(self):
         super().setUp()
         self.url_prefix = "/api/topics/1/posts"
+
+        self.root_topic = {"name": "root_topic"}
+        self.client.post("/api/root_topics", json=self.root_topic)
         self.topic1 = {"name": "Topic1"}
         self.topic2 = {"name": "Topic2"}
         self.user1 = {"email": "hrui8005@gmail.com", "password": "11Aa*%$#"}

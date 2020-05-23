@@ -6,7 +6,9 @@ class TestComment(BaseTestCase):
         super().setUp()
         self.url_prefix = "/api/topics/1/posts/1/comments"
 
-        self.topic1 = {"name": "Topic1"}
+        self.root_topic = {"name": "root_topic"}
+        self.client.post("/api/root_topics", json=self.root_topic)
+        self.topic1 = {"name": "Topic1", "root_topic_id": 1}
         self.posts1 = {"user_id": 1, "content": "this is post1"}
         self.user1 = {"email": "hrui8005@gmail.com", "password": "11Aa*%$#"}
         self.comment = {"user_id": 1, "content": "this is comment"}
@@ -62,7 +64,7 @@ class TestComment(BaseTestCase):
 
         error_msg = resp.json
         error_msg.pop("traceback")
-        expect_error_msg = {'error_code': 404, 'error_msg': "This operation is not allowed"}
+        expect_error_msg = {'error_code': 403, 'error_msg': "This operation is not allowed"}
 
         self.assertDictEqual(error_msg, expect_error_msg)
 
@@ -72,7 +74,7 @@ class TestComment(BaseTestCase):
 
         error_msg = resp.json
         error_msg.pop("traceback")
-        expect_error_msg = {'error_code': 404, 'error_msg': "This operation is not allowed"}
+        expect_error_msg = {'error_code': 403, 'error_msg': "This operation is not allowed"}
 
         self.assertDictEqual(error_msg, expect_error_msg)
 

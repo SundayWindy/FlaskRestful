@@ -7,8 +7,6 @@ services:
     container_name: flask
     ports:
       - "24579:24579"
-#    links:
-#      - mysql:mysqldb
     depends_on:
       - mysql
 

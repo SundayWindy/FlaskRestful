@@ -5,7 +5,7 @@ from datetime import datetime
 from exceptions import exceptions
 from uuid import uuid1
 
-from configures.help_funcs import str_to_datetime
+from handlers.utils import str_to_datetime
 from models.base_model import ApiDataType
 from models.response_models.base_model import BaseResponseModel
 
@@ -170,14 +170,14 @@ class ApiDefineType(ApiDataType):
         self._ensure_schema_parsed()
         if data is None:
             return None
-        _data = self.data_type(True)
+        _data = self.data_type
         return _data.marshal(data)
+
+    def __str__(self):
+        return self.schema_name
 
     def validate(self, data):
         assert isinstance(data, self.data_type), "Expect: {} - Actual: {}".format(
             self.data_type.__name__, type(data)
         )
         self.marshal(data)
-
-    def __str__(self):
-        return self.schema_name

@@ -35,9 +35,7 @@ class BaseChecker:
     def is_allowed(cls, value: str) -> bool:
         pattern = re.compile(cls.ALLOWED_PATTERN)
         is_match = re.search(pattern, value)
-        if is_match:
-            return True
-        return False
+        return True if is_match else False
 
     @classmethod
     def check(cls, value: str):
@@ -58,9 +56,18 @@ class PassWordChecker(BaseChecker):
 
 class NameChecker(BaseChecker):
     ALLOWED_PATTERN = '^[\\w\u4e00-\u9fa5-]+$'
-    ERROR_MSG = '名称中只允许出现【中文，英文，数字，下换线，连接符'
+    ERROR_MSG = '名称中只允许出现【中文，英文，数字，下划线，连接符】,并且不允许全部是空白字符'
 
 
 class ContentChecker(BaseChecker):
     ALLOWED_PATTERN = r'[\S]+'
     ERROR_MSG = '不允许全部是空白字符，即至少有一个非空白字符'
+
+
+def assert_name_is_valid(message="名称不能为空", **kwargs) -> None:
+    # 检查传入的参数中，name 字段是否为空
+    name = kwargs.get("name")
+    if name is None:
+        raise exceptions.ArgumentRequired(message)
+    if not NameChecker.is_allowed(name):
+        raise exceptions.ArgumentInvalid(NameChecker.ERROR_MSG)
