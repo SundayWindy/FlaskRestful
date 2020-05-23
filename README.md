@@ -339,10 +339,10 @@ for user in users:
 * **Docker-compose**,a tool that provides you easy way to manage docker.
 * **Makefile**,auto compile tools that can save you a lot of time.
 * **pre-commit**,auto format you code before you commit,these keep your project well formatted,especially useful when work in teams.
-* **travis-ci.com**, auto integration platform, which can run your tests automaticly after you push.
-* **coveralls.io**, get test coverage report after tests has been run,for example,you can use travis-ci for CI and let it send report to coveralls.
-* **codebeat.co**, calculate the complexity of your code.
-* **shields.io**, provide beautiful metadata badge for your project.You can just simply put your github repository url in blank,it will automatically generate suggested badges for you.
+* **[travis-ci.com](https://travis-ci.com/)**, auto integration platform, which can run your tests automaticly after you push.
+* **[coveralls.io](http://coveralls.io/)**, get test coverage report after tests has been run,for example,you can use travis-ci for CI and let it send report to coveralls.
+* **[codebeat.co](https://codebeat.co/)**, calculate the complexity of your code.
+* **[shields.io](https://shields.io/)**, provide beautiful metadata badge for your project.You can just simply put your github repository url in blank,it will automatically generate suggested badges for you.
 
 ## 13. A Word
 * This project is coded in Python3.8 using flask-restful framework, you can treat it as **a template to learn web-fraework** or just simply a **start to use python writting web project**.
