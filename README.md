@@ -85,7 +85,7 @@ python server.py
 ## 3. REST
 
 * what is **REST** ? REST stands for **(Resource) Representational State Transfer**,it's a stateless communications protocol. The core concept of rest is **Resource**. In rest point of view, each concept that can be abstracted is called a Resource. Let's say name, age, email can be abstract as a User Model,so User can be represented as a Resource. 
-* Transfer means resources are transferred from server side to clint side. 
+* Transfer means resources are transferred from server side to client side. 
 * In rest world, each operation is operated on Some kind of resource, and has pre-defined **Verb** to describe it. Such as **Post** means to create a resource, **Put** means to update a resource, **Delete** means to delete a resource. These three Verb is mainly used,you can check it out [here](https://realpython.com/flask-connexion-rest-api/) for more detail.
 
 ## 4. Benefits of Rest
