@@ -1,8 +1,8 @@
 from exceptions import exceptions
 
-from werkzeug.security import check_password_hash, generate_password_hash
+from werkzeug.security import generate_password_hash
 
-from configures.help_funcs import EmailChecker, PassWordChecker
+from handlers.utils import EmailChecker, PassWordChecker
 from handlers import BaseHandler
 from models.database_models.user_model import User
 from models.response_models.user_model import ResponseUserModel as ResponseUser

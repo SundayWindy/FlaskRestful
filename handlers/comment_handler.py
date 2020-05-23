@@ -8,7 +8,7 @@ from models.database_models.user_model import User
 from models.database_models.topic_model import Topic
 from models.response_models.comment_model import ResponseCommentModel
 
-from configures.help_funcs import ContentChecker
+from handlers.utils import ContentChecker
 from configures.const import PER_PAGE
 
 from exceptions import exceptions

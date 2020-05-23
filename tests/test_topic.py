@@ -5,6 +5,8 @@ class TestTopics(BaseTestCase):
     def setUp(self):
         super().setUp()
         self.url_prefix = "/api/topics"
+        self.root_topic = {"name": "root_topic"}
+        self.client.post("/api/root_topics", json=self.root_topic)
         self.topic1 = {"name": "Topic1"}
         self.topic2 = {"name": "Topic2"}
         self.topic3 = {"name": "Topic3"}
@@ -26,7 +28,7 @@ class TestTopics(BaseTestCase):
         error_msg = resp.json
         error_msg.pop("traceback")
 
-        expect_error_msg = {'error_code': 400, 'error_msg': '名称中只允许出现【中文，英文，数字，下换线，连接符'}
+        expect_error_msg = {'error_code': 400, 'error_msg': '名称中只允许出现【中文，英文，数字，下划线，连接符】,并且不允许全部是空白字符'}
         self.assertDictEqual(error_msg, expect_error_msg)
 
         resp = self.client.post(self.url_prefix, json=self.topic5)
@@ -66,14 +68,14 @@ class TestTopics(BaseTestCase):
         error_msg = resp.json
         error_msg.pop("traceback")
 
-        expect_error_msg = {'error_code': 400, 'error_msg': '名称中只允许出现【中文，英文，数字，下换线，连接符'}
+        expect_error_msg = {'error_code': 400, 'error_msg': '名称中只允许出现【中文，英文，数字，下划线，连接符】,并且不允许全部是空白字符'}
         self.assertDictEqual(error_msg, expect_error_msg)
 
         resp = self.client.put(self.url_prefix + "/2", json=self.topic5)
         error_msg = resp.json
         error_msg.pop("traceback")
 
-        expect_error_msg = {'error_code': 400, 'error_msg': '名称中只允许出现【中文，英文，数字，下换线，连接符'}
+        expect_error_msg = {'error_code': 400, 'error_msg': '名称中只允许出现【中文，英文，数字，下划线，连接符】,并且不允许全部是空白字符'}
         self.assertDictEqual(error_msg, expect_error_msg)
 
     def test_delete_topic(self):

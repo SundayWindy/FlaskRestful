@@ -1,8 +1,9 @@
 from flask_restful import Resource
 
 from handlers.topic_handler import TopicHandler
-from models.query_models.topic_model import TopicQueryModel
-from models.response_models.topic_model import TopicResponseModel
+from handlers.root_topic_handler import RootTopicHandler
+from models.query_models.topic_model import TopicQueryModel, RootTopicQueryModel
+from models.response_models.topic_model import TopicResponseModel, RootTopicResponseModel
 from resources import ApiResponse, schema
 
 
@@ -36,3 +37,29 @@ class Topics(Resource):
         topic = TopicHandler().create_topic(**kwargs)
 
         return ApiResponse().ok(topic)
+
+
+class RootTopic(Resource):
+    @schema(query_model=RootTopicQueryModel, response_model=RootTopicResponseModel)
+    def get(self, root_topic_id) -> ApiResponse:
+        return ApiResponse().ok(RootTopicHandler(root_topic_id).get_topic())
+
+    @schema(query_model=RootTopicQueryModel, response_model=RootTopicResponseModel)
+    def put(self, root_topic_id) -> ApiResponse:
+        kwargs = self.parsed_args
+        return ApiResponse().ok(RootTopicHandler(root_topic_id).update_topic(**kwargs))
+
+    @schema(query_model=RootTopicQueryModel, response_model=RootTopicResponseModel)
+    def delete(self, root_topic_id) -> ApiResponse:
+        return ApiResponse().ok(RootTopicHandler(root_topic_id).delete_topic())
+
+
+class RootTopics(Resource):
+    @schema(query_model=RootTopicQueryModel, response_model=RootTopicResponseModel)
+    def get(self):
+        return ApiResponse().ok(RootTopicHandler().get_topics())
+
+    @schema(query_model=RootTopicQueryModel, response_model=RootTopicResponseModel)
+    def post(self):
+        kwargs = self.parsed_args
+        return ApiResponse().ok(RootTopicHandler().create_topic(**kwargs))

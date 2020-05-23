@@ -81,7 +81,7 @@ def handle_exception(e):
 
 def init_logging():
     level = 'INFO' if settings.NAMESPACE == 'PRODUCTION' else 'DEBUG'
-    dir_name = "./log/{}".format(socket.gethostname())
+    dir_name = "./logs/{}".format(socket.gethostname())
     if not os.path.exists(dir_name):
         os.makedirs(dir_name)
 
@@ -126,7 +126,7 @@ def init_logging():
                 'level': level,
                 'propagate': False,
             },
-            '': {'handlers': ['default', 'console'], 'level': level, 'propagate': False},
+            '': {'handlers': ['default', 'console'], 'level': level, 'propagate': True},
         },
     }
 

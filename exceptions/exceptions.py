@@ -23,4 +23,4 @@ class PatternInvalid(ServerException):
 
 
 class ActionNotAllowed(ServerException):
-    code = 404
+    code = 403
