@@ -4,35 +4,37 @@
 
 * This is a web backend project based on the ```flask-restful```, coding in ```python3.8```.
 * You can treat it as a template to **learn web-framework** or just simply **a start to use python** writing web project.
-* This project use **Python Typing Hint**.
+* This project uses **Typing** for typing hint.
+* This project uses **Unittest** for testing.
 
 ## Table of Contents
 
+
   - [1. Require](#1-require)
-  - [2 Run](#2-run)
-    - [2.1 Docker(Recommend)](#21-dockerrecommand)
-    - [2.2. Shell](#22-shell)
-    - [2.3. Load Sample Data](#23-load-sample-data)
+  - [2. Run](#2-run)
+    - [2.1 Docker(Recommend)](#21-dockerrecommend)
+    - [2.2 Shell](#22-shell)
+    - [2.3 Load Sample Data](#23-load-sample-data)
   - [3. REST](#3-rest)
   - [4. Benefits of Rest](#4-benefits-of-rest)
   - [5. Unified Response Structure](#5-unified-response-structure)
   - [6. Unified Exception Handling](#6-unified-exception-handling)
-  - [6. Unified Query Model, Response Model and DataBaseModel](#6-unified-query-model-reaponse-model-and-databasemodel)
-      - [6.1. This Project Use Query Model for Request arguments:](#61-this-project-use-query-modle-for-requset-arguments)
-      - [6.2. This Project Use Response Model for Response results:](#62-this-project-use-response-modle-for-response-results)
-      - [6.3 This Project Use ORM for Managing Database](#63-this-project-use-orm-for-managing-database)
-      - [6.4 This Project Use Alembic for Updating Database](#64-this-proejct-use-alembic-for-updating-database)
-  - [7. Swagger or Not Swagger](#7-swagger-or-not-swagger)
-  - [8. Structure of This Project](#8-structure-of-this-project)
-      - [8.1 Model ( Models in this project): Store information about resources.](#81-model--models-in-this-project-store-information-about-resources)
-      - [8.2 View (Resources in this project): Do Routing Work](#82-view-resources-in-this-project-do-routing-work)
-      - [8.3 Controller (Handlers in this project): Do Logic Work](#83-controller-handlers-in-this-project-do-logic-work)
-      - [8.4 Some Other Folders/Files](#84-some-other-foldersfiles)
-  - [9. N + 1 Problem](#9-n--1-problem)
-  - [10. The Downside of Rest](#10-the-downside-of-rest)
-  - [11. Improvements](#11-improvements)
-  - [12. Some Tools Should be Mentioned](#12-some-tools-should-be-mentioned)
-  - [13. A Word](#13-a-word)
+  - [7. Unified Query Model, Response Model and DataBaseModel](#7-unified-query-model-response-model-and-databasemodel)
+      - [7.1 This Project Use Query Model for Request arguments:](#71-this-project-use-query-model-for-request-arguments)
+      - [7.2 This Project Use Response Model for Response Results:](#72-this-project-use-response-model-for-response-results)
+      - [7.3 This Project Use ORM for Managing Database](#73-this-project-use-orm-for-managing-database)
+      - [7.4 This Project Use Alembic for Updating Database](#74-this-project-use-alembic-for-updating-database)
+  - [8. Swagger or Not Swagger](#8-swagger-or-not-swagger)
+  - [9. Structure of This Project](#9-structure-of-this-project)
+      - [9.1 Model ( Models in this project): Store information about resources.](#91-model--models-in-this-project-store-information-about-resources)
+      - [9.2 View (Resources in this project): Do Routing Work](#92-view-resources-in-this-project-do-routing-work)
+      - [9.3 Controller (Handlers in this project): Do Logic Work](#93-controller-handlers-in-this-project-do-logic-work)
+      - [9.4 Some Other Folders/Files](#94-some-other-foldersfiles)
+  - [10. N + 1 Problem](#10-n--1-problem)
+  - [11. The Downside of Rest](#11-the-downside-of-rest)
+  - [12. Improvements](#12-improvements)
+  - [13. Some Tools Should be Mentioned](#13-some-tools-should-be-mentioned)
+  - [14. A Word](#14-a-word)
   - [Maintainers](#maintainers)
   - [Contributing](#contributing)
   - [License](#license)
@@ -42,20 +44,21 @@
 * Python3.8
 * MySql（5.7 or above）
 
-## 2 Run
+## 2. Run
 
 ### 2.1 Docker(Recommend)
 
-1. install [docker](https://docs.docker.com/get-docker/) 
-2. cd to project directory，run  ```make run ``` until it is finished.
+1. install [docker](https://docs.docker.com/get-docker/). 
+2. cd to project directory, run  ```make run ``` until it is finished.
 * ```make run ``` will build docker image, start server (Mysql for example).
 3. run ```make init``` to initial database (create database, create table , **No data is imported**).
-* go to [localhost](http://0.0.0.0:24579/health) to check if it is start correctly.
+* go to [localhost](http://0.0.0.0:24579/health) to check if it starts correctly.
 
-**Note**: ```make test``` will run all unittest in folder ```tests```.
-### 2.2. Shell
+**Note**: ```make test``` will run all unit tests in folder ```tests```.
 
-1. use command like ```CREATE DATABASE flask DEFAULT CHARSET utf8 ``` or GUI (such as [DataGrip](https://www.jetbrains.com/datagrip/)) tool to create database in your own db server.
+### 2.2 Shell
+
+1. use commands like ```CREATE DATABASE flask DEFAULT CHARSET utf8 ``` or GUI tool (such as [DataGrip](https://www.jetbrains.com/datagrip/)) to create a database in your own DB server.
 2. modify ```SQLALCHEMY_DATABASE_URI``` and ```SQLALCHEMY_DATABASE_BASE``` in file ```settings.py``` to your own setting.
 3. run:
 ```shell script
@@ -70,35 +73,35 @@ pip install -r requirements.txt
 ```shell script
 python server.py
 ```
-4. go to [localhost](http://0.0.0.0:24579/health) to check if it is start correctly.
+4. go to the [localhost](http://0.0.0.0:24579/health) to check if it starts correctly.
 
-### 2.3. Load Sample Data
+### 2.3 Load Sample Data
 
-* If you want to load soma data to play with thin project, use ```data.sql``` in this project.
+* If you want to load soma data to play with this project, use ```data.sql``` provided in this project.
 1. Open DataGrip, connect to Mysql Database;
-2. Use any editor to open ```data.sql```,copy it's content to console, execute it;
+2. Use any editor to open ```data.sql```, copy it's content to console, execute it;
 
-* Using DataGrip, you should get someting like this:
+* Using DataGrip, you should get something like this:
 
 ![datagrip](https://github.com/RuiCoreSci/flask-restful/blob/master/datagrip.png?raw=false)
 
 ## 3. REST
 
-* what is **REST** ? REST stands for **(Resource) Representational State Transfer**,it's a stateless communications protocol. The core concept of rest is **Resource**. In rest point of view, each concept that can be abstracted is called a Resource. Let's say name, age, email can be abstract as a User Model,so User can be represented as a Resource. 
-* Transfer means resources are transferred from server side to client side. 
-* In rest world, each operation is operated on Some kind of resource, and has pre-defined **Verb** to describe it. Such as **Post** means to create a resource, **Put** means to update a resource, **Delete** means to delete a resource. These three Verb is mainly used,you can check it out [here](https://realpython.com/flask-connexion-rest-api/) for more detail.
+* what is **REST** ? REST stands for **(Resource) Representational State Transfer**, it's a stateless communications protocol. The core concept of rest is **Resource**. In **REST** point of view, each concept that can be abstracted is called a Resource. Let's say properties ```name```, ```age```, ```email``` can be abstract as a User Model, so ```User``` can be represented as a Resource. 
+* **Transfer** means resources are transferred from the server-side to the client-side. 
+* In **REST** world, each operation is operated on Some kind of resource, and has pre-defined **Verb** to describe it. Such as **Post** means to create a resource, **Put** means to update a resource, **Delete** means to delete a resource. These three Verb is mainly used, you can check it out [here](https://realpython.com/flask-connexion-rest-api/) for more detail.
 
 ## 4. Benefits of Rest
 
-* Use REST,you will get some advantages:
-1. Each **URI** (or URL) is for one specific Resource, it makes your code clean and **[self-describing](https://en.wikipedia.org/wiki/Self-documenting_code)**.Basically, self-describing means what you see is what you get,you can make a quick guess about what you will get from the uri.
-2. Resource is separated from view function, which means you can change your backend logic function without affect others,only if your take the same arguments and return the same resource, which is easy to achieve.
-3. It's is stateless, which means you don't need to worry about the surrounded context before you make request for resource.
+* Using REST, you will get some advantages:
+1. Each **URI** (or URL) is for one specific Resource, it makes your code clean and **[self-describing](https://en.wikipedia.org/wiki/Self-documenting_code)**. Basically, self-describing means what you see is what you get, you can make a quick guess about what you will get from the URI.
+2. Resource is separated from view function, which means you can change your backend logic function without affecting others, only if you take the same arguments and return the same resource, which is easy to achieve.
+3. It's is stateless, which means you don't need to worry about the surrounded context before you make a request for resources.
 
 ## 5. Unified Response Structure
 
-* Using Rest,we should make the response that we return **remain tha same**. In most Case，the response data should contains two parts: **meta** and **data**.
-* **Meta** means the info about the request,is it a success or a failure ? Is it successfully understood by server but that request is not allowed ?
+* Using Rest, we should make the response that we return to **remain the same**. In most cases, the response data should contain two parts: **meta** and **data**.
+* **Meta** means the info about the request, is the request from client a success or a failure? Is it successfully understood by the server but the request is not allowed?
 * **Data** means the resource that request want to get.
 * In this project, the response  are defined as follow:
 
@@ -109,7 +112,7 @@ python server.py
     "error_msg": error_msg,
 }
 ```
-* For example, when a request want to get a user, let's say **User 1**, he may get:
+* For example, when a request want to get a user, let's say **User 1**, it may get:
 
 ```json
 
@@ -127,10 +130,10 @@ python server.py
     "error_msg": "success"
 }
 ```
-* **Some thing you should aware**:
-* Basically,we don't directly return json data in our handler function，instead we return object.
-* So before return to frontend we should marshal our object to json format.
-* In flask,you can use **jsonify** function to do this,to transfer costumed data to json，you can rewrite **json.JSONEncoder** function.
+* **Something you should be aware of**:
+* Basically, we don't directly return JSON data in our handler function, instead we return an object.
+* So before return to frontend we should marshal our object to JSON format.
+* In flask, you can use **jsonify** function to do this, to transfer customized data to JSON, you can rewrite **json.JSONEncoder** function.
 * In this project, the json.JSONEncoder is rewrite as:
 
 ```py
@@ -147,7 +150,7 @@ class JsonEncoder(json.JSONEncoder):
 
         return json.JSONEncoder.default(self, value)
 ```
-* And register to flask app:
+* And then register it to flask app:
 
 ```py
     app.json_encoder = JsonEncoder
@@ -171,8 +174,8 @@ def schema(query_model: BaseQueryModel, response_model: ApiDataType):
 
 ## 6. Unified Exception Handling
 
-* Exception **doesn't** means bad, on the other side, it's is crucial to let user know that they are doing something that the server can not satisfied. And they need to known why.
-* In order to give the user corresponding error info, and to raise exception properly, this project use a file **exceptions** to clarify all exceptions
+* Exception **doesn't** mean bad, on the other hand, it's is crucial to let user know that they are doing something that the server can not satisfied. And they need to know why.
+* In order to give the user corresponding error info, and to raise exception properly, this project uses a file **exception** to clarify all exceptions.
 
 ```py
 class ServerException(Exception):
@@ -184,7 +187,7 @@ class ArgumentInvalid(ServerException):
 
 ```
 * You may add a **message** property to each class.
-* We want to raise exception in our code,a exception handler function is need:
+* We want to raise exception in our code, a **unified exception handler function** is needed:
 
 ```py
 def handle_exception(e) -> Tuple[Dict[str, Union[Union[int, str, list], Any]], Union[int, Any]]:
@@ -198,27 +201,30 @@ def handle_exception(e) -> Tuple[Dict[str, Union[Union[int, str, list], Any]], U
         send_dingding_alert(request.url, request.args, request.json, repr(e), exc)
     return {'error_code': code, 'error_msg': str(e), 'traceback': exc}, code
 ```
+
 * Then register to app:
+
 ```py
     app.register_error_handler(Exception, handle_exception)
 ```
-* **Note**: If you want to raise exception directly in your code and don't want to write exception handler function, all Exceptions **must be** subclass of **werkzeug.exceptions.HTTPException**
+* **Note**: If you want to raise exception directly in your code and don't want to write exception handler function, all exceptions **must be** a subclass of **werkzeug.exceptions.HTTPException**.
 
-## 6. Unified Query Model, Response Model and DataBaseModel
+## 7. Unified Query Model, Response Model and DataBaseModel
 
-* In object oriented programming, it's better to keep your arguments to be a single object than many separated args. It's so in Python and Flask. 
-* Let's say you want to query a user by it name and/or age and/or email, it's better to write:
+* In object-oriented programming, it's better to keep your arguments to be a single object rather than many separated args. It's so in Python and Flask. 
+* Let's say you want to query a user by its **name** and/or **age** and/or **email**, it's better to write:
 
 ```py
     def get_user(filter_obj):
+    # filter_obj will have property:name, age, email
         pass
 ```
 * not:
 ```py
-    def get_user(name,age,email):
+    def get_user(name, age, email):
         pass
 ```
-#### 6.1. This Project Use Query Model for Request arguments:
+#### 7.1 This Project Use Query Model for Request arguments:
 
 ```py
 class BaseQueryModel(BaseModel):
@@ -226,9 +232,9 @@ class BaseQueryModel(BaseModel):
         super().__init__(drop_missing=False, **kwargs)
         """ Some logic """
 ```
-* And **Query Model args Validation** Can be write in BaseModel
+* And **Query Mode's args Validation** Can be write in BaseModel.
 
-#### 6.2. This Project Use Response Model for Response results:
+#### 7.2 This Project Use Response Model for Response Results:
 
 ```py
 class BaseResponseModel(BaseModel):
@@ -237,10 +243,10 @@ class BaseResponseModel(BaseModel):
         """ Some logic """
 
 ```
-* **Don't forget to jsonify your response model before return to frontend**.
+* **Don't forget to jsonify your response model before return to the frontend**.
 
-#### 6.3 This Project Use ORM for Managing Database
-* **Object-relational mapping** is used for communicate with database,it free you from writing SQL statements, keeps you **coding in Objected way**.
+#### 7.3 This Project Use ORM for Managing Database
+* **Object-relational mapping** is used to communicate with the database, it free you from writing SQL statements, keeps you **coding in objected way**.
 
 ```python
 from flask_sqlalchemy import SQLAlchemy
@@ -250,10 +256,10 @@ class Base(db.Model, SurrogatePK):
 
     __abstract__ = True
 
-    """Some logic that all subclass should inherited """
+    """Some logic that all subclass should be inherited """
 ```
 
-#### 6.4 This Project Use Alembic for Updating Database
+#### 7.4 This Project Use Alembic for Updating Database
 
 ```py
 from sqlalchemy.ext.declarative import declarative_base
@@ -265,44 +271,44 @@ class Base(db.Model, SurrogatePK):
     """DataBase Model that Contains CRUD Operations"""
 ```
 
-* **Alembic** is kind of like git,it keeps every version of your database model. It will generate a folder ```alembic```,```alembic/versions```,all versions are stored in ```versions```.
+* **Alembic** is kind of like git, it keeps every version of your database model. It will generate a folder ```alembic```, ```alembic/versions```, all versions are stored in ```versions```.
 
-## 7. Swagger or Not Swagger
+## 8. Swagger or Not Swagger
 
-* Swagger provide an automatic way to generate documentation，so you don't need to update your docs yourself. Web frontend developer can check it out for developing.
-* But in my experience，fronted developer and backend developer discuss Product Requirements before developing，automatic generated docs are not specified enough to declare requirements. So this project don't use it.
-* If you want to use swagger,check it out [here](https://flask-restplus.readthedocs.io/en/stable/swagger.html).
+* Swagger provides an automatic way to generate documentation, so you don't need to update your docs yourself. Web frontend developers can check it out for developing.
+* But in my experience，fronted developer and backend developer discuss Product Requirements before developing, automatically generated docs are not specified enough to declare requirements. So this project don't use it.
+* But it does no harm to use it, if you want to use swagger, check it out [here](https://flask-restplus.readthedocs.io/en/stable/swagger.html).
 
-## 8. Structure of This Project
+## 9. Structure of This Project
 
-![iamge](https://github.com/RuiCoreSci/flask-restful/blob/master/flask-restful.png?raw=false)
+![image](https://github.com/RuiCoreSci/flask-restful/blob/master/flask-restful.png?raw=false)
 
-* **MVC(Model, View, Controller)** is a typical design pattern. This porject is programed in mvc pattern, but is not strictly stick to it.
-#### 8.1 Model ( Models in this project): Store information about resources.
+* **MVC(Model, View, Controller)** is a typical design pattern. This project is programmed in MVC pattern, but is not strictly stick to it.
+#### 9.1 Model ( Models in this project): Store information about resources.
 * Specifically, they are: 
-  * Database Model,**ORM** is in this folder,which transfer your python object to database rows.
-  * QueryModel, arguments  organized together as one Model. So frontend send args to backend, backend put them together to create a new object to do arguments validation work, because use Model,some default functions can be bound to it.
-  * ResponseModel, resources that are returned to frontend.
+  * Database Model, **ORM** is in this folder, which transfers your python object to database rows.
+  * QueryModel, arguments organized together as one Model. So frontend send args to backend, backend put them together to create a new object to do argument validation work, because use Model, some default functions can be bound to it.
+  * ResponseModel, resources that are returned to the frontend.
 
-#### 8.2 View (Resources in this project): Do Routing Work
-* Views are handling routing work, when a url is request, view function know what logic function to call.
+#### 9.2 View (Resources in this project): Do Routing Work
+* Views are handling routing work, when a URL is requested, view function know what logic function to call.
 
-#### 8.3 Controller (Handlers in this project): Do Logic Work
-* Handlers are used to to logic work,such as **CRUD** work.
+#### 9.3 Controller (Handlers in this project): Do Logic Work
+* Handlers are used to do logic work, such as **CRUD**.
 
-#### 8.4 Some Other Folders/Files
+#### 9.4 Some Other Folders/Files
 
-* folder **exemptions** store customized exceptions file and a send error to DingDing file.
-* folder **blueprints** is used to organize all apis.
-* folder **tests** store all **unittest case**, **using test case** is a good way to keep project running well when new feature is developed.
+* folder **exemptions** store customized exception file and a send error to DingDing file.
+* folder **blueprints** are used to organize all APIs.
+* folder **tests** store all **unit test case**, **using a test case** is a good way to keep the project running well when a new feature is developed.
 
-## 9. N + 1 Problem
+## 10. N + 1 Problem
 
-* Query one table 10 times each time fetch one row is slow than query one table one time to fetch 10 rows.
-* **ORM** release programer from writing original sql statements,but it also introduce some new problems. The Database Query **N+1** Problem is a common one.
-* Let's say you have two tables, **User** and **Post**, one user can write many posts. Consider the scenario blow:
-* **you have a page which need to show ten random users' info, and also you are asked to show all posts for each user.**
-* what will orm do in this scenario? **First**, query User Table **once** to get ten users; **Second**,for loop users to query Post Table for each user at one time, orm query Post Table **ten** times
+* Query one table 10 times each time to fetch one row is slow than query one table one time to fetch 10 rows.
+* **ORM** release programmer from writing original SQL statements, but it also introduces some new problems. The Database Query **N+1** Problem is a common one.
+* Let's say you have two tables, **User** and **Post**, one user can write many posts. Consider the scenario below:
+* **you have a page that needs to show ten random users' info, and also you are asked to show all posts for each user.**
+* what will ORM do in this scenario? **First**, query User Table **once** to get ten users; **Second**, for loop users to query Post Table for each user at one time, ORM query Post Table **ten** times.
 * code would be something like this:
 
 ```py
@@ -314,39 +320,39 @@ for user in users:
 # Query ten times
 # All times Query Table is 1 + 10
 ```
-* If you query User Table 1 time and get **N** users,then you need Query Post Table **N**  times to get posts,all times query tables are **1+N**, this is Called **N+1** Problem(May be called 1+N more reasonable).
-* In fact,if you are familiar with join, there is no need to query N+1 times.
-* So in your project,**Carefully** deal with this scenario.
-* Facebook provide a solution called **DataLoader** to solve this.
+* If you query User Table 1 time and get **N** users, then you need Query Post Table **N**  times to get posts, all times query tables are **1+N**, this is Called **N+1** Problem(maybe called 1+N seems more reasonable).
+* In fact, if you are familiar with join, there is no need to query N+1 times.
+* So in your project, **Carefully** deal with this scenario.
+* Facebook provides a solution called **DataLoader** to solve this.
 
-## 10. The Downside of Rest
+## 11. The Downside of Rest
 
-* Although REST has many advantages,it does has some disadvantages.
-* The major downside is waste of resources, such as NetWork IO.
-* In REST,you query a resource you get **all fields** of it. In many case,you just want a part of it.
-* Another problem is url mixed,in REST,each resource need a url,when there are many resources, managing these urls could be a difficult problem.
-* Because of all these, another framework **Graphql** is invented by FaceBook.
-* In **Graphql**, there is one url,and you write query to request the fields that you want to get. It fix REST's problem.
+* Although REST has many advantages, it does have some disadvantages.
+* The major downside is a waste of resources, such as NetWork IO.
+* In REST, you query a resource you get **all fields** of it. In many cases, you just want a part of it.
+* Another problem is URL mixed, in REST, each resource need a URL, when there are many resources, managing these URLs could be a difficult problem.
+* Because of all these, another framework **Graphql** is invented by Facebook.
+* In **Graphql**, there is one URL, and you write queries to request the fields that you want to get. It fixes REST's problem.
 * If you want to know more about graphql, check it out **[here](https://graphql.org/learn/)**.
 
-## 11. Improvements
+## 12. Improvements
 * In this project, some code can be abstracted as a base class. In **Handlers**, basically they all did CRUD work, with only different args and slightly different logic.
-* If CURD work has been abstracted as a base class, the code could be cleaner.
+* If CURD work has been abstracted as a base class, the code could be cleaner and simpler.
 
-## 12. Some Tools Should be Mentioned
+## 13. Some Tools Should be Mentioned
 
-* **Docker**,using docker to run project in different platform.
-* **Docker-compose**,a tool that provides you easy way to manage docker.
-* **Makefile**,auto compile tools that can save you a lot of time.
-* **pre-commit**,auto format you code before you commit,these keep your project well formatted,especially useful when work in teams.
+* **Docker**, using docker to run projects on different platforms.
+* **Docker-compose**, a tool that provides you an easy way to manage docker.
+* **Makefile**, auto compile tools that can save you a lot of time.
+* **pre-commit**, auto-format you code before you commit, it keeps your project well-formatted, especially useful when working in teams.
 * **[travis-ci.com](https://travis-ci.com/)**, auto integration platform, which can run your tests automatically after you push.
-* **[coveralls.io](http://coveralls.io/)**, get test coverage report after tests has been run,for example,you can use travis-ci for CI and let it send report to coveralls.
+* **[coveralls.io](http://coveralls.io/)**, get test coverage report after tests have been run, for example, you can use Travis-ci for CI and let it send report to coveralls.
 * **[codebeat.co](https://codebeat.co/)**, calculate the complexity of your code.
-* **[shields.io](https://shields.io/)**, provide beautiful metadata badge for your project.You can just simply put your github repository url in blank,it will automatically generate suggested badges for you.
+* **[shields.io](https://shields.io/)**, provide beautiful metadata badge for your project. You can just simply put your GitHub repository URL in blank, it will automatically generate suggested badges for you.
 
-## 13. A Word
+## 14. A Word
 * This project is coded in Python3.8 using flask-restful framework, you can treat it as **a template to learn web-framework** or just simply a **start to use python writing web project**.
-* I try to explain the framework clearly above, but if you find any mistake or want to improve the code ,you are **welcomed to contact me at hrui835@gmail.com**.
+* I try to explain the framework clearly above, but if you find any mistake or want to improve the code, you are **welcomed to contact me at hrui835@gmail.com**.
 * If this project is helpful, **please click a Star**.
 ##  Maintainers
 
