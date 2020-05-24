@@ -9,7 +9,6 @@
 
 ## Table of Contents
 
-
   - [1. Require](#1-require)
   - [2. Run](#2-run)
     - [2.1 Docker(Recommend)](#21-dockerrecommend)
@@ -20,13 +19,13 @@
   - [5. Unified Response Structure](#5-unified-response-structure)
   - [6. Unified Exception Handling](#6-unified-exception-handling)
   - [7. Unified Query Model, Response Model and DataBaseModel](#7-unified-query-model-response-model-and-databasemodel)
-      - [7.1 This Project Use Query Model for Request arguments:](#71-this-project-use-query-model-for-request-arguments)
-      - [7.2 This Project Use Response Model for Response Results:](#72-this-project-use-response-model-for-response-results)
+      - [7.1 This Project Use Query Model for Request arguments](#71-this-project-use-query-model-for-request-arguments)
+      - [7.2 This Project Use Response Model for Response Results](#72-this-project-use-response-model-for-response-results)
       - [7.3 This Project Use ORM for Managing Database](#73-this-project-use-orm-for-managing-database)
       - [7.4 This Project Use Alembic for Updating Database](#74-this-project-use-alembic-for-updating-database)
   - [8. Swagger or Not Swagger](#8-swagger-or-not-swagger)
   - [9. Structure of This Project](#9-structure-of-this-project)
-      - [9.1 Model ( Models in this project): Store information about resources.](#91-model--models-in-this-project-store-information-about-resources)
+      - [9.1 Model ( Models in this project): Store information about resources](#91-model--models-in-this-project-store-information-about-resources)
       - [9.2 View (Resources in this project): Do Routing Work](#92-view-resources-in-this-project-do-routing-work)
       - [9.3 Controller (Handlers in this project): Do Logic Work](#93-controller-handlers-in-this-project-do-logic-work)
       - [9.4 Some Other Folders/Files](#94-some-other-foldersfiles)
@@ -224,7 +223,7 @@ def handle_exception(e) -> Tuple[Dict[str, Union[Union[int, str, list], Any]], U
     def get_user(name, age, email):
         pass
 ```
-#### 7.1 This Project Use Query Model for Request arguments:
+#### 7.1 This Project Use Query Model for Request arguments
 
 ```py
 class BaseQueryModel(BaseModel):
@@ -234,7 +233,7 @@ class BaseQueryModel(BaseModel):
 ```
 * And **Query Mode's args Validation** Can be write in BaseModel.
 
-#### 7.2 This Project Use Response Model for Response Results:
+#### 7.2 This Project Use Response Model for Response Results
 
 ```py
 class BaseResponseModel(BaseModel):
@@ -284,7 +283,7 @@ class Base(db.Model, SurrogatePK):
 ![image](https://github.com/RuiCoreSci/flask-restful/blob/master/flask-restful.png?raw=false)
 
 * **MVC(Model, View, Controller)** is a typical design pattern. This project is programmed in MVC pattern, but is not strictly stick to it.
-#### 9.1 Model ( Models in this project): Store information about resources.
+#### 9.1 Model ( Models in this project): Store information about resources
 * Specifically, they are: 
   * Database Model, **ORM** is in this folder, which transfers your python object to database rows.
   * QueryModel, arguments organized together as one Model. So frontend send args to backend, backend put them together to create a new object to do argument validation work, because use Model, some default functions can be bound to it.
