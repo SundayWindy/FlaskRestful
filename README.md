@@ -47,6 +47,8 @@
 
 ### 2.1 Docker(Recommend)
 
+* You can run this project either using Docker **or** Shell.
+
 1. install [docker](https://docs.docker.com/get-docker/). 
 2. cd to project directory, run  ```make run ``` until it is finished.
 * ```make run ``` will build docker image, start server (Mysql for example).
@@ -77,10 +79,10 @@ python server.py
 ### 2.3 Load Sample Data
 
 * If you want to load soma data to play with this project, use ```data.sql``` provided in this project.
-1. Open DataGrip, connect to Mysql Database;
+1. Open **[DataGrip](https://www.jetbrains.com/datagrip/)** (a GUI tool for managing with database), connect to Mysql Database;
 2. Use any editor to open ```data.sql```, copy it's content to console, execute it;
 
-* Using DataGrip, you should get something like this:
+* Using [DataGrip](https://www.jetbrains.com/datagrip/), you should get something like this:
 
 ![datagrip](https://github.com/RuiCoreSci/flask-restful/blob/master/datagrip.png?raw=false)
 
