@@ -1,5 +1,9 @@
+from itsdangerous import BadSignature, SignatureExpired
+from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 from sqlalchemy import Boolean, DateTime, Integer, String, func, text
+from werkzeug.security import check_password_hash, generate_password_hash
 
+from configures import settings
 from models.database_models.base_model import Base, Column
 
 
@@ -44,4 +48,31 @@ class User(Base):
 
     create_time = Column(DateTime, server_default=func.now(), comment="创建时间")
     update_time = Column(DateTime, server_default=func.now(), onupdate=func.now(), comment="更新时间")
-    deleted = Column(Boolean, default=False, server_default=text('0'), nullable=False, comment="该项目是否被删除")
+    deleted = Column(
+        Boolean, default=False, server_default=text('0'), nullable=False, comment="该项目是否被删除"
+    )
+
+    def __repr__(self):
+        return f"User<{self.name}>"
+
+    def hash_password(self, password):
+        self.password_hash = generate_password_hash(password)
+
+    def check_password(self, password):
+        return check_password_hash(self.password_hash, password)
+
+    def generate_auth_token(self, expiration=600):
+        s = Serializer(settings.SECRET_KEY, expires_in=expiration)
+        return s.dumps({'id': self.id})
+
+    @staticmethod
+    def verify_auth_token(token):
+        s = Serializer(settings.SECRET_KEY)
+        try:
+            data = s.loads(token)
+        except SignatureExpired:
+            return None  # valid token, but expired
+        except BadSignature:
+            return None  # invalid token
+        user = User.query.get(data['id'])
+        return user
