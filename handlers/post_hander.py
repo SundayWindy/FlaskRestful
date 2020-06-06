@@ -1,15 +1,15 @@
-from sqlalchemy import and_
+from exceptions.exceptions import ArgumentInvalid, ObjectsNotExist
 from typing import Generator, Optional
 
-from handlers import BaseHandler
-from models.database_models import Comment
-from models.database_models.user_model import User
-from models.database_models.post_model import Post
-from models.database_models.topic_model import Topic
-from models.response_models.post_model import ResponsePostModel
+from sqlalchemy import and_
 
 from configures.const import POST_MINIMUM_WORDS
-from exceptions.exceptions import ObjectsNotExist, ArgumentInvalid
+from handlers import BaseHandler
+from models.database_models import Comment
+from models.database_models.post_model import Post
+from models.database_models.topic_model import Topic
+from models.database_models.user_model import User
+from models.response_models.post_model import ResponsePostModel
 
 
 class PostHandler(BaseHandler):
@@ -41,7 +41,7 @@ class PostHandler(BaseHandler):
 
     @staticmethod
     def get_comment_count(instance: Comment) -> int:
-        condition = and_(Comment.deleted == False, Comment.post_id == instance.id)
+        condition = and_(Comment.deleted == False, Comment.post_id == instance.id)  # noqa
         total = Comment.query.filter(condition).count()
 
         return total
@@ -60,10 +60,10 @@ class PostHandler(BaseHandler):
         per_page = kwargs["per_page"]
         offset = kwargs["offset"]
 
-        condition = and_(Post.deleted == False, Post.topic_id == self.topic_id)
+        condition = and_(Post.deleted == False, Post.topic_id == self.topic_id)  # noqa
         posts = self._model.query.filter(condition).offset(offset).limit(per_page)  # 分页
         for post in posts:
-            post.update(click_times=post.click_times + 1)
+            post.update(click_times=post.click_times or 0 + 1)
             comments_count = self.get_comment_count(post)
             yield ResponsePostModel(comments_count=comments_count, **post.as_dict())
 

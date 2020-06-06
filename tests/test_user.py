@@ -10,7 +10,7 @@ class TestUsers(BaseTestCase):
 
     def test_add_user(self):
         exist_user = self.client.get(self.url_prefix).json["data"]
-        self.assertEqual(len(exist_user), 0)
+        self.assertEqual(len(exist_user), 1)
 
         new_user = {
             "email": "suepr76rui@icloud.com",
@@ -19,7 +19,7 @@ class TestUsers(BaseTestCase):
         }
         self.client.post(self.url_prefix, json=new_user)
         users = self.client.get(self.url_prefix).json["data"]
-        self.assertEqual(len(users), 1)
+        self.assertEqual(len(users), 2)
 
     def test_add_user_with_wrong_password(self):
         new_user = {"email": "suepr76rui@icloud.com", "password": "111"}
@@ -67,7 +67,7 @@ class TestUsers(BaseTestCase):
         new_user = {"email": "suepr76rui@icloud.com", "password": "b22sw1*#DJfyxoUaq"}
         self.client.post(self.url_prefix, json=new_user)
         users = self.client.get(self.url_prefix).json["data"]
-        self.assertEqual(len(users), 1)
+        self.assertEqual(len(users), 2)
 
         resp = self.client.post(self.url_prefix, json=new_user)
 
@@ -160,7 +160,7 @@ class TestUsers(BaseTestCase):
         self.client.post(self.url_prefix, json=new_user)
 
         resp = self.client.get(self.url_prefix).json["data"]
-        self.assertEqual(1, len(resp))
+        self.assertEqual(2, len(resp))
 
         resp = self.client.delete(self.url_prefix + "/1")
 
@@ -169,13 +169,13 @@ class TestUsers(BaseTestCase):
         self.assertDictEqual(error_msg, expect_error_msg)
 
         resp = self.client.get(self.url_prefix).json["data"]
-        self.assertEqual(0, len(resp))
+        self.assertEqual(1, len(resp))
 
     def test_get_user_not_existed(self):
-        resp = self.client.get(self.url_prefix + "/1")
+        resp = self.client.get(self.url_prefix + "/100")
 
         error_msg = resp.json
         error_msg.pop("traceback")
 
-        expect_error_msg = {'error_code': 404, 'error_msg': '用户 <1> 不存在'}
+        expect_error_msg = {'error_code': 404, 'error_msg': '用户 <100> 不存在'}
         self.assertDictEqual(error_msg, expect_error_msg)

@@ -10,10 +10,8 @@ class TestComment(BaseTestCase):
         self.client.post("/api/root_topics", json=self.root_topic)
         self.topic1 = {"name": "Topic1", "root_topic_id": 1}
         self.posts1 = {"user_id": 1, "content": "this is post1"}
-        self.user1 = {"email": "hrui8005@gmail.com", "password": "11Aa*%$#"}
         self.comment = {"user_id": 1, "content": "this is comment"}
         self.client.post("/api/topics", json=self.topic1)
-        self.client.post("/api/users", json=self.user1)
         self.client.post("/api/topics/1/posts", json=self.posts1)
 
     def test_add_comment(self):

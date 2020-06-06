@@ -1,12 +1,12 @@
+from exceptions.exceptions import ArgumentInvalid, ArgumentRequired, ObjectsDuplicated
 from typing import Generator, Optional
+
 from werkzeug.security import generate_password_hash
 
-from handlers.utils import EmailChecker, PassWordChecker
 from handlers import BaseHandler
+from handlers.utils import EmailChecker, PassWordChecker
 from models.database_models.user_model import User
 from models.response_models.user_model import ResponseUserModel as ResponseUser
-
-from exceptions.exceptions import ObjectsDuplicated, ArgumentInvalid, ArgumentRequired
 
 
 class UserHandler(BaseHandler):
@@ -46,12 +46,8 @@ class UserHandler(BaseHandler):
         if not PassWordChecker.is_allowed(password):
             raise ArgumentInvalid(PassWordChecker.ERROR_MSG)
 
-        password_hash = generate_password_hash(password)
-
-        kwargs.pop("password")
-        kwargs.pop("email")
-
-        ins = User.create(password_hash=password_hash, email=email, **kwargs)
+        kwargs["password_hash"] = generate_password_hash(password)
+        ins = User.create(**kwargs)
 
         return ResponseUser(**ins.as_dict())
 
