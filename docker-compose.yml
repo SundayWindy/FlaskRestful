@@ -9,6 +9,7 @@ services:
       - "24579:24579"
     depends_on:
       - mysql
+    command: ["python", "server.py"]
 
   mysql:
     image: mysql:latest

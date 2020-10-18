@@ -47,7 +47,7 @@ def create_app() -> Flask:
 
 
 def init_config(app) -> None:
-    app.config["SQLALCHEMY_DATABASE_URI"] = settings.LOCAL_SQLALCHEMY_DATABASE_URI
+    app.config["SQLALCHEMY_DATABASE_URI"] = settings.SQLALCHEMY_DATABASE_URI
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = settings.SQLALCHEMY_TRACK_MODIFICATIONS
     app.config['SECRET_KEY'] = settings.SECRET_KEY
     register_blueprints(app)
