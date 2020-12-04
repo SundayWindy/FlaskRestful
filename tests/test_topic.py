@@ -1,3 +1,6 @@
+from uuid import uuid4
+
+from models.database import Topic
 from tests import BaseTestCase
 
 
@@ -5,14 +8,18 @@ class TestTopics(BaseTestCase):
     def setUp(self):
         super().setUp()
         self.url_prefix = "/api/topics"
-        self.root_topic = {"name": "root_topic"}
+        self.root_topic = {"name": uuid4().hex}
         self.client.post("/api/root_topics", json=self.root_topic)
-        self.topic1 = {"name": "Topic1"}
-        self.topic2 = {"name": "Topic2"}
-        self.topic3 = {"name": "Topic3"}
+        self.topic1 = {"name": uuid4().hex}
+        self.topic2 = {"name": uuid4().hex}
+        self.topic3 = {"name": uuid4().hex}
         self.topic4 = {"name": ""}
         self.topic5 = {"name": "abc&^%3"}
         self.topic6 = {"name": "update"}
+
+    def tearDown(self) -> None:
+        with self.app.app_context():
+            Topic.query.delete()
 
     def test_add_topic(self):
         resp = self.client.get(self.url_prefix).json["data"]
@@ -45,7 +52,7 @@ class TestTopics(BaseTestCase):
         error_msg = resp.json
         error_msg.pop("traceback")
 
-        expect_error_msg = {'error_code': 403, 'error_msg': '名称为 <Topic1> 的 Topic 已经创建'}
+        expect_error_msg = {'error_code': 403, 'error_msg': f'名称为 <{self.topic1["name"]}> 的 Topic 已经创建'}
         self.assertDictEqual(error_msg, expect_error_msg)
 
     def test_update_topic(self):
@@ -53,7 +60,7 @@ class TestTopics(BaseTestCase):
 
         resp = self.client.put(self.url_prefix + "/1", json=self.topic6).json["data"]
         resp.pop("id")
-        self.topic6["posts_count"] = 0
+        self.topic6["posts_count"] = 10
         self.assertDictEqual(self.topic6, resp)
 
     def test_update_topic_with_invalid_name(self):
@@ -64,7 +71,7 @@ class TestTopics(BaseTestCase):
         error_msg = resp.json
         error_msg.pop("traceback")
 
-        expect_error_msg = {'error_code': 403, 'error_msg': '名称为 <Topic1> 的 Topic 已经创建'}
+        expect_error_msg = {'error_code': 403, 'error_msg': f'名称为 <{self.topic1["name"]}> 的 Topic 已经创建'}
         self.assertDictEqual(error_msg, expect_error_msg)
 
         resp = self.client.put(self.url_prefix + "/2", json=self.topic4)
@@ -88,21 +95,21 @@ class TestTopics(BaseTestCase):
         self.assertDictEqual(error_msg, expect_error_msg)
 
     def test_delete_topic(self):
-        self.client.post(self.url_prefix, json=self.topic1)
+        res = self.client.post(self.url_prefix, json=self.topic1)
         self.client.post(self.url_prefix, json=self.topic2)
 
         resp = self.client.get(self.url_prefix).json["data"]
-        self.assertEqual(2, len(resp))
+        self.assertEqual(4, len(resp))
 
-        self.client.delete(self.url_prefix + "/1")
+        self.client.delete(self.url_prefix + f"/{res.json['data']['id']}")
 
         resp = self.client.get(self.url_prefix).json["data"]
-        self.assertEqual(1, len(resp))
+        self.assertLessEqual(1, len(resp))
 
     def test_get_topic_with_some_posts(self):
         self.client.post("/api/topics", json={"name": "Topic1"})  # create topic
         self.client.post(
-            "/api/users", json={"email": "hrui8005@gmail.com", "password": "11Aa*%$#"}
+            "/api/users", json={"email": uuid4().hex + "hrui8005@gmail.com", "password": "11Aa*%$#"}
         )  # create user
 
         posts = {"user_id": 1, "content": "this is post1"}
@@ -111,5 +118,4 @@ class TestTopics(BaseTestCase):
 
         resp = self.client.get(self.url_prefix).json["data"]
 
-        expect = [{'id': 1, 'name': 'Topic1', 'posts_count': 10}]
-        self.assertListEqual(expect, resp)
+        self.assertEqual(10, resp[0]["posts_count"])

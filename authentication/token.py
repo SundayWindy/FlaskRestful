@@ -8,11 +8,11 @@ from models.database import User
 
 basic_auth = HTTPBasicAuth()
 token_auth = HTTPTokenAuth()
-multi_auth = MultiAuth(basic_auth, token_auth)
+auth = MultiAuth(basic_auth, token_auth)
 
 
 class Token(Resource):
-    @multi_auth.login_required
+    @auth.login_required
     def get(self):
         token = g.user.generate_auth_token()
         return {'token': token.decode('ascii')}

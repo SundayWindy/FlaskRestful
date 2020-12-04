@@ -1,9 +1,9 @@
-from exceptions.exceptions import ArgumentInvalid, ObjectsNotExist
 from typing import Generator, Optional
 
 from sqlalchemy import and_
 
 from configures.const import POST_MINIMUM_WORDS
+from exceptions.exceptions import ArgumentInvalid, ObjectsNotExist
 from handlers import BaseHandler
 from models.database import Comment, Post, Topic, User
 from models.response import ResponsePostModel
@@ -15,7 +15,7 @@ class PostHandler(BaseHandler):
     def __init__(self, topic_id: int = None, post_id: int = None) -> None:
         super().__init__(post_id)
         self.topic_id = topic_id
-        self.error_msg = f"Post <{id}> 不存在"
+        self.error_msg = f"Post <{self.id}> 不存在"
 
     def assert_topic_id_is_not_none(self) -> None:
         if self.topic_id is None:

@@ -1,3 +1,4 @@
+from models.database import RootTopic
 from tests import BaseTestCase
 
 
@@ -11,9 +12,13 @@ class TestRootTopic(BaseTestCase):
         self.topic2 = {"name": "Topic2"}
         self.topic3 = {"name": "Topic3"}
 
+    def tearDown(self) -> None:
+        with self.app.app_context():
+            RootTopic.query.delete()
+
     def test_add_root_topic(self):
         resp = self.client.get(self.url_prefix).json["data"]
-        self.assertEqual(0, len(resp))
+        self.assertEqual(1, len(resp))
 
         self.client.post(self.url_prefix, json=self.root_topic1)
         resp = self.client.get(self.url_prefix).json["data"]
