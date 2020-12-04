@@ -1,16 +1,14 @@
-from sqlalchemy import and_
-from flask_sqlalchemy import SQLAlchemy
-
+from exceptions.exceptions import ActionNotAllowed, ObjectsDuplicated
 from itertools import groupby
-from typing import TypeVar, Generator, List, Optional
+from typing import Generator, List, TypeVar
 
-from models.database_models import RootTopic, Topic
-from models.response_models.topic_model import TopicResponseModel, RootTopicResponseModel
+from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import and_
 
 from handlers import BaseHandler
 from handlers.utils import assert_name_is_valid
-
-from exceptions.exceptions import ObjectsDuplicated, ActionNotAllowed
+from models.database import RootTopic, Topic
+from models.response import RootTopicResponseModel, TopicResponseModel
 
 SqlAlchemyModel = TypeVar("SqlAlchemyModel", bound=SQLAlchemy)
 
@@ -25,14 +23,18 @@ class RootTopicHandler(BaseHandler):
     def get_topic(self) -> Generator[RootTopicResponseModel, None, None]:
         instance = self._get_sqlalchemy_instance()
 
-        condition = and_(Topic.deleted == False, Topic.root_topic_id == self.id)
-        child_topics = (TopicResponseModel(**topic.as_dict()) for topic in Topic.query.filter(condition))
+        condition = and_(Topic.deleted.is_(False), Topic.root_topic_id == self.id)
+        child_topics = (
+            TopicResponseModel(**topic.as_dict()) for topic in Topic.query.filter(condition)
+        )
 
         yield RootTopicResponseModel(child_topics=child_topics, **instance.as_dict())
 
     @staticmethod
     def sort_and_group_child_topic(root_topic_ids) -> Generator[List[SqlAlchemyModel], None, None]:
-        child_topics = Topic.query.filter_by(deleted=False).filter(Topic.root_topic_id.in_(root_topic_ids))
+        child_topics = Topic.query.filter_by(deleted=False).filter(
+            Topic.root_topic_id.in_(root_topic_ids)
+        )
         child_topics = sorted(child_topics, key=lambda x: x.root_topic_id)
 
         groups = {k: list(v) for k, v in groupby(child_topics, key=lambda x: x.root_topic_id)}
@@ -51,7 +53,7 @@ class RootTopicHandler(BaseHandler):
         assert_name_is_valid(message="根主题名不能为空", **kwargs)
 
         name = kwargs["name"]
-        condition = and_(self._model.deleted == False, self._model.name == name)
+        condition = and_(self._model.deleted.is_(False), self._model.name == name)
         instance = self._model.query.filter(condition).first()
         if instance:
             raise ObjectsDuplicated(f"名称为 <{name}> 的根 Topic 已经创建")
@@ -63,7 +65,7 @@ class RootTopicHandler(BaseHandler):
         assert_name_is_valid(message="主题名不能为空", **kwargs)
         name = kwargs["name"]
         condition = and_(
-            self._model.deleted == False, self._model.id != self.id, self._model.name == name
+            self._model.deleted.is_(False), self._model.id != self.id, self._model.name == name
         )
         instance = self._model.query.filter(condition).first()
         if instance:

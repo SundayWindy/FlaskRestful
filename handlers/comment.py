@@ -1,17 +1,13 @@
+from exceptions.exceptions import ActionNotAllowed, ArgumentInvalid, ObjectsNotExist
+from typing import Generator, Optional
+
 from sqlalchemy import and_
 
-from typing import Generator, Optional
-from models.database_models.user_model import User
-from models.database_models.post_model import Post
-from models.database_models.topic_model import Topic
-from models.database_models.comment_model import Comment
-from models.response_models.comment_model import ResponseCommentModel
-
+from configures.const import PER_PAGE
 from handlers import BaseHandler
 from handlers.utils import ContentChecker
-
-from configures.const import PER_PAGE
-from exceptions.exceptions import ArgumentInvalid, ObjectsNotExist, ActionNotAllowed
+from models.database import Comment, Post, Topic, User
+from models.response import ResponseCommentModel
 
 
 class CommentHandler(BaseHandler):
@@ -55,7 +51,7 @@ class CommentHandler(BaseHandler):
 
         per_age = kwargs.get("per_page", PER_PAGE)
         offset = kwargs.get("offset", 0)
-        condition = and_(Comment.deleted == False, Comment.post_id == self.post_id)
+        condition = and_(Comment.deleted.is_(False), Comment.post_id == self.post_id)
         comments = Comment.query.filter(condition).offset(offset).limit(per_age)
 
         yield from (ResponseCommentModel(**comment.as_dict()) for comment in comments)

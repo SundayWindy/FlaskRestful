@@ -1,9 +1,11 @@
 import enum
 from datetime import datetime
+from typing import Any, Callable, Dict, List, Optional, TypeVar
 
-from typing import Optional, Dict, List, TypeVar
-from flask_sqlalchemy import SQLAlchemy
+from flask_sqlalchemy import BaseQuery, SQLAlchemy
+from sqlalchemy import Boolean, DateTime, Table, func
 from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.sql import expression
 
 from configures.settings import date_format
 
@@ -17,29 +19,42 @@ T = TypeVar("T", bound=db.Model)
 
 
 class SurrogatePK:
-    """A mixin that adds a surrogate integer 'primary key' column named ``id`` to any declarative-mapped class."""
+    """A mixin that adds a surrogate integer 'primary key' column named `id` to any declarative-mapped class."""
 
+    query: BaseQuery
     __table_args__ = {'extend_existing': True}
-
     id = Column(db.Integer, primary_key=True)
 
     @classmethod
-    def get_by_id(cls, record_id) -> Optional[SQLAlchemy]:
-        """Get record by ID."""
-        if any(
-                (
-                        isinstance(record_id, (str, bytes)) and record_id.isdigit(),
-                        isinstance(record_id, (int, float)),
-                )
-        ):
-            return cls.query.get(int(record_id))
+    def get_by_id(cls, id_) -> Optional[SQLAlchemy]:
+        """Get record by id."""
+        if any((isinstance(id_, (str, bytes)) and id_.isdigit(), isinstance(id_, (int, float)),)):
+            return cls.query.get(int(id_))
         return None
+
+
+class TimeMixin:
+    create_time = Column(DateTime(timezone=True), server_default=func.now(), comment="创建时间")
+    update_time = Column(
+        DateTime(timezone=True), server_default=func.now(), onupdate=func.now(), comment="更新时间"
+    )
+
+
+class DeleteMixin:
+    deleted = Column(Boolean, server_default=expression.false(), nullable=False, comment="是否被删除")
 
 
 class Base(db.Model, SurrogatePK):
     """DataBase Model that Contains CRUD Operations"""
 
-    __abstract__ = True
+    __table__: Table
+    __tablename__: str
+    __new__: Callable
+    __init__: Callable
+    query: BaseQuery
+
+    __abstract__: bool = True
+    __table_args__ = {"extend_existing": True}
 
     @classmethod
     def parse_schema(cls, **kwargs) -> Dict:
@@ -57,7 +72,7 @@ class Base(db.Model, SurrogatePK):
         return instance.save(commit)
 
     @classmethod
-    def create_many(cls, kwargs_list) -> List[T]:
+    def create_many(cls, kwargs_list: List[Dict[str, Any]]) -> List[T]:
         return [cls.create(**kwargs) for kwargs in kwargs_list]
 
     def update(self, commit=True, **kwargs):
@@ -99,10 +114,9 @@ class Base(db.Model, SurrogatePK):
 
 
 def reference_col(table_name, nullable=False, pk_name='id', **kwargs):
-    """Column that adds primary key foreign key reference.
-
-    Usage: ::
-
+    """
+    Column that adds primary key foreign key reference.
+    Usage:
         category_id = reference_col('category')
         category = relationship('Category', backref='categories')
     """

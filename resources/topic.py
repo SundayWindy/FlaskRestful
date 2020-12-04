@@ -1,10 +1,10 @@
 from flask_restful import Resource
 
 from authentication import auth
-from handlers.root_topic_handler import RootTopicHandler
-from handlers.topic_handler import TopicHandler
-from models.query_models.topic_model import RootTopicQueryModel, TopicQueryModel
-from models.response_models.topic_model import RootTopicResponseModel, TopicResponseModel
+from handlers.root_topic import RootTopicHandler
+from handlers.topic import TopicHandler
+from models.query import RootTopicQueryModel, TopicQueryModel
+from models.response import RootTopicResponseModel, TopicResponseModel
 from resources import ApiResponse, schema
 
 

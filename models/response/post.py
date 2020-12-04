@@ -1,6 +1,6 @@
-from models.base_model import Field
+from models.base import Field
 from models.data_types import DateTimeType, IntType, ListType, StringType
-from models.response_models.base_model import BaseResponseModel
+from models.response import BaseResponseModel
 
 
 class ResponsePostModel(BaseResponseModel):
@@ -15,5 +15,3 @@ class ResponsePostModel(BaseResponseModel):
 
     create_time = Field(DateTimeType(), nullable=False)
     update_time = Field(DateTimeType(), nullable=False)
-
-

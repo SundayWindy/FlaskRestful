@@ -1,9 +1,9 @@
 from flask_restful import Resource
 
 from authentication import auth
-from handlers.comment_handler import CommentHandler
-from models.query_models.comment_model import CommentQueryModel
-from models.response_models.comment_model import ResponseCommentModel
+from handlers.comment import CommentHandler
+from models.query import CommentQueryModel
+from models.response import ResponseCommentModel
 from resources import ApiResponse, schema
 
 

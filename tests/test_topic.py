@@ -28,7 +28,10 @@ class TestTopics(BaseTestCase):
         error_msg = resp.json
         error_msg.pop("traceback")
 
-        expect_error_msg = {'error_code': 400, 'error_msg': '名称中只允许出现【中文，英文，数字，下划线，连接符】,并且不允许全部是空白字符'}
+        expect_error_msg = {
+            'error_code': 400,
+            'error_msg': '名称中只允许出现【中文，英文，数字，下划线，连接符】,并且不允许全部是空白字符',
+        }
         self.assertDictEqual(error_msg, expect_error_msg)
 
         resp = self.client.post(self.url_prefix, json=self.topic5)
@@ -68,14 +71,20 @@ class TestTopics(BaseTestCase):
         error_msg = resp.json
         error_msg.pop("traceback")
 
-        expect_error_msg = {'error_code': 400, 'error_msg': '名称中只允许出现【中文，英文，数字，下划线，连接符】,并且不允许全部是空白字符'}
+        expect_error_msg = {
+            'error_code': 400,
+            'error_msg': '名称中只允许出现【中文，英文，数字，下划线，连接符】,并且不允许全部是空白字符',
+        }
         self.assertDictEqual(error_msg, expect_error_msg)
 
         resp = self.client.put(self.url_prefix + "/2", json=self.topic5)
         error_msg = resp.json
         error_msg.pop("traceback")
 
-        expect_error_msg = {'error_code': 400, 'error_msg': '名称中只允许出现【中文，英文，数字，下划线，连接符】,并且不允许全部是空白字符'}
+        expect_error_msg = {
+            'error_code': 400,
+            'error_msg': '名称中只允许出现【中文，英文，数字，下划线，连接符】,并且不允许全部是空白字符',
+        }
         self.assertDictEqual(error_msg, expect_error_msg)
 
     def test_delete_topic(self):
@@ -92,7 +101,9 @@ class TestTopics(BaseTestCase):
 
     def test_get_topic_with_some_posts(self):
         self.client.post("/api/topics", json={"name": "Topic1"})  # create topic
-        self.client.post("/api/users", json={"email": "hrui8005@gmail.com", "password": "11Aa*%$#"})  # create user
+        self.client.post(
+            "/api/users", json={"email": "hrui8005@gmail.com", "password": "11Aa*%$#"}
+        )  # create user
 
         posts = {"user_id": 1, "content": "this is post1"}
         for _ in range(10):

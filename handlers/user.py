@@ -5,15 +5,15 @@ from werkzeug.security import generate_password_hash
 
 from handlers import BaseHandler
 from handlers.utils import EmailChecker, PassWordChecker
-from models.database_models.user_model import User
-from models.response_models.user_model import ResponseUserModel as ResponseUser
+from models.database import User
+from models.response import ResponseUserModel as ResponseUser
 
 
 class UserHandler(BaseHandler):
     _model = User
 
     def __init__(self, id: int = None) -> None:
-        super().__init__(id)
+        super(UserHandler, self).__init__(id)
         self.error_msg = f"用户 <{id}> 不存在"
 
     def get_user(self) -> ResponseUser:
@@ -22,9 +22,7 @@ class UserHandler(BaseHandler):
 
     @staticmethod
     def get_users() -> Generator[ResponseUser, None, None]:
-        yield from (
-            ResponseUser(**instance.as_dict()) for instance in User.query.filter_by(deleted=False)
-        )
+        yield from (ResponseUser(**ins.as_dict()) for ins in User.query.filter_by(deleted=False))
 
     @staticmethod
     def create(**kwargs) -> Optional[ResponseUser]:
@@ -79,3 +77,13 @@ class UserHandler(BaseHandler):
         user.update(deleted=True)
 
         return
+
+
+if __name__ == '__main__':
+    from app import create_app
+
+    app = create_app()
+    app.app_context().push()
+
+    h = UserHandler()
+    h.create(name="ruicore", email="super76rui@icloud.com", password="12345678Aa-*")

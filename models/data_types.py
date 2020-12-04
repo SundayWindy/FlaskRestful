@@ -1,16 +1,13 @@
-import random
 import importlib
-from uuid import uuid1
-from datetime import datetime
+import random
 from collections.abc import Iterable
-
-from typing import Optional, List, Any, Dict, Callable, Tuple, Type
-
-from models.base_model import ApiDataType
-from models.response_models.base_model import BaseResponseModel
+from datetime import datetime
+from exceptions.exceptions import ServerException
+from typing import Any, Callable, Dict, List, Optional, Tuple, Type
+from uuid import uuid1
 
 from handlers.utils import str_to_datetime
-from exceptions.exceptions import ServerException
+from models.base import ApiDataType, BaseModel
 
 
 class IntType(ApiDataType):
@@ -40,10 +37,16 @@ class StringType(ApiDataType):
         return uuid1().hex
 
     def marshal(self, value) -> Optional[str]:
-        return str(value) if value not in (None, "") else None
+        if self.implicit:
+            return str(value) if value not in (None, "") else None
+        else:
+            self.validate(value)
+            return value
 
     def validate(self, value) -> None:
-        assert value is None or isinstance(value, str)
+        assert value is None or isinstance(
+            value, str
+        ), f"expect  <class 'str'>, but get {type(value)}"
 
 
 class BooleanType(ApiDataType):
@@ -136,13 +139,13 @@ class LazyWrapper:
 
 
 class ApiDefineType(ApiDataType):
-    mod = LazyWrapper(lambda: importlib.import_module("models.response_models"))
+    mod = LazyWrapper(lambda: importlib.import_module("models.response"))
 
-    def __init__(self, schema: Tuple[str, BaseResponseModel]):
+    def __init__(self, schema: Tuple[str, BaseModel]):
         if isinstance(schema, str):
             self.schema_name = schema
             self._real_data_type = None
-        elif issubclass(schema, BaseResponseModel):
+        elif issubclass(schema, BaseModel):
             self.schema_name = schema.__name__
             self._real_data_type = schema
         else:
@@ -155,12 +158,12 @@ class ApiDefineType(ApiDataType):
             self._real_data_type = self._parse_schema_name(self.schema_name)
 
     @property
-    def data_type(self) -> Type[BaseResponseModel]:
+    def data_type(self) -> Type[BaseModel]:
         self._ensure_schema_parsed()
         return self._real_data_type
 
     @classmethod
-    def _parse_schema_name(cls, schema_name) -> Optional[BaseResponseModel]:
+    def _parse_schema_name(cls, schema_name) -> Optional[BaseModel]:
         schema = getattr(cls.mod, schema_name)
         return schema
 

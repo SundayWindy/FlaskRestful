@@ -9,7 +9,7 @@ from resources.user import User, Users
 
 api_bp = Blueprint("api", __name__, url_prefix="/api")
 
-api = Api(api_bp, errors=Exception)
+api = Api(api_bp, errors=Exception)  # noqa
 
 api.add_resource(User, "/users/<int:user_id>")
 api.add_resource(Users, "/users")

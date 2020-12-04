@@ -1,9 +1,9 @@
 from flask_restful import Resource
 
 from authentication import auth
-from handlers.post_hander import PostHandler
-from models.query_models.post_model import PostQueryModel
-from models.response_models.post_model import ResponsePostModel
+from handlers.post import PostHandler
+from models.query import PostQueryModel
+from models.response import ResponsePostModel
 from resources import ApiResponse, schema
 
 

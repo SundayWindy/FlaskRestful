@@ -1,7 +1,6 @@
-from models.data_types import IntType, StringType
-from models.query_models.base_model import BaseQueryModel, QueryField
-
 from configures.const import PER_PAGE
+from models.data_types import IntType, StringType
+from models.query import BaseQueryModel, QueryField
 
 
 class PostQueryModel(BaseQueryModel):

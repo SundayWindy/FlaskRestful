@@ -1,10 +1,10 @@
 import pprint
+from exceptions.exceptions import ArgumentInvalid
+from typing import Any, Callable, Dict, TypeVar
 
 from flask_restful import reqparse
-from typing import Callable, TypeVar, Dict, Any
 
-from exceptions.exceptions import ArgumentInvalid
-from models.base_model import ApiDataType, BaseModel, Field
+from models.base import ApiDataType, BaseModel, Field
 
 T = TypeVar("T", bound=BaseModel)
 
@@ -25,16 +25,16 @@ class QueryField(Field):
     )
 
     def __init__(
-            self,
-            field_type: ApiDataType,
-            location: str,
-            parser_func: Callable = None,
-            required: bool = False,
-            mock_func: bool = False,
-            enum_values: tuple = (),
-            comment: str = "",
-            nullable: bool = True,
-            **kwargs
+        self,
+        field_type: ApiDataType,
+        location: str,
+        parser_func: Callable = None,
+        required: bool = False,
+        mock_func: Callable = None,
+        enum_values: tuple = (),
+        comment: str = "",
+        nullable: bool = True,
+        **kwargs
     ) -> None:
         super().__init__(field_type, mock_func, enum_values, comment, nullable)
         self.location = location
@@ -46,8 +46,8 @@ class QueryField(Field):
 
 
 class BaseQueryModel(BaseModel):
-    def __init__(self, **kwargs: dict):
-        super().__init__(drop_missing=False, **kwargs)
+    def __init__(self, **kwargs):
+        super(BaseQueryModel, self).__init__(**kwargs)
         self.__storage__ = kwargs
         for field_name in self.__fields_map__.keys():
             if field_name not in self.__storage__:

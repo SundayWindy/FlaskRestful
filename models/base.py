@@ -1,13 +1,15 @@
 import pprint
-
-from typing import Callable, Dict, Any
+from typing import Any, Callable, Dict, Type
 
 
 class ApiDataType:
+    def __init__(self, implicit=True):
+        self.implicit = implicit
+
     def mock(self) -> None:
         raise NotImplementedError()
 
-    def marshal(self, value) -> None:
+    def marshal(self, value,) -> None:
         raise NotImplementedError()
 
     def validate(self, value) -> None:
@@ -23,13 +25,13 @@ class Field:
     __slots__ = ("name", "field_type", "mock_func", "enum_values", "comment", "nullable", "marshal")
 
     def __init__(
-            self,
-            field_type: ApiDataType,
-            mock_func: Callable = None,
-            enum_values: tuple = (),
-            comment: str = "",
-            nullable: bool = True,
-            marshal: Callable = None,
+        self,
+        field_type: ApiDataType,
+        mock_func: Callable = None,
+        enum_values: tuple = (),
+        comment: str = "",
+        nullable: bool = True,
+        marshal: Callable = None,
     ) -> None:
         self.name = ''
         self.field_type = field_type
@@ -70,14 +72,14 @@ class ModelMetaClass(type):
 
 class BaseModel(object, metaclass=ModelMetaClass):
     __fields__ = ()
-    __fields_map__ = {}
+    __fields_map__: Dict[str, Type[Field]] = {}
 
     def __init__(self, drop_missing=False, **kwargs) -> None:
         for field_name, field in self.__fields_map__.items():
             value = kwargs.get(field_name)
             if not drop_missing and not field.nullable and value is None:
                 raise Exception("field [{}] must be initialized".format(field_name))
-            setattr(self, field_name, value)
+            setattr(self, field_name, field.field_type.marshal(value))
 
     def marshal(self, values=None) -> Dict[str, str]:
         dct = {}
@@ -86,7 +88,7 @@ class BaseModel(object, metaclass=ModelMetaClass):
             values = self
         for field_name, field in self.__fields_map__.items():
             value = values.get(field_name)
-            dct[field_name] = field.marshal(value)
+            dct[field_name] = field.field_type.marshal(value)
 
         return dct
 

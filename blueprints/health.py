@@ -1,4 +1,5 @@
-from typing import Tuple, Dict
+from typing import Dict, Tuple
+
 from flask import Blueprint
 from flask_restful import Api, Resource
 

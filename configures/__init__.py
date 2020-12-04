@@ -1,6 +1,5 @@
 import enum
-
-from typing import ValuesView, TypeVar, AbstractSet
+from typing import AbstractSet, TypeVar, ValuesView
 
 T = TypeVar("T", bound=enum.Enum)
 

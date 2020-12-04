@@ -1,5 +1,5 @@
 from models.data_types import StringType
-from models.query_models.base_model import BaseQueryModel, QueryField
+from models.query import BaseQueryModel, QueryField
 
 
 class TopicQueryModel(BaseQueryModel):

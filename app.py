@@ -16,8 +16,8 @@ from werkzeug.exceptions import HTTPException
 
 from blueprints import all_blueprints
 from configures import settings
-from models.base_model import BaseModel
-from models.database_models import db
+from models.base import BaseModel
+from models.database import db
 from resources import ApiResponse
 
 logger = logging.getLogger(__name__)
@@ -89,7 +89,19 @@ def init_logging() -> None:
         'formatters': {
             'brief': {'format': '%(message)s'},
             'standard': {
-                'format': '[%(asctime)s] [%(levelname)s]  [%(filename)s.%(funcName)s:%(lineno)3d]  [%(process)d::%(thread)d] %(message)s'
+                'format': '[%(asctime)s] [%(levelname)s] [%(filename)s.%(funcName)s:%(lineno)3d] [%(process)d::%(thread)d] %(message)s'
+            },
+            'colored': {
+                '()': 'colorlog.ColoredFormatter',
+                'format': "%(log_color)s%(asctime)s - %(levelname)s - %(message)s",
+                'datefmt': '%Y-%m-%d %H:%M:%S',
+                'log_colors': {
+                    'DEBUG': 'cyan',
+                    'INFO': 'green',
+                    'WARNING': 'yellow',
+                    'ERROR': 'red',
+                    'CRITICAL': 'red,bg_white',
+                },
             },
         },
         'handlers': {
@@ -102,7 +114,7 @@ def init_logging() -> None:
                 'interval': 1,
                 'encoding': 'utf8',
             },
-            'console': {'level': level, 'formatter': 'standard', 'class': 'logging.StreamHandler'},
+            'console': {'level': level, 'formatter': 'colored', 'class': 'logging.StreamHandler'},
             'default_access': {
                 'level': level,
                 'formatter': 'brief',
@@ -114,7 +126,7 @@ def init_logging() -> None:
             },
             'console_access': {
                 'level': level,
-                'formatter': 'brief',
+                'formatter': 'colored',
                 'class': 'logging.StreamHandler',
             },
         },
@@ -124,7 +136,12 @@ def init_logging() -> None:
                 'level': level,
                 'propagate': False,
             },
-            '': {'handlers': ['default', 'console'], 'level': level, 'propagate': True},
+            '': {
+                'handlers': ['default', 'console'],
+                'formatter': 'colored',
+                'level': level,
+                'propagate': True,
+            },
         },
     }
 

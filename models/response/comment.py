@@ -1,6 +1,6 @@
-from models.base_model import Field
-from models.data_types import IntType, StringType, DateTimeType
-from models.response_models import BaseResponseModel
+from models.base import Field
+from models.data_types import DateTimeType, IntType, StringType
+from models.response import BaseResponseModel
 
 
 class ResponseCommentModel(BaseResponseModel):

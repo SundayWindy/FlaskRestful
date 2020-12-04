@@ -1,4 +1,4 @@
-from models.base_model import BaseModel
+from models.base import BaseModel
 
 
 class BaseResponseModel(BaseModel):

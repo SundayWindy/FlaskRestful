@@ -5,11 +5,8 @@ from sqlalchemy import and_
 
 from configures.const import POST_MINIMUM_WORDS
 from handlers import BaseHandler
-from models.database_models import Comment
-from models.database_models.post_model import Post
-from models.database_models.topic_model import Topic
-from models.database_models.user_model import User
-from models.response_models.post_model import ResponsePostModel
+from models.database import Comment, Post, Topic, User
+from models.response import ResponsePostModel
 
 
 class PostHandler(BaseHandler):
