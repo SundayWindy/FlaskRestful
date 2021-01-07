@@ -14,7 +14,7 @@ class FaviconIco(Resource):
         return {"favicon": None}, 200
 
 
-health_bp = Blueprint("health", __name__, url_prefix='')
+health_bp = Blueprint("health", __name__, url_prefix="")
 
 api = Api(health_bp)
 api.add_resource(HealthState, "/health")

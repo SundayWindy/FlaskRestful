@@ -1,11 +1,11 @@
-from exceptions.exceptions import ObjectsDuplicated
 from typing import Generator, Optional
 
 from sqlalchemy import and_
 
+from exceptions.exceptions import ObjectsDuplicated
 from handlers import BaseHandler
 from handlers.utils import assert_name_is_valid
-from models.database import Post, Topic
+from models.orm import Post, Topic
 from models.response import TopicResponseModel
 
 

@@ -1,9 +1,9 @@
-from exceptions import exceptions
 from typing import Type, TypeVar
 
-from models.database import Base as Model
+from exceptions import exceptions
+from models.orm import Base as Model
 
-U = TypeVar('U', bound=Model)
+U = TypeVar("U", bound=Model)
 
 
 class BaseHandler:
@@ -20,6 +20,6 @@ class BaseHandler:
     def _get_sqlalchemy_instance(self) -> Type[U]:
         self.assert_id_is_not_none()
         instance = self._model.get_by_id(self.id)
-        if not instance or getattr(instance, 'deleted', False):
+        if not instance or getattr(instance, "deleted", False):
             raise exceptions.ObjectsNotExist(self.error_msg)
         return instance

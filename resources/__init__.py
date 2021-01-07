@@ -3,9 +3,10 @@ from functools import wraps
 from typing import Any, Callable, Dict, Type, TypeVar
 
 from flask import jsonify
+from pyruicore import BaseModel
 
 from models.query import BaseQueryModel
-from models.response import BaseResponseModel, NoValue
+from models.response import NoValue
 
 schema_mapping = {}
 Api = TypeVar("Api")
@@ -15,7 +16,7 @@ class ResourceSchema:
     def __init__(
         self,
         query_model: Type[BaseQueryModel],
-        response_model: Type[BaseResponseModel],
+        response_model: Type[BaseModel],
         path_parameters,
     ) -> None:
         self.query_model = query_model
@@ -23,10 +24,10 @@ class ResourceSchema:
         self.path_parameters = path_parameters
 
 
-def schema(query_model: Type[BaseQueryModel], response_model: Type[BaseResponseModel]):
+def schema(query_model: Type[BaseQueryModel], response_model: Type[BaseModel]):
     def decorator(func):
         params = list(inspect.signature(func).parameters)
-        params.remove('self')
+        params.remove("self")
         schema_mapping[func.__qualname__] = ResourceSchema(query_model, response_model, params)
 
         @wraps(func)

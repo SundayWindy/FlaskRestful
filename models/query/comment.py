@@ -1,10 +1,13 @@
+from typing import Optional
+
+from pyruicore import Field
+
 from configures.const import PER_PAGE
-from models.data_types import IntType, StringType
-from models.query import BaseQueryModel, QueryField
+from models.query import BaseQueryModel
 
 
 class CommentQueryModel(BaseQueryModel):
-    user_id = QueryField(IntType(), nullable=True, location="json")
-    content = QueryField(StringType(), nullable=True, location="json")
-    per_page = QueryField(IntType(), default=PER_PAGE, nullable=False, location="json")
-    offset = QueryField(IntType(), default=0, nullable=False, location="json")
+    user_id: Optional[int] = Field(location="json")
+    content: Optional[str] = Field(location="json")
+    per_page: Optional[int] = Field(default=PER_PAGE, location="json")
+    offset: Optional[int] = Field(default=0, location="json")

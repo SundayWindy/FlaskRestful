@@ -5,7 +5,7 @@ from sqlalchemy import and_
 from configures.const import POST_MINIMUM_WORDS
 from exceptions.exceptions import ArgumentInvalid, ObjectsNotExist
 from handlers import BaseHandler
-from models.database import Comment, Post, Topic, User
+from models.orm import Comment, Post, Topic, User
 from models.response import ResponsePostModel
 
 

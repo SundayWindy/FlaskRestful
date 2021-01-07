@@ -1,10 +1,5 @@
-from models.base import BaseModel
+from pyruicore import BaseModel
 
 
-class BaseResponseModel(BaseModel):
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
-
-
-class NoValue(BaseResponseModel):
+class NoValue(BaseModel):
     pass

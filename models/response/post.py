@@ -1,17 +1,16 @@
-from models.base import Field
-from models.data_types import DateTimeType, IntType, ListType, StringType
-from models.response import BaseResponseModel
+from datetime import datetime
+from typing import List, Optional
+
+from pyruicore import BaseModel
 
 
-class ResponsePostModel(BaseResponseModel):
-    id = Field(IntType(), nullable=False)
-    user_id = Field(IntType(), nullable=False)
-    topic_id = Field(IntType(), nullable=False)
-    content = Field(StringType(), nullable=False)
-
-    comments_count = Field(IntType(), nullable=False)
-    click_times = Field(IntType(), nullable=False)
-    tags = Field(ListType(StringType()), nullable=True)
-
-    create_time = Field(DateTimeType(), nullable=False)
-    update_time = Field(DateTimeType(), nullable=False)
+class ResponsePostModel(BaseModel):
+    id: Optional[int]
+    user_id: Optional[int]
+    topic_id: Optional[int]
+    content: str
+    comments_count: Optional[int]
+    click_times: Optional[int]
+    tags: Optional[List[str]]
+    create_time: datetime
+    update_time: datetime

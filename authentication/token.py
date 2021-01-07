@@ -4,7 +4,7 @@ from flask import g
 from flask_httpauth import HTTPBasicAuth, HTTPTokenAuth, MultiAuth
 from flask_restful import Resource
 
-from models.database import User
+from models.orm import User
 
 basic_auth = HTTPBasicAuth()
 token_auth = HTTPTokenAuth()
@@ -15,7 +15,7 @@ class Token(Resource):
     @auth.login_required
     def get(self):
         token = g.user.generate_auth_token()
-        return {'token': token.decode('ascii')}
+        return {"token": token.decode("ascii")}
 
 
 @basic_auth.verify_password

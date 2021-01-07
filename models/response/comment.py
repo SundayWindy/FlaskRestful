@@ -1,13 +1,12 @@
-from models.base import Field
-from models.data_types import DateTimeType, IntType, StringType
-from models.response import BaseResponseModel
+from datetime import datetime
+
+from pyruicore import BaseModel
 
 
-class ResponseCommentModel(BaseResponseModel):
-    id = Field(IntType(), nullable=False)
-    user_id = Field(IntType(), nullable=False)
-    post_id = Field(IntType(), nullable=False)
-    content = Field(StringType(), nullable=False)
-
-    create_time = Field(DateTimeType(), nullable=False)
-    update_time = Field(DateTimeType(), nullable=False)
+class ResponseCommentModel(BaseModel):
+    id: int
+    user_id: int
+    post_id: int
+    content: str
+    create_time: datetime
+    update_time: datetime

@@ -1,48 +1,12 @@
 import pprint
-from exceptions.exceptions import ArgumentInvalid
-from typing import Any, Callable, Dict, TypeVar
+from typing import Any, Dict, TypeVar
 
 from flask_restful import reqparse
+from pyruicore import BaseModel
 
-from models.base import ApiDataType, BaseModel, Field
+from exceptions.exceptions import ArgumentInvalid
 
 T = TypeVar("T", bound=BaseModel)
-
-
-class QueryField(Field):
-    __slots__ = (
-        'name',
-        'field_type',
-        'mock_func',
-        'enum_values',
-        'description',
-        'nullable',
-        'required',
-        'location',
-        'default',
-        'parser_kwargs',
-        'parse_func',
-    )
-
-    def __init__(
-        self,
-        field_type: ApiDataType,
-        location: str,
-        parser_func: Callable = None,
-        required: bool = False,
-        mock_func: Callable = None,
-        enum_values: tuple = (),
-        comment: str = "",
-        nullable: bool = True,
-        **kwargs
-    ) -> None:
-        super().__init__(field_type, mock_func, enum_values, comment, nullable)
-        self.location = location
-        self.parser_kwargs = kwargs
-        self.required = required
-        self.parse_func = parser_func or self.field_type.marshal
-        if 'default' in kwargs:
-            self.default = kwargs['default']
 
 
 class BaseQueryModel(BaseModel):
@@ -59,11 +23,13 @@ class BaseQueryModel(BaseModel):
 
         for field in cls.__fields__:
             name = field.name
-            location = field.location
-            required = field.required
+            others = field.others
+            location = others["location"]
+            required = others.get("required", False)
+            parser_kwargs = others.get("parser_kwargs", {})
             nullable = field.nullable
             parser.add_argument(
-                name, location=location, required=required, nullable=nullable, **field.parser_kwargs
+                name, location=location, required=required, nullable=nullable, **parser_kwargs
             )
 
         parsed = parser.parse_args()
@@ -96,10 +62,12 @@ class BaseQueryModel(BaseModel):
         return item in self.__storage__
 
     def __str__(self):
-        return '[<{}>: \n{}]'.format(
+        return "[<{}>: \n{}]".format(
             self.__class__.__name__, pprint.pformat(self.__storage__, indent=4)
         )
 
 
 class NoArgs(BaseQueryModel):
+    """this is usually used for get many"""
+
     pass

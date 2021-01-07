@@ -1,13 +1,13 @@
-from exceptions.exceptions import ActionNotAllowed, ObjectsDuplicated
 from itertools import groupby
 from typing import Generator, List, TypeVar
 
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import and_
 
+from exceptions.exceptions import ActionNotAllowed, ObjectsDuplicated
 from handlers import BaseHandler
 from handlers.utils import assert_name_is_valid
-from models.database import RootTopic, Topic
+from models.orm import RootTopic, Topic
 from models.response import RootTopicResponseModel, TopicResponseModel
 
 SqlAlchemyModel = TypeVar("SqlAlchemyModel", bound=SQLAlchemy)

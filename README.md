@@ -49,7 +49,7 @@
 
 * You can run this project either using Docker **or** Shell.
 
-1. install [docker](https://docs.docker.com/get-docker/). 
+1. install [docker](https://docs.docker.com/get-docker/).
 2. cd to project directory, run  ```make run ``` until it is finished.
 * ```make run ``` will build docker image, start server (Mysql for example).
 3. run ```make init``` to initial database (create database, create table , **No data is imported**).
@@ -69,7 +69,7 @@ python3.8 -m venv --clear venv
 source ./venv/bin/active
 ```
 ```shell script
-pip install -r requirements.txt 
+pip install -r requirements.txt
 ```
 ```shell script
 python server.py
@@ -88,8 +88,8 @@ python server.py
 
 ## 3. REST
 
-* what is **REST** ? REST stands for **(Resource) Representational State Transfer**, it's a stateless communications protocol. The core concept of rest is **Resource**. In **REST** point of view, each concept that can be abstracted is called a Resource. Let's say properties ```name```, ```age```, ```email``` can be abstract as a User Model, so ```User``` can be represented as a Resource. 
-* **Transfer** means resources are transferred from the server-side to the client-side. 
+* what is **REST** ? REST stands for **(Resource) Representational State Transfer**, it's a stateless communications protocol. The core concept of rest is **Resource**. In **REST** point of view, each concept that can be abstracted is called a Resource. Let's say properties ```name```, ```age```, ```email``` can be abstract as a User Model, so ```User``` can be represented as a Resource.
+* **Transfer** means resources are transferred from the server-side to the client-side.
 * In **REST** world, each operation is operated on Some kind of resource, and has pre-defined **Verb** to describe it. Such as **Post** means to create a resource, **Put** means to update a resource, **Delete** means to delete a resource. These three Verb is mainly used, you can check it out [here](https://realpython.com/flask-connexion-rest-api/) for more detail.
 
 ## 4. Benefits of Rest
@@ -166,7 +166,7 @@ def schema(query_model: BaseQueryModel, response_model: ApiDataType):
         def wrapper(self, **kwargs) -> Callable:
             """Some logic """
             # jsonify function is called here
-            return jsonify(func(self, **kwargs)) 
+            return jsonify(func(self, **kwargs))
 
         return wrapper
 
@@ -212,7 +212,7 @@ def handle_exception(e) -> Tuple[Dict[str, Union[Union[int, str, list], Any]], U
 
 ## 7. Unified Query Model, Response Model and DataBaseModel
 
-* In object-oriented programming, it's better to keep your arguments to be a single object rather than many separated args. It's so in Python and Flask. 
+* In object-oriented programming, it's better to keep your arguments to be a single object rather than many separated args. It's so in Python and Flask.
 * Let's say you want to query a user by its **name** and/or **age** and/or **email**, it's better to write:
 
 ```py
@@ -286,7 +286,7 @@ class Base(db.Model, SurrogatePK):
 
 * **MVC(Model, View, Controller)** is a typical design pattern. This project is programmed in MVC pattern, but is not strictly stick to it.
 #### 9.1 Model ( Models in this project): Store information about resources
-* Specifically, they are: 
+* Specifically, they are:
   * Database Model, **ORM** is in this folder, which transfers your python object to database rows.
   * QueryModel, arguments organized together as one Model. So frontend send args to backend, backend put them together to create a new object to do argument validation work, because use Model, some default functions can be bound to it.
   * ResponseModel, resources that are returned to the frontend.

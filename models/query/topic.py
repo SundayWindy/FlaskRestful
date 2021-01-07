@@ -1,9 +1,12 @@
-from models.data_types import StringType
-from models.query import BaseQueryModel, QueryField
+from typing import Optional
+
+from pyruicore import Field
+
+from models.query import BaseQueryModel
 
 
 class TopicQueryModel(BaseQueryModel):
-    name = QueryField(StringType(), location="json", comment="主题名")
+    name: Optional[str] = Field(location="json", comment="主题名")
 
 
 class RootTopicQueryModel(TopicQueryModel):

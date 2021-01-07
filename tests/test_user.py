@@ -1,18 +1,14 @@
 from datetime import datetime
 from uuid import uuid4
 
-from models.database import User
 from tests import BaseTestCase
 
 
 class TestUsers(BaseTestCase):
-    def setUp(self):
-        super().setUp()
-        self.url_prefix = "/api/users"
-
-    def tearDown(self) -> None:
-        with self.app.app_context():
-            User.query.delete()
+    @classmethod
+    def setUpClass(cls) -> None:
+        super(TestUsers, cls).setUpClass()
+        cls.url_prefix = "/api/users"
 
     def test_add_user(self):
         exist_user = self.client.get(self.url_prefix).json["data"]
@@ -34,8 +30,8 @@ class TestUsers(BaseTestCase):
         error_msg.pop("traceback")
 
         expect_error_msg = {
-            'error_code': 400,
-            'error_msg': '密码至少8个字符，至少1个大写字母，1个小写字母，1个数字和1个特殊字符,不能含有空格',
+            "error_code": 400,
+            "error_msg": "密码至少8个字符，至少1个大写字母，1个小写字母，1个数字和1个特殊字符,不能含有空格",
         }
         self.assertDictEqual(error_msg, expect_error_msg)
 
@@ -46,7 +42,7 @@ class TestUsers(BaseTestCase):
         error_msg = resp.json
         error_msg.pop("traceback")
 
-        expect_error_msg = {'error_code': 400, 'error_msg': '邮箱格式错误'}
+        expect_error_msg = {"error_code": 400, "error_msg": "邮箱格式错误"}
         self.assertDictEqual(error_msg, expect_error_msg)
 
     def test_add_user_without_email(self):
@@ -56,7 +52,7 @@ class TestUsers(BaseTestCase):
         error_msg = resp.json
         error_msg.pop("traceback")
 
-        expect_error_msg = {'error_code': 400, 'error_msg': '邮件地址不能为空'}
+        expect_error_msg = {"error_code": 400, "error_msg": "邮件地址不能为空"}
         self.assertDictEqual(error_msg, expect_error_msg)
 
     def test_add_user_without_password(self):
@@ -66,7 +62,7 @@ class TestUsers(BaseTestCase):
         error_msg = resp.json
         error_msg.pop("traceback")
 
-        expect_error_msg = {'error_code': 400, 'error_msg': '密码不能为空'}
+        expect_error_msg = {"error_code": 400, "error_msg": "密码不能为空"}
         self.assertDictEqual(error_msg, expect_error_msg)
 
     def test_add_user_with_duplicate_email(self):
@@ -81,7 +77,7 @@ class TestUsers(BaseTestCase):
         error_msg = resp.json
         error_msg.pop("traceback")
 
-        expect_error_msg = {'error_code': 403, 'error_msg': f'邮件为 <{email}> 的用户已经注册'}
+        expect_error_msg = {"error_code": 403, "error_msg": f"邮件为 <{email}> 的用户已经注册"}
         self.assertDictEqual(error_msg, expect_error_msg)
 
     def test_update_user_email(self):
@@ -89,11 +85,19 @@ class TestUsers(BaseTestCase):
         res = self.client.post(self.url_prefix, json=new_user)
 
         kwargs = {"email": "hrui835@gmail.com"}
-        user_id = res.json['data']['id']
+        user_id = res.json["data"]["id"]
         resp = self.client.put(self.url_prefix + f"/{user_id}", json=kwargs)
 
-        expect_user = {'avatar': None, 'company': None, 'email': 'hrui835@gmail.com', 'id': user_id, 'job': None,
-                       'name': None, 'phone': None, 'website': None}
+        expect_user = {
+            "avatar": None,
+            "company": None,
+            "email": "hrui835@gmail.com",
+            "id": user_id,
+            "job": None,
+            "name": None,
+            "phone": None,
+            "website": None,
+        }
 
         update_user = resp.json["data"]
         self.assertEqual(200, resp.status_code)
@@ -102,10 +106,10 @@ class TestUsers(BaseTestCase):
         self.assertDictEqual(update_user, expect_user)
 
     def test_update_user_with_wrong_email(self):
-        new_user = {"email":uuid4().hex+ "suepr76rui@icloud.com", "password": "b22sw1*#DJfyxoUaq"}
+        new_user = {"email": uuid4().hex + "suepr76rui@icloud.com", "password": "b22sw1*#DJfyxoUaq"}
         res = self.client.post(self.url_prefix, json=new_user)
 
-        user_id = res.json['data']['id']
+        user_id = res.json["data"]["id"]
 
         kwargs = {"email": "hrui835gmail.com"}
         resp = self.client.put(self.url_prefix + f"/{user_id}", json=kwargs)
@@ -113,13 +117,13 @@ class TestUsers(BaseTestCase):
         error_msg = resp.json
         error_msg.pop("traceback")
 
-        expect_error_msg = {'error_code': 400, 'error_msg': '邮箱格式错误'}
+        expect_error_msg = {"error_code": 400, "error_msg": "邮箱格式错误"}
         self.assertDictEqual(error_msg, expect_error_msg)
 
     def test_update_user_with_wrong_password(self):
-        new_user = {"email": uuid4().hex+ "suepr76rui@icloud.com", "password": "b22sw1*#DJfyxoUaq"}
+        new_user = {"email": uuid4().hex + "suepr76rui@icloud.com", "password": "b22sw1*#DJfyxoUaq"}
         res = self.client.post(self.url_prefix, json=new_user)
-        user_id = res.json['data']['id']
+        user_id = res.json["data"]["id"]
 
         kwargs = {"password": "1111"}
         resp = self.client.put(self.url_prefix + f"/{user_id}", json=kwargs)
@@ -128,8 +132,8 @@ class TestUsers(BaseTestCase):
         error_msg.pop("traceback")
 
         expect_error_msg = {
-            'error_code': 400,
-            'error_msg': '密码至少8个字符，至少1个大写字母，1个小写字母，1个数字和1个特殊字符,不能含有空格',
+            "error_code": 400,
+            "error_msg": "密码至少8个字符，至少1个大写字母，1个小写字母，1个数字和1个特殊字符,不能含有空格",
         }
         self.assertDictEqual(error_msg, expect_error_msg)
 
@@ -143,7 +147,7 @@ class TestUsers(BaseTestCase):
         resp = self.client.delete(self.url_prefix + "/1")
 
         error_msg = resp.json
-        expect_error_msg = {'data': {}, 'error_code': 0, 'error_msg': 'success'}
+        expect_error_msg = {"data": {}, "error_code": 0, "error_msg": "success"}
         self.assertDictEqual(error_msg, expect_error_msg)
 
         resp = self.client.get(self.url_prefix).json["data"]
@@ -155,5 +159,5 @@ class TestUsers(BaseTestCase):
         error_msg = resp.json
         error_msg.pop("traceback")
 
-        expect_error_msg = {'error_code': 404, 'error_msg': '用户 <100> 不存在'}
+        expect_error_msg = {"error_code": 404, "error_msg": "用户 <100> 不存在"}
         self.assertDictEqual(error_msg, expect_error_msg)

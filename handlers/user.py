@@ -1,11 +1,11 @@
-from exceptions.exceptions import ArgumentInvalid, ArgumentRequired, ObjectsDuplicated
 from typing import Generator, Optional
 
 from werkzeug.security import generate_password_hash
 
+from exceptions.exceptions import ArgumentInvalid, ArgumentRequired, ObjectsDuplicated
 from handlers import BaseHandler
 from handlers.utils import EmailChecker, PassWordChecker
-from models.database import User
+from models.orm import User
 from models.response import ResponseUserModel as ResponseUser
 
 
@@ -79,7 +79,7 @@ class UserHandler(BaseHandler):
         return
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     from app import create_app
 
     app = create_app()

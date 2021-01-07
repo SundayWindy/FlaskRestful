@@ -7,23 +7,25 @@ from werkzeug.security import generate_password_hash
 
 from app import create_app
 from configures import settings
-from models.database import db
+from models.orm import db
 
 email = "hrui8005@gmail.com"
-password = '11Aa*%$#'
+password = "11Aa*%$#"
 password_hash = generate_password_hash(password)
 
 auth_str = f"{email}:{password}"
-headers = {'Authorization': 'Basic ' + base64.b64encode(bytes(auth_str, 'ascii')).decode('ascii')}
+headers = {"Authorization": "Basic " + base64.b64encode(bytes(auth_str, "ascii")).decode("ascii")}
 
 
 class TestClient(FlaskClient):
     def open(self, *args, **kwargs):
-        kwargs['headers'] = headers
+        kwargs["headers"] = headers
         return super().open(*args, **kwargs)
 
 
 class BaseTestCase(TestCase):
+    client: FlaskClient
+
     @classmethod
     def setUpClass(cls) -> None:
         cls.engine = create_engine(settings.TEST_SQLALCHEMY_DATABASE)
@@ -33,7 +35,7 @@ class BaseTestCase(TestCase):
         cls.maxDiff = None
         cls.app = create_app()
         cls.app.config["SQLALCHEMY_DATABASE_URI"] = settings.TEST_SQLALCHEMY_DATABASE_URI
-        cls.app.config['TESTING'] = True
+        cls.app.config["TESTING"] = True
 
         db.init_app(cls.app)
         with cls.app.app_context():
@@ -49,33 +51,8 @@ class BaseTestCase(TestCase):
     def tearDownClass(cls) -> None:
         cls.app = create_app()
         cls.app.config["SQLALCHEMY_DATABASE_URI"] = settings.TEST_SQLALCHEMY_DATABASE_URI
-        cls.app.config['TESTING'] = True
+        cls.app.config["TESTING"] = True
         db.init_app(cls.app)
         with cls.app.app_context():
             db.session.remove()
             db.drop_all()
-
-# def setUp(self):
-#     self.maxDiff = None
-#     self.app = create_app()
-#     self.app.config["SQLALCHEMY_DATABASE_URI"] = settings.TEST_SQLALCHEMY_DATABASE_URI
-#     self.app.config['TESTING'] = True
-#
-#     db.init_app(self.app)
-#     with self.app.app_context():
-#         db.create_all()
-#     self.app.test_client_class = TestClient
-#     self.client = self.app.test_client()
-#
-#     self.engine.execute(
-#         f"INSERT INTO TEST.user (email, password_hash) VALUES ('{email}', '{password_hash}');"
-#     )
-
-# def tearDown(self) -> None:
-#     self.app = create_app()
-#     self.app.config["SQLALCHEMY_DATABASE_URI"] = settings.TEST_SQLALCHEMY_DATABASE_URI
-#     self.app.config['TESTING'] = True
-#     db.init_app(self.app)
-#     with self.app.app_context():
-#         db.session.remove()
-#         db.drop_all()

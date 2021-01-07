@@ -6,19 +6,17 @@ services:
     build: .
     container_name: flask
     ports:
-      - "24579:24579"
+      - 24579:24579
     depends_on:
       - mysql
     command: ["python", "server.py"]
 
   mysql:
-    image: mysql:latest
-
+    image: mysql:8.0
     ports:
-      - "3307:3306"
-
-    container_name: flask_db_mysql
-
+      - 3307:3306
+    container_name: flask_mysql
     environment:
-      - MYSQL_ROOT_PASSWORD=ROOT
-      - MYSQL_DATABASE=flask_restful
+      MYSQL_USER: root
+      MYSQL_ALLOW_EMPTY_PASSWORD: 1
+      MYSQL_DATABASE: flask_restful

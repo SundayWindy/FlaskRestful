@@ -1,15 +1,15 @@
 import logging
+
+from gevent import monkey
 from gevent.pywsgi import WSGIServer
 
 from app import create_app, init_logging
-
-from gevent import monkey
 
 monkey.patch_all()
 
 
 def run():
-    host = '0.0.0.0'
+    host = "0.0.0.0"
     port = 24579
 
     init_logging()

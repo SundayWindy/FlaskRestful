@@ -1,12 +1,12 @@
-from exceptions.exceptions import ActionNotAllowed, ArgumentInvalid, ObjectsNotExist
 from typing import Generator, Optional
 
 from sqlalchemy import and_
 
 from configures.const import PER_PAGE
+from exceptions.exceptions import ActionNotAllowed, ArgumentInvalid, ObjectsNotExist
 from handlers import BaseHandler
 from handlers.utils import ContentChecker
-from models.database import Comment, Post, Topic, User
+from models.orm import Comment, Post, Topic, User
 from models.response import ResponseCommentModel
 
 

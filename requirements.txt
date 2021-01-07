@@ -49,7 +49,7 @@ networkx==2.5
 ninja==1.10.0.post2
 nodeenv==1.5.0
 packaging==20.7
-parso==0.8.0
+parso==0.7.0
 pexpect==4.8.0
 pickleshare==0.7.5
 pluggy==0.13.1
@@ -81,3 +81,7 @@ Werkzeug==1.0.1
 wrapt==1.12.1
 zope.event==4.5.0
 zope.interface==5.2.0
+colorlog==4.6.2
+
+typing~=3.7.4.3
+pyruicore~=0.1.3

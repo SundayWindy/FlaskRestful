@@ -1,0 +1,2478 @@
+[2021-01-06 14:19:04,951] [INFO] [server.py.run: 18] [9572::140480822679680] Server start at 0.0.0.0:24579
+[2021-01-06 14:20:39,025] [INFO] [server.py.run: 18] [12921::140703875766400] Server start at 0.0.0.0:24579
+[2021-01-06 14:22:41,286] [INFO] [server.py.run: 18] [16818::140632916531328] Server start at 0.0.0.0:24579
+[2021-01-06 14:22:59,154] [ERROR] [app.py.log_exception:1891] [16818::140632938555856] Exception on /api/users [GET]
+Traceback (most recent call last):
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 2336, in _wrap_pool_connect
+    return fn()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 364, in connect
+    return _ConnectionFairy._checkout(self)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 778, in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 495, in checkout
+    rec = pool._do_get()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/pool/impl.py", line 140, in _do_get
+    self._dec_overflow()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/util/langhelpers.py", line 68, in __exit__
+    compat.raise_(
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/util/compat.py", line 182, in raise_
+    raise exception
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/pool/impl.py", line 137, in _do_get
+    return self._create_connection()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 309, in _create_connection
+    return _ConnectionRecord(self)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 440, in __init__
+    self.__connect(first_connect_check=True)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 661, in __connect
+    pool.logger.debug("Error on connect(): %s", e)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/util/langhelpers.py", line 68, in __exit__
+    compat.raise_(
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/util/compat.py", line 182, in raise_
+    raise exception
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 656, in __connect
+    connection = pool._invoke_creator(self)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/engine/strategies.py", line 114, in connect
+    return dialect.connect(*cargs, **cparams)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/engine/default.py", line 493, in connect
+    return self.dbapi.connect(*cargs, **cparams)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/pymysql/__init__.py", line 94, in Connect
+    return Connection(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/pymysql/connections.py", line 327, in __init__
+    self.connect()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/pymysql/connections.py", line 588, in connect
+    self._request_authentication()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/pymysql/connections.py", line 874, in _request_authentication
+    auth_packet = _auth.caching_sha2_password_auth(self, auth_packet)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/pymysql/_auth.py", line 327, in caching_sha2_password_auth
+    pkt = _roundtrip(conn, data)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/pymysql/_auth.py", line 181, in _roundtrip
+    pkt = conn._read_packet()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/pymysql/connections.py", line 676, in _read_packet
+    packet.raise_for_error()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/pymysql/protocol.py", line 223, in raise_for_error
+    err.raise_mysql_exception(self._data)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/pymysql/err.py", line 107, in raise_mysql_exception
+    raise errorclass(errno, errval)
+pymysql.err.OperationalError: (1045, "Access denied for user 'root'@'172.25.0.1' (using password: YES)")
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask_restful/__init__.py", line 468, in wrapper
+    resp = resource(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/views.py", line 89, in view
+    return self.dispatch_request(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask_restful/__init__.py", line 583, in dispatch_request
+    resp = meth(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask_httpauth.py", line 380, in decorated
+    return selected_auth.login_required(role=role,
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask_httpauth.py", line 149, in decorated
+    user = self.authenticate(auth, password)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask_httpauth.py", line 220, in authenticate
+    return self.verify_password_callback(username, client_password)
+  File "/Users/herui/Desktop/flask-restful/authentication/token.py", line 23, in verify_password
+    user = User.query.filter_by(email=username).first()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 3429, in first
+    ret = list(self[0:1])
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 3203, in __getitem__
+    return list(res)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 3535, in __iter__
+    return self._execute_and_instances(context)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 3556, in _execute_and_instances
+    conn = self._get_bind_args(
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 3571, in _get_bind_args
+    return fn(
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 3550, in _connection_from_session
+    conn = self.session.connection(**kw)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 1138, in connection
+    return self._connection_for_bind(
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 1146, in _connection_for_bind
+    return self.transaction._connection_for_bind(
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 433, in _connection_for_bind
+    conn = bind._contextual_connect()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 2302, in _contextual_connect
+    self._wrap_pool_connect(self.pool.connect, None),
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 2339, in _wrap_pool_connect
+    Connection._handle_dbapi_exception_noconnection(
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1583, in _handle_dbapi_exception_noconnection
+    util.raise_(
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/util/compat.py", line 182, in raise_
+    raise exception
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 2336, in _wrap_pool_connect
+    return fn()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 364, in connect
+    return _ConnectionFairy._checkout(self)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 778, in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 495, in checkout
+    rec = pool._do_get()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/pool/impl.py", line 140, in _do_get
+    self._dec_overflow()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/util/langhelpers.py", line 68, in __exit__
+    compat.raise_(
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/util/compat.py", line 182, in raise_
+    raise exception
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/pool/impl.py", line 137, in _do_get
+    return self._create_connection()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 309, in _create_connection
+    return _ConnectionRecord(self)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 440, in __init__
+    self.__connect(first_connect_check=True)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 661, in __connect
+    pool.logger.debug("Error on connect(): %s", e)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/util/langhelpers.py", line 68, in __exit__
+    compat.raise_(
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/util/compat.py", line 182, in raise_
+    raise exception
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 656, in __connect
+    connection = pool._invoke_creator(self)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/engine/strategies.py", line 114, in connect
+    return dialect.connect(*cargs, **cparams)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/engine/default.py", line 493, in connect
+    return self.dbapi.connect(*cargs, **cparams)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/pymysql/__init__.py", line 94, in Connect
+    return Connection(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/pymysql/connections.py", line 327, in __init__
+    self.connect()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/pymysql/connections.py", line 588, in connect
+    self._request_authentication()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/pymysql/connections.py", line 874, in _request_authentication
+    auth_packet = _auth.caching_sha2_password_auth(self, auth_packet)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/pymysql/_auth.py", line 327, in caching_sha2_password_auth
+    pkt = _roundtrip(conn, data)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/pymysql/_auth.py", line 181, in _roundtrip
+    pkt = conn._read_packet()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/pymysql/connections.py", line 676, in _read_packet
+    packet.raise_for_error()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/pymysql/protocol.py", line 223, in raise_for_error
+    err.raise_mysql_exception(self._data)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/pymysql/err.py", line 107, in raise_mysql_exception
+    raise errorclass(errno, errval)
+sqlalchemy.exc.OperationalError: (pymysql.err.OperationalError) (1045, "Access denied for user 'root'@'172.25.0.1' (using password: YES)")
+(Background on this error at: http://sqlalche.me/e/13/e3q8)
+[2021-01-06 14:22:59,187] [ERROR] [app.py.handle_exception: 73] [16818::140632938555856] (pymysql.err.OperationalError) (1045, "Access denied for user 'root'@'172.25.0.1' (using password: YES)")
+(Background on this error at: http://sqlalche.me/e/13/e3q8)
+Traceback (most recent call last):
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 2336, in _wrap_pool_connect
+    return fn()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 364, in connect
+    return _ConnectionFairy._checkout(self)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 778, in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 495, in checkout
+    rec = pool._do_get()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/pool/impl.py", line 140, in _do_get
+    self._dec_overflow()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/util/langhelpers.py", line 68, in __exit__
+    compat.raise_(
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/util/compat.py", line 182, in raise_
+    raise exception
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/pool/impl.py", line 137, in _do_get
+    return self._create_connection()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 309, in _create_connection
+    return _ConnectionRecord(self)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 440, in __init__
+    self.__connect(first_connect_check=True)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 661, in __connect
+    pool.logger.debug("Error on connect(): %s", e)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/util/langhelpers.py", line 68, in __exit__
+    compat.raise_(
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/util/compat.py", line 182, in raise_
+    raise exception
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 656, in __connect
+    connection = pool._invoke_creator(self)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/engine/strategies.py", line 114, in connect
+    return dialect.connect(*cargs, **cparams)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/engine/default.py", line 493, in connect
+    return self.dbapi.connect(*cargs, **cparams)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/pymysql/__init__.py", line 94, in Connect
+    return Connection(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/pymysql/connections.py", line 327, in __init__
+    self.connect()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/pymysql/connections.py", line 588, in connect
+    self._request_authentication()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/pymysql/connections.py", line 874, in _request_authentication
+    auth_packet = _auth.caching_sha2_password_auth(self, auth_packet)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/pymysql/_auth.py", line 327, in caching_sha2_password_auth
+    pkt = _roundtrip(conn, data)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/pymysql/_auth.py", line 181, in _roundtrip
+    pkt = conn._read_packet()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/pymysql/connections.py", line 676, in _read_packet
+    packet.raise_for_error()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/pymysql/protocol.py", line 223, in raise_for_error
+    err.raise_mysql_exception(self._data)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/pymysql/err.py", line 107, in raise_mysql_exception
+    raise errorclass(errno, errval)
+pymysql.err.OperationalError: (1045, "Access denied for user 'root'@'172.25.0.1' (using password: YES)")
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask_restful/__init__.py", line 468, in wrapper
+    resp = resource(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/views.py", line 89, in view
+    return self.dispatch_request(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask_restful/__init__.py", line 583, in dispatch_request
+    resp = meth(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask_httpauth.py", line 380, in decorated
+    return selected_auth.login_required(role=role,
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask_httpauth.py", line 149, in decorated
+    user = self.authenticate(auth, password)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask_httpauth.py", line 220, in authenticate
+    return self.verify_password_callback(username, client_password)
+  File "/Users/herui/Desktop/flask-restful/authentication/token.py", line 23, in verify_password
+    user = User.query.filter_by(email=username).first()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 3429, in first
+    ret = list(self[0:1])
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 3203, in __getitem__
+    return list(res)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 3535, in __iter__
+    return self._execute_and_instances(context)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 3556, in _execute_and_instances
+    conn = self._get_bind_args(
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 3571, in _get_bind_args
+    return fn(
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 3550, in _connection_from_session
+    conn = self.session.connection(**kw)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 1138, in connection
+    return self._connection_for_bind(
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 1146, in _connection_for_bind
+    return self.transaction._connection_for_bind(
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 433, in _connection_for_bind
+    conn = bind._contextual_connect()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 2302, in _contextual_connect
+    self._wrap_pool_connect(self.pool.connect, None),
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 2339, in _wrap_pool_connect
+    Connection._handle_dbapi_exception_noconnection(
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1583, in _handle_dbapi_exception_noconnection
+    util.raise_(
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/util/compat.py", line 182, in raise_
+    raise exception
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 2336, in _wrap_pool_connect
+    return fn()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 364, in connect
+    return _ConnectionFairy._checkout(self)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 778, in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 495, in checkout
+    rec = pool._do_get()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/pool/impl.py", line 140, in _do_get
+    self._dec_overflow()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/util/langhelpers.py", line 68, in __exit__
+    compat.raise_(
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/util/compat.py", line 182, in raise_
+    raise exception
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/pool/impl.py", line 137, in _do_get
+    return self._create_connection()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 309, in _create_connection
+    return _ConnectionRecord(self)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 440, in __init__
+    self.__connect(first_connect_check=True)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 661, in __connect
+    pool.logger.debug("Error on connect(): %s", e)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/util/langhelpers.py", line 68, in __exit__
+    compat.raise_(
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/util/compat.py", line 182, in raise_
+    raise exception
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 656, in __connect
+    connection = pool._invoke_creator(self)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/engine/strategies.py", line 114, in connect
+    return dialect.connect(*cargs, **cparams)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/engine/default.py", line 493, in connect
+    return self.dbapi.connect(*cargs, **cparams)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/pymysql/__init__.py", line 94, in Connect
+    return Connection(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/pymysql/connections.py", line 327, in __init__
+    self.connect()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/pymysql/connections.py", line 588, in connect
+    self._request_authentication()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/pymysql/connections.py", line 874, in _request_authentication
+    auth_packet = _auth.caching_sha2_password_auth(self, auth_packet)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/pymysql/_auth.py", line 327, in caching_sha2_password_auth
+    pkt = _roundtrip(conn, data)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/pymysql/_auth.py", line 181, in _roundtrip
+    pkt = conn._read_packet()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/pymysql/connections.py", line 676, in _read_packet
+    packet.raise_for_error()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/pymysql/protocol.py", line 223, in raise_for_error
+    err.raise_mysql_exception(self._data)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/pymysql/err.py", line 107, in raise_mysql_exception
+    raise errorclass(errno, errval)
+sqlalchemy.exc.OperationalError: (pymysql.err.OperationalError) (1045, "Access denied for user 'root'@'172.25.0.1' (using password: YES)")
+(Background on this error at: http://sqlalche.me/e/13/e3q8)
+[2021-01-06 14:30:04,818] [ERROR] [app.py.log_exception:1891] [16818::140632938555856] Exception on /api/users [GET]
+Traceback (most recent call last):
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 2336, in _wrap_pool_connect
+    return fn()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 364, in connect
+    return _ConnectionFairy._checkout(self)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 778, in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 495, in checkout
+    rec = pool._do_get()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/pool/impl.py", line 140, in _do_get
+    self._dec_overflow()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/util/langhelpers.py", line 68, in __exit__
+    compat.raise_(
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/util/compat.py", line 182, in raise_
+    raise exception
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/pool/impl.py", line 137, in _do_get
+    return self._create_connection()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 309, in _create_connection
+    return _ConnectionRecord(self)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 440, in __init__
+    self.__connect(first_connect_check=True)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 661, in __connect
+    pool.logger.debug("Error on connect(): %s", e)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/util/langhelpers.py", line 68, in __exit__
+    compat.raise_(
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/util/compat.py", line 182, in raise_
+    raise exception
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 656, in __connect
+    connection = pool._invoke_creator(self)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/engine/strategies.py", line 114, in connect
+    return dialect.connect(*cargs, **cparams)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/engine/default.py", line 493, in connect
+    return self.dbapi.connect(*cargs, **cparams)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/pymysql/__init__.py", line 94, in Connect
+    return Connection(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/pymysql/connections.py", line 327, in __init__
+    self.connect()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/pymysql/connections.py", line 588, in connect
+    self._request_authentication()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/pymysql/connections.py", line 874, in _request_authentication
+    auth_packet = _auth.caching_sha2_password_auth(self, auth_packet)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/pymysql/_auth.py", line 327, in caching_sha2_password_auth
+    pkt = _roundtrip(conn, data)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/pymysql/_auth.py", line 181, in _roundtrip
+    pkt = conn._read_packet()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/pymysql/connections.py", line 676, in _read_packet
+    packet.raise_for_error()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/pymysql/protocol.py", line 223, in raise_for_error
+    err.raise_mysql_exception(self._data)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/pymysql/err.py", line 107, in raise_mysql_exception
+    raise errorclass(errno, errval)
+pymysql.err.OperationalError: (1045, "Access denied for user 'root'@'172.25.0.1' (using password: YES)")
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask_restful/__init__.py", line 468, in wrapper
+    resp = resource(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/views.py", line 89, in view
+    return self.dispatch_request(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask_restful/__init__.py", line 583, in dispatch_request
+    resp = meth(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask_httpauth.py", line 380, in decorated
+    return selected_auth.login_required(role=role,
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask_httpauth.py", line 149, in decorated
+    user = self.authenticate(auth, password)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask_httpauth.py", line 220, in authenticate
+    return self.verify_password_callback(username, client_password)
+  File "/Users/herui/Desktop/flask-restful/authentication/token.py", line 23, in verify_password
+    user = User.query.filter_by(email=username).first()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 3429, in first
+    ret = list(self[0:1])
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 3203, in __getitem__
+    return list(res)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 3535, in __iter__
+    return self._execute_and_instances(context)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 3556, in _execute_and_instances
+    conn = self._get_bind_args(
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 3571, in _get_bind_args
+    return fn(
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 3550, in _connection_from_session
+    conn = self.session.connection(**kw)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 1138, in connection
+    return self._connection_for_bind(
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 1146, in _connection_for_bind
+    return self.transaction._connection_for_bind(
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 433, in _connection_for_bind
+    conn = bind._contextual_connect()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 2302, in _contextual_connect
+    self._wrap_pool_connect(self.pool.connect, None),
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 2339, in _wrap_pool_connect
+    Connection._handle_dbapi_exception_noconnection(
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1583, in _handle_dbapi_exception_noconnection
+    util.raise_(
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/util/compat.py", line 182, in raise_
+    raise exception
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 2336, in _wrap_pool_connect
+    return fn()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 364, in connect
+    return _ConnectionFairy._checkout(self)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 778, in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 495, in checkout
+    rec = pool._do_get()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/pool/impl.py", line 140, in _do_get
+    self._dec_overflow()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/util/langhelpers.py", line 68, in __exit__
+    compat.raise_(
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/util/compat.py", line 182, in raise_
+    raise exception
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/pool/impl.py", line 137, in _do_get
+    return self._create_connection()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 309, in _create_connection
+    return _ConnectionRecord(self)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 440, in __init__
+    self.__connect(first_connect_check=True)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 661, in __connect
+    pool.logger.debug("Error on connect(): %s", e)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/util/langhelpers.py", line 68, in __exit__
+    compat.raise_(
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/util/compat.py", line 182, in raise_
+    raise exception
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 656, in __connect
+    connection = pool._invoke_creator(self)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/engine/strategies.py", line 114, in connect
+    return dialect.connect(*cargs, **cparams)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/engine/default.py", line 493, in connect
+    return self.dbapi.connect(*cargs, **cparams)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/pymysql/__init__.py", line 94, in Connect
+    return Connection(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/pymysql/connections.py", line 327, in __init__
+    self.connect()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/pymysql/connections.py", line 588, in connect
+    self._request_authentication()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/pymysql/connections.py", line 874, in _request_authentication
+    auth_packet = _auth.caching_sha2_password_auth(self, auth_packet)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/pymysql/_auth.py", line 327, in caching_sha2_password_auth
+    pkt = _roundtrip(conn, data)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/pymysql/_auth.py", line 181, in _roundtrip
+    pkt = conn._read_packet()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/pymysql/connections.py", line 676, in _read_packet
+    packet.raise_for_error()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/pymysql/protocol.py", line 223, in raise_for_error
+    err.raise_mysql_exception(self._data)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/pymysql/err.py", line 107, in raise_mysql_exception
+    raise errorclass(errno, errval)
+sqlalchemy.exc.OperationalError: (pymysql.err.OperationalError) (1045, "Access denied for user 'root'@'172.25.0.1' (using password: YES)")
+(Background on this error at: http://sqlalche.me/e/13/e3q8)
+[2021-01-06 14:30:04,828] [ERROR] [app.py.handle_exception: 73] [16818::140632938555856] (pymysql.err.OperationalError) (1045, "Access denied for user 'root'@'172.25.0.1' (using password: YES)")
+(Background on this error at: http://sqlalche.me/e/13/e3q8)
+Traceback (most recent call last):
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 2336, in _wrap_pool_connect
+    return fn()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 364, in connect
+    return _ConnectionFairy._checkout(self)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 778, in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 495, in checkout
+    rec = pool._do_get()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/pool/impl.py", line 140, in _do_get
+    self._dec_overflow()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/util/langhelpers.py", line 68, in __exit__
+    compat.raise_(
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/util/compat.py", line 182, in raise_
+    raise exception
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/pool/impl.py", line 137, in _do_get
+    return self._create_connection()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 309, in _create_connection
+    return _ConnectionRecord(self)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 440, in __init__
+    self.__connect(first_connect_check=True)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 661, in __connect
+    pool.logger.debug("Error on connect(): %s", e)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/util/langhelpers.py", line 68, in __exit__
+    compat.raise_(
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/util/compat.py", line 182, in raise_
+    raise exception
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 656, in __connect
+    connection = pool._invoke_creator(self)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/engine/strategies.py", line 114, in connect
+    return dialect.connect(*cargs, **cparams)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/engine/default.py", line 493, in connect
+    return self.dbapi.connect(*cargs, **cparams)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/pymysql/__init__.py", line 94, in Connect
+    return Connection(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/pymysql/connections.py", line 327, in __init__
+    self.connect()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/pymysql/connections.py", line 588, in connect
+    self._request_authentication()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/pymysql/connections.py", line 874, in _request_authentication
+    auth_packet = _auth.caching_sha2_password_auth(self, auth_packet)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/pymysql/_auth.py", line 327, in caching_sha2_password_auth
+    pkt = _roundtrip(conn, data)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/pymysql/_auth.py", line 181, in _roundtrip
+    pkt = conn._read_packet()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/pymysql/connections.py", line 676, in _read_packet
+    packet.raise_for_error()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/pymysql/protocol.py", line 223, in raise_for_error
+    err.raise_mysql_exception(self._data)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/pymysql/err.py", line 107, in raise_mysql_exception
+    raise errorclass(errno, errval)
+pymysql.err.OperationalError: (1045, "Access denied for user 'root'@'172.25.0.1' (using password: YES)")
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask_restful/__init__.py", line 468, in wrapper
+    resp = resource(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/views.py", line 89, in view
+    return self.dispatch_request(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask_restful/__init__.py", line 583, in dispatch_request
+    resp = meth(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask_httpauth.py", line 380, in decorated
+    return selected_auth.login_required(role=role,
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask_httpauth.py", line 149, in decorated
+    user = self.authenticate(auth, password)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask_httpauth.py", line 220, in authenticate
+    return self.verify_password_callback(username, client_password)
+  File "/Users/herui/Desktop/flask-restful/authentication/token.py", line 23, in verify_password
+    user = User.query.filter_by(email=username).first()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 3429, in first
+    ret = list(self[0:1])
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 3203, in __getitem__
+    return list(res)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 3535, in __iter__
+    return self._execute_and_instances(context)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 3556, in _execute_and_instances
+    conn = self._get_bind_args(
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 3571, in _get_bind_args
+    return fn(
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 3550, in _connection_from_session
+    conn = self.session.connection(**kw)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 1138, in connection
+    return self._connection_for_bind(
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 1146, in _connection_for_bind
+    return self.transaction._connection_for_bind(
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 433, in _connection_for_bind
+    conn = bind._contextual_connect()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 2302, in _contextual_connect
+    self._wrap_pool_connect(self.pool.connect, None),
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 2339, in _wrap_pool_connect
+    Connection._handle_dbapi_exception_noconnection(
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1583, in _handle_dbapi_exception_noconnection
+    util.raise_(
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/util/compat.py", line 182, in raise_
+    raise exception
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 2336, in _wrap_pool_connect
+    return fn()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 364, in connect
+    return _ConnectionFairy._checkout(self)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 778, in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 495, in checkout
+    rec = pool._do_get()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/pool/impl.py", line 140, in _do_get
+    self._dec_overflow()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/util/langhelpers.py", line 68, in __exit__
+    compat.raise_(
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/util/compat.py", line 182, in raise_
+    raise exception
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/pool/impl.py", line 137, in _do_get
+    return self._create_connection()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 309, in _create_connection
+    return _ConnectionRecord(self)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 440, in __init__
+    self.__connect(first_connect_check=True)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 661, in __connect
+    pool.logger.debug("Error on connect(): %s", e)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/util/langhelpers.py", line 68, in __exit__
+    compat.raise_(
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/util/compat.py", line 182, in raise_
+    raise exception
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 656, in __connect
+    connection = pool._invoke_creator(self)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/engine/strategies.py", line 114, in connect
+    return dialect.connect(*cargs, **cparams)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/engine/default.py", line 493, in connect
+    return self.dbapi.connect(*cargs, **cparams)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/pymysql/__init__.py", line 94, in Connect
+    return Connection(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/pymysql/connections.py", line 327, in __init__
+    self.connect()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/pymysql/connections.py", line 588, in connect
+    self._request_authentication()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/pymysql/connections.py", line 874, in _request_authentication
+    auth_packet = _auth.caching_sha2_password_auth(self, auth_packet)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/pymysql/_auth.py", line 327, in caching_sha2_password_auth
+    pkt = _roundtrip(conn, data)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/pymysql/_auth.py", line 181, in _roundtrip
+    pkt = conn._read_packet()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/pymysql/connections.py", line 676, in _read_packet
+    packet.raise_for_error()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/pymysql/protocol.py", line 223, in raise_for_error
+    err.raise_mysql_exception(self._data)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/pymysql/err.py", line 107, in raise_mysql_exception
+    raise errorclass(errno, errval)
+sqlalchemy.exc.OperationalError: (pymysql.err.OperationalError) (1045, "Access denied for user 'root'@'172.25.0.1' (using password: YES)")
+(Background on this error at: http://sqlalche.me/e/13/e3q8)
+[2021-01-06 14:30:27,402] [INFO] [server.py.run: 18] [31059::140455723964544] Server start at 0.0.0.0:24579
+[2021-01-06 14:30:30,319] [ERROR] [app.py.log_exception:1891] [31059::140455745988528] Exception on /api/users [GET]
+Traceback (most recent call last):
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 2336, in _wrap_pool_connect
+    return fn()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 364, in connect
+    return _ConnectionFairy._checkout(self)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 778, in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 495, in checkout
+    rec = pool._do_get()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/pool/impl.py", line 140, in _do_get
+    self._dec_overflow()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/util/langhelpers.py", line 68, in __exit__
+    compat.raise_(
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/util/compat.py", line 182, in raise_
+    raise exception
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/pool/impl.py", line 137, in _do_get
+    return self._create_connection()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 309, in _create_connection
+    return _ConnectionRecord(self)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 440, in __init__
+    self.__connect(first_connect_check=True)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 661, in __connect
+    pool.logger.debug("Error on connect(): %s", e)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/util/langhelpers.py", line 68, in __exit__
+    compat.raise_(
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/util/compat.py", line 182, in raise_
+    raise exception
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 656, in __connect
+    connection = pool._invoke_creator(self)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/engine/strategies.py", line 114, in connect
+    return dialect.connect(*cargs, **cparams)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/engine/default.py", line 493, in connect
+    return self.dbapi.connect(*cargs, **cparams)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/pymysql/__init__.py", line 94, in Connect
+    return Connection(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/pymysql/connections.py", line 327, in __init__
+    self.connect()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/pymysql/connections.py", line 588, in connect
+    self._request_authentication()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/pymysql/connections.py", line 874, in _request_authentication
+    auth_packet = _auth.caching_sha2_password_auth(self, auth_packet)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/pymysql/_auth.py", line 327, in caching_sha2_password_auth
+    pkt = _roundtrip(conn, data)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/pymysql/_auth.py", line 181, in _roundtrip
+    pkt = conn._read_packet()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/pymysql/connections.py", line 676, in _read_packet
+    packet.raise_for_error()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/pymysql/protocol.py", line 223, in raise_for_error
+    err.raise_mysql_exception(self._data)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/pymysql/err.py", line 107, in raise_mysql_exception
+    raise errorclass(errno, errval)
+pymysql.err.OperationalError: (1045, "Access denied for user 'root'@'172.25.0.1' (using password: YES)")
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask_restful/__init__.py", line 468, in wrapper
+    resp = resource(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/views.py", line 89, in view
+    return self.dispatch_request(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask_restful/__init__.py", line 583, in dispatch_request
+    resp = meth(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask_httpauth.py", line 380, in decorated
+    return selected_auth.login_required(role=role,
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask_httpauth.py", line 149, in decorated
+    user = self.authenticate(auth, password)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask_httpauth.py", line 220, in authenticate
+    return self.verify_password_callback(username, client_password)
+  File "/Users/herui/Desktop/flask-restful/authentication/token.py", line 23, in verify_password
+    user = User.query.filter_by(email=username).first()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 3429, in first
+    ret = list(self[0:1])
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 3203, in __getitem__
+    return list(res)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 3535, in __iter__
+    return self._execute_and_instances(context)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 3556, in _execute_and_instances
+    conn = self._get_bind_args(
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 3571, in _get_bind_args
+    return fn(
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 3550, in _connection_from_session
+    conn = self.session.connection(**kw)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 1138, in connection
+    return self._connection_for_bind(
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 1146, in _connection_for_bind
+    return self.transaction._connection_for_bind(
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 433, in _connection_for_bind
+    conn = bind._contextual_connect()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 2302, in _contextual_connect
+    self._wrap_pool_connect(self.pool.connect, None),
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 2339, in _wrap_pool_connect
+    Connection._handle_dbapi_exception_noconnection(
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1583, in _handle_dbapi_exception_noconnection
+    util.raise_(
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/util/compat.py", line 182, in raise_
+    raise exception
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 2336, in _wrap_pool_connect
+    return fn()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 364, in connect
+    return _ConnectionFairy._checkout(self)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 778, in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 495, in checkout
+    rec = pool._do_get()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/pool/impl.py", line 140, in _do_get
+    self._dec_overflow()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/util/langhelpers.py", line 68, in __exit__
+    compat.raise_(
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/util/compat.py", line 182, in raise_
+    raise exception
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/pool/impl.py", line 137, in _do_get
+    return self._create_connection()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 309, in _create_connection
+    return _ConnectionRecord(self)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 440, in __init__
+    self.__connect(first_connect_check=True)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 661, in __connect
+    pool.logger.debug("Error on connect(): %s", e)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/util/langhelpers.py", line 68, in __exit__
+    compat.raise_(
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/util/compat.py", line 182, in raise_
+    raise exception
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 656, in __connect
+    connection = pool._invoke_creator(self)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/engine/strategies.py", line 114, in connect
+    return dialect.connect(*cargs, **cparams)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/engine/default.py", line 493, in connect
+    return self.dbapi.connect(*cargs, **cparams)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/pymysql/__init__.py", line 94, in Connect
+    return Connection(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/pymysql/connections.py", line 327, in __init__
+    self.connect()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/pymysql/connections.py", line 588, in connect
+    self._request_authentication()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/pymysql/connections.py", line 874, in _request_authentication
+    auth_packet = _auth.caching_sha2_password_auth(self, auth_packet)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/pymysql/_auth.py", line 327, in caching_sha2_password_auth
+    pkt = _roundtrip(conn, data)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/pymysql/_auth.py", line 181, in _roundtrip
+    pkt = conn._read_packet()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/pymysql/connections.py", line 676, in _read_packet
+    packet.raise_for_error()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/pymysql/protocol.py", line 223, in raise_for_error
+    err.raise_mysql_exception(self._data)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/pymysql/err.py", line 107, in raise_mysql_exception
+    raise errorclass(errno, errval)
+sqlalchemy.exc.OperationalError: (pymysql.err.OperationalError) (1045, "Access denied for user 'root'@'172.25.0.1' (using password: YES)")
+(Background on this error at: http://sqlalche.me/e/13/e3q8)
+[2021-01-06 14:30:30,344] [ERROR] [app.py.handle_exception: 73] [31059::140455745988528] (pymysql.err.OperationalError) (1045, "Access denied for user 'root'@'172.25.0.1' (using password: YES)")
+(Background on this error at: http://sqlalche.me/e/13/e3q8)
+Traceback (most recent call last):
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 2336, in _wrap_pool_connect
+    return fn()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 364, in connect
+    return _ConnectionFairy._checkout(self)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 778, in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 495, in checkout
+    rec = pool._do_get()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/pool/impl.py", line 140, in _do_get
+    self._dec_overflow()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/util/langhelpers.py", line 68, in __exit__
+    compat.raise_(
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/util/compat.py", line 182, in raise_
+    raise exception
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/pool/impl.py", line 137, in _do_get
+    return self._create_connection()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 309, in _create_connection
+    return _ConnectionRecord(self)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 440, in __init__
+    self.__connect(first_connect_check=True)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 661, in __connect
+    pool.logger.debug("Error on connect(): %s", e)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/util/langhelpers.py", line 68, in __exit__
+    compat.raise_(
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/util/compat.py", line 182, in raise_
+    raise exception
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 656, in __connect
+    connection = pool._invoke_creator(self)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/engine/strategies.py", line 114, in connect
+    return dialect.connect(*cargs, **cparams)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/engine/default.py", line 493, in connect
+    return self.dbapi.connect(*cargs, **cparams)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/pymysql/__init__.py", line 94, in Connect
+    return Connection(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/pymysql/connections.py", line 327, in __init__
+    self.connect()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/pymysql/connections.py", line 588, in connect
+    self._request_authentication()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/pymysql/connections.py", line 874, in _request_authentication
+    auth_packet = _auth.caching_sha2_password_auth(self, auth_packet)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/pymysql/_auth.py", line 327, in caching_sha2_password_auth
+    pkt = _roundtrip(conn, data)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/pymysql/_auth.py", line 181, in _roundtrip
+    pkt = conn._read_packet()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/pymysql/connections.py", line 676, in _read_packet
+    packet.raise_for_error()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/pymysql/protocol.py", line 223, in raise_for_error
+    err.raise_mysql_exception(self._data)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/pymysql/err.py", line 107, in raise_mysql_exception
+    raise errorclass(errno, errval)
+pymysql.err.OperationalError: (1045, "Access denied for user 'root'@'172.25.0.1' (using password: YES)")
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask_restful/__init__.py", line 468, in wrapper
+    resp = resource(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/views.py", line 89, in view
+    return self.dispatch_request(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask_restful/__init__.py", line 583, in dispatch_request
+    resp = meth(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask_httpauth.py", line 380, in decorated
+    return selected_auth.login_required(role=role,
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask_httpauth.py", line 149, in decorated
+    user = self.authenticate(auth, password)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask_httpauth.py", line 220, in authenticate
+    return self.verify_password_callback(username, client_password)
+  File "/Users/herui/Desktop/flask-restful/authentication/token.py", line 23, in verify_password
+    user = User.query.filter_by(email=username).first()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 3429, in first
+    ret = list(self[0:1])
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 3203, in __getitem__
+    return list(res)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 3535, in __iter__
+    return self._execute_and_instances(context)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 3556, in _execute_and_instances
+    conn = self._get_bind_args(
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 3571, in _get_bind_args
+    return fn(
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 3550, in _connection_from_session
+    conn = self.session.connection(**kw)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 1138, in connection
+    return self._connection_for_bind(
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 1146, in _connection_for_bind
+    return self.transaction._connection_for_bind(
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 433, in _connection_for_bind
+    conn = bind._contextual_connect()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 2302, in _contextual_connect
+    self._wrap_pool_connect(self.pool.connect, None),
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 2339, in _wrap_pool_connect
+    Connection._handle_dbapi_exception_noconnection(
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1583, in _handle_dbapi_exception_noconnection
+    util.raise_(
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/util/compat.py", line 182, in raise_
+    raise exception
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 2336, in _wrap_pool_connect
+    return fn()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 364, in connect
+    return _ConnectionFairy._checkout(self)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 778, in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 495, in checkout
+    rec = pool._do_get()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/pool/impl.py", line 140, in _do_get
+    self._dec_overflow()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/util/langhelpers.py", line 68, in __exit__
+    compat.raise_(
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/util/compat.py", line 182, in raise_
+    raise exception
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/pool/impl.py", line 137, in _do_get
+    return self._create_connection()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 309, in _create_connection
+    return _ConnectionRecord(self)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 440, in __init__
+    self.__connect(first_connect_check=True)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 661, in __connect
+    pool.logger.debug("Error on connect(): %s", e)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/util/langhelpers.py", line 68, in __exit__
+    compat.raise_(
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/util/compat.py", line 182, in raise_
+    raise exception
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 656, in __connect
+    connection = pool._invoke_creator(self)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/engine/strategies.py", line 114, in connect
+    return dialect.connect(*cargs, **cparams)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/engine/default.py", line 493, in connect
+    return self.dbapi.connect(*cargs, **cparams)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/pymysql/__init__.py", line 94, in Connect
+    return Connection(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/pymysql/connections.py", line 327, in __init__
+    self.connect()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/pymysql/connections.py", line 588, in connect
+    self._request_authentication()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/pymysql/connections.py", line 874, in _request_authentication
+    auth_packet = _auth.caching_sha2_password_auth(self, auth_packet)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/pymysql/_auth.py", line 327, in caching_sha2_password_auth
+    pkt = _roundtrip(conn, data)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/pymysql/_auth.py", line 181, in _roundtrip
+    pkt = conn._read_packet()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/pymysql/connections.py", line 676, in _read_packet
+    packet.raise_for_error()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/pymysql/protocol.py", line 223, in raise_for_error
+    err.raise_mysql_exception(self._data)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/pymysql/err.py", line 107, in raise_mysql_exception
+    raise errorclass(errno, errval)
+sqlalchemy.exc.OperationalError: (pymysql.err.OperationalError) (1045, "Access denied for user 'root'@'172.25.0.1' (using password: YES)")
+(Background on this error at: http://sqlalche.me/e/13/e3q8)
+[2021-01-06 16:28:10,381] [INFO] [server.py.run: 18] [36899::140611080984704] Server start at 0.0.0.0:24579
+[2021-01-06 16:28:34,857] [INFO] [server.py.run: 18] [37768::140576335370368] Server start at 0.0.0.0:24579
+[2021-01-06 16:28:38,376] [INFO] [server.py.run: 18] [37773::140397372807296] Server start at 0.0.0.0:24579
+[2021-01-06 16:28:47,592] [INFO] [server.py.run: 18] [37780::140203176532096] Server start at 0.0.0.0:24579
+[2021-01-06 16:28:51,010] [ERROR] [app.py.log_exception:1891] [37780::140203198556624] Exception on /api/users [GET]
+Traceback (most recent call last):
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 2336, in _wrap_pool_connect
+    return fn()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 364, in connect
+    return _ConnectionFairy._checkout(self)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 778, in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 495, in checkout
+    rec = pool._do_get()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/pool/impl.py", line 140, in _do_get
+    self._dec_overflow()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/util/langhelpers.py", line 68, in __exit__
+    compat.raise_(
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/util/compat.py", line 182, in raise_
+    raise exception
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/pool/impl.py", line 137, in _do_get
+    return self._create_connection()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 309, in _create_connection
+    return _ConnectionRecord(self)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 440, in __init__
+    self.__connect(first_connect_check=True)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 661, in __connect
+    pool.logger.debug("Error on connect(): %s", e)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/util/langhelpers.py", line 68, in __exit__
+    compat.raise_(
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/util/compat.py", line 182, in raise_
+    raise exception
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 656, in __connect
+    connection = pool._invoke_creator(self)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/engine/strategies.py", line 114, in connect
+    return dialect.connect(*cargs, **cparams)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/engine/default.py", line 493, in connect
+    return self.dbapi.connect(*cargs, **cparams)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/pymysql/__init__.py", line 94, in Connect
+    return Connection(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/pymysql/connections.py", line 327, in __init__
+    self.connect()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/pymysql/connections.py", line 588, in connect
+    self._request_authentication()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/pymysql/connections.py", line 874, in _request_authentication
+    auth_packet = _auth.caching_sha2_password_auth(self, auth_packet)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/pymysql/_auth.py", line 327, in caching_sha2_password_auth
+    pkt = _roundtrip(conn, data)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/pymysql/_auth.py", line 181, in _roundtrip
+    pkt = conn._read_packet()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/pymysql/connections.py", line 676, in _read_packet
+    packet.raise_for_error()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/pymysql/protocol.py", line 223, in raise_for_error
+    err.raise_mysql_exception(self._data)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/pymysql/err.py", line 107, in raise_mysql_exception
+    raise errorclass(errno, errval)
+pymysql.err.OperationalError: (1045, "Access denied for user 'root'@'172.25.0.1' (using password: YES)")
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask_restful/__init__.py", line 468, in wrapper
+    resp = resource(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/views.py", line 89, in view
+    return self.dispatch_request(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask_restful/__init__.py", line 583, in dispatch_request
+    resp = meth(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask_httpauth.py", line 380, in decorated
+    return selected_auth.login_required(role=role,
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask_httpauth.py", line 149, in decorated
+    user = self.authenticate(auth, password)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask_httpauth.py", line 220, in authenticate
+    return self.verify_password_callback(username, client_password)
+  File "/Users/herui/Desktop/flask-restful/authentication/token.py", line 23, in verify_password
+    user = User.query.filter_by(email=username).first()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 3429, in first
+    ret = list(self[0:1])
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 3203, in __getitem__
+    return list(res)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 3535, in __iter__
+    return self._execute_and_instances(context)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 3556, in _execute_and_instances
+    conn = self._get_bind_args(
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 3571, in _get_bind_args
+    return fn(
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 3550, in _connection_from_session
+    conn = self.session.connection(**kw)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 1138, in connection
+    return self._connection_for_bind(
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 1146, in _connection_for_bind
+    return self.transaction._connection_for_bind(
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 433, in _connection_for_bind
+    conn = bind._contextual_connect()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 2302, in _contextual_connect
+    self._wrap_pool_connect(self.pool.connect, None),
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 2339, in _wrap_pool_connect
+    Connection._handle_dbapi_exception_noconnection(
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1583, in _handle_dbapi_exception_noconnection
+    util.raise_(
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/util/compat.py", line 182, in raise_
+    raise exception
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 2336, in _wrap_pool_connect
+    return fn()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 364, in connect
+    return _ConnectionFairy._checkout(self)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 778, in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 495, in checkout
+    rec = pool._do_get()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/pool/impl.py", line 140, in _do_get
+    self._dec_overflow()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/util/langhelpers.py", line 68, in __exit__
+    compat.raise_(
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/util/compat.py", line 182, in raise_
+    raise exception
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/pool/impl.py", line 137, in _do_get
+    return self._create_connection()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 309, in _create_connection
+    return _ConnectionRecord(self)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 440, in __init__
+    self.__connect(first_connect_check=True)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 661, in __connect
+    pool.logger.debug("Error on connect(): %s", e)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/util/langhelpers.py", line 68, in __exit__
+    compat.raise_(
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/util/compat.py", line 182, in raise_
+    raise exception
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 656, in __connect
+    connection = pool._invoke_creator(self)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/engine/strategies.py", line 114, in connect
+    return dialect.connect(*cargs, **cparams)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/engine/default.py", line 493, in connect
+    return self.dbapi.connect(*cargs, **cparams)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/pymysql/__init__.py", line 94, in Connect
+    return Connection(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/pymysql/connections.py", line 327, in __init__
+    self.connect()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/pymysql/connections.py", line 588, in connect
+    self._request_authentication()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/pymysql/connections.py", line 874, in _request_authentication
+    auth_packet = _auth.caching_sha2_password_auth(self, auth_packet)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/pymysql/_auth.py", line 327, in caching_sha2_password_auth
+    pkt = _roundtrip(conn, data)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/pymysql/_auth.py", line 181, in _roundtrip
+    pkt = conn._read_packet()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/pymysql/connections.py", line 676, in _read_packet
+    packet.raise_for_error()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/pymysql/protocol.py", line 223, in raise_for_error
+    err.raise_mysql_exception(self._data)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/pymysql/err.py", line 107, in raise_mysql_exception
+    raise errorclass(errno, errval)
+sqlalchemy.exc.OperationalError: (pymysql.err.OperationalError) (1045, "Access denied for user 'root'@'172.25.0.1' (using password: YES)")
+(Background on this error at: http://sqlalche.me/e/13/e3q8)
+[2021-01-06 16:28:51,043] [ERROR] [app.py.handle_exception: 73] [37780::140203198556624] (pymysql.err.OperationalError) (1045, "Access denied for user 'root'@'172.25.0.1' (using password: YES)")
+(Background on this error at: http://sqlalche.me/e/13/e3q8)
+Traceback (most recent call last):
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 2336, in _wrap_pool_connect
+    return fn()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 364, in connect
+    return _ConnectionFairy._checkout(self)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 778, in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 495, in checkout
+    rec = pool._do_get()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/pool/impl.py", line 140, in _do_get
+    self._dec_overflow()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/util/langhelpers.py", line 68, in __exit__
+    compat.raise_(
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/util/compat.py", line 182, in raise_
+    raise exception
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/pool/impl.py", line 137, in _do_get
+    return self._create_connection()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 309, in _create_connection
+    return _ConnectionRecord(self)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 440, in __init__
+    self.__connect(first_connect_check=True)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 661, in __connect
+    pool.logger.debug("Error on connect(): %s", e)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/util/langhelpers.py", line 68, in __exit__
+    compat.raise_(
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/util/compat.py", line 182, in raise_
+    raise exception
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 656, in __connect
+    connection = pool._invoke_creator(self)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/engine/strategies.py", line 114, in connect
+    return dialect.connect(*cargs, **cparams)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/engine/default.py", line 493, in connect
+    return self.dbapi.connect(*cargs, **cparams)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/pymysql/__init__.py", line 94, in Connect
+    return Connection(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/pymysql/connections.py", line 327, in __init__
+    self.connect()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/pymysql/connections.py", line 588, in connect
+    self._request_authentication()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/pymysql/connections.py", line 874, in _request_authentication
+    auth_packet = _auth.caching_sha2_password_auth(self, auth_packet)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/pymysql/_auth.py", line 327, in caching_sha2_password_auth
+    pkt = _roundtrip(conn, data)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/pymysql/_auth.py", line 181, in _roundtrip
+    pkt = conn._read_packet()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/pymysql/connections.py", line 676, in _read_packet
+    packet.raise_for_error()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/pymysql/protocol.py", line 223, in raise_for_error
+    err.raise_mysql_exception(self._data)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/pymysql/err.py", line 107, in raise_mysql_exception
+    raise errorclass(errno, errval)
+pymysql.err.OperationalError: (1045, "Access denied for user 'root'@'172.25.0.1' (using password: YES)")
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask_restful/__init__.py", line 468, in wrapper
+    resp = resource(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/views.py", line 89, in view
+    return self.dispatch_request(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask_restful/__init__.py", line 583, in dispatch_request
+    resp = meth(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask_httpauth.py", line 380, in decorated
+    return selected_auth.login_required(role=role,
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask_httpauth.py", line 149, in decorated
+    user = self.authenticate(auth, password)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask_httpauth.py", line 220, in authenticate
+    return self.verify_password_callback(username, client_password)
+  File "/Users/herui/Desktop/flask-restful/authentication/token.py", line 23, in verify_password
+    user = User.query.filter_by(email=username).first()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 3429, in first
+    ret = list(self[0:1])
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 3203, in __getitem__
+    return list(res)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 3535, in __iter__
+    return self._execute_and_instances(context)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 3556, in _execute_and_instances
+    conn = self._get_bind_args(
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 3571, in _get_bind_args
+    return fn(
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 3550, in _connection_from_session
+    conn = self.session.connection(**kw)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 1138, in connection
+    return self._connection_for_bind(
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 1146, in _connection_for_bind
+    return self.transaction._connection_for_bind(
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 433, in _connection_for_bind
+    conn = bind._contextual_connect()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 2302, in _contextual_connect
+    self._wrap_pool_connect(self.pool.connect, None),
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 2339, in _wrap_pool_connect
+    Connection._handle_dbapi_exception_noconnection(
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1583, in _handle_dbapi_exception_noconnection
+    util.raise_(
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/util/compat.py", line 182, in raise_
+    raise exception
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 2336, in _wrap_pool_connect
+    return fn()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 364, in connect
+    return _ConnectionFairy._checkout(self)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 778, in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 495, in checkout
+    rec = pool._do_get()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/pool/impl.py", line 140, in _do_get
+    self._dec_overflow()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/util/langhelpers.py", line 68, in __exit__
+    compat.raise_(
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/util/compat.py", line 182, in raise_
+    raise exception
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/pool/impl.py", line 137, in _do_get
+    return self._create_connection()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 309, in _create_connection
+    return _ConnectionRecord(self)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 440, in __init__
+    self.__connect(first_connect_check=True)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 661, in __connect
+    pool.logger.debug("Error on connect(): %s", e)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/util/langhelpers.py", line 68, in __exit__
+    compat.raise_(
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/util/compat.py", line 182, in raise_
+    raise exception
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 656, in __connect
+    connection = pool._invoke_creator(self)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/engine/strategies.py", line 114, in connect
+    return dialect.connect(*cargs, **cparams)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/engine/default.py", line 493, in connect
+    return self.dbapi.connect(*cargs, **cparams)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/pymysql/__init__.py", line 94, in Connect
+    return Connection(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/pymysql/connections.py", line 327, in __init__
+    self.connect()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/pymysql/connections.py", line 588, in connect
+    self._request_authentication()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/pymysql/connections.py", line 874, in _request_authentication
+    auth_packet = _auth.caching_sha2_password_auth(self, auth_packet)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/pymysql/_auth.py", line 327, in caching_sha2_password_auth
+    pkt = _roundtrip(conn, data)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/pymysql/_auth.py", line 181, in _roundtrip
+    pkt = conn._read_packet()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/pymysql/connections.py", line 676, in _read_packet
+    packet.raise_for_error()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/pymysql/protocol.py", line 223, in raise_for_error
+    err.raise_mysql_exception(self._data)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/pymysql/err.py", line 107, in raise_mysql_exception
+    raise errorclass(errno, errval)
+sqlalchemy.exc.OperationalError: (pymysql.err.OperationalError) (1045, "Access denied for user 'root'@'172.25.0.1' (using password: YES)")
+(Background on this error at: http://sqlalche.me/e/13/e3q8)
+[2021-01-06 16:30:50,030] [INFO] [server.py.run: 18] [41348::140500762400896] Server start at 0.0.0.0:24579
+[2021-01-06 16:33:05,361] [ERROR] [app.py.log_exception:1891] [41348::140500785718128] Exception on /api/users [POST]
+Traceback (most recent call last):
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask_restful/__init__.py", line 468, in wrapper
+    resp = resource(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/views.py", line 89, in view
+    return self.dispatch_request(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask_restful/__init__.py", line 583, in dispatch_request
+    resp = meth(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/resources/__init__.py", line 38, in wrapper
+    return jsonify(func(self, **kwargs))
+  File "/Users/herui/Desktop/flask-restful/resources/user.py", line 22, in post
+    user = UserHandler.create(**kwargs)
+  File "/Users/herui/Desktop/flask-restful/handlers/user.py", line 33, in create
+    raise ArgumentRequired("邮件地址不能为空")
+exceptions.exceptions.ArgumentRequired: 邮件地址不能为空
+[2021-01-06 16:33:05,378] [ERROR] [app.py.handle_exception: 73] [41348::140500785718128] 邮件地址不能为空
+Traceback (most recent call last):
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask_restful/__init__.py", line 468, in wrapper
+    resp = resource(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/views.py", line 89, in view
+    return self.dispatch_request(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask_restful/__init__.py", line 583, in dispatch_request
+    resp = meth(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/resources/__init__.py", line 38, in wrapper
+    return jsonify(func(self, **kwargs))
+  File "/Users/herui/Desktop/flask-restful/resources/user.py", line 22, in post
+    user = UserHandler.create(**kwargs)
+  File "/Users/herui/Desktop/flask-restful/handlers/user.py", line 33, in create
+    raise ArgumentRequired("邮件地址不能为空")
+exceptions.exceptions.ArgumentRequired: 邮件地址不能为空
+[2021-01-06 16:33:49,735] [ERROR] [app.py.log_exception:1891] [41348::140500785718128] Exception on /api/users [POST]
+Traceback (most recent call last):
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask_restful/__init__.py", line 468, in wrapper
+    resp = resource(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/views.py", line 89, in view
+    return self.dispatch_request(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask_restful/__init__.py", line 583, in dispatch_request
+    resp = meth(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/resources/__init__.py", line 38, in wrapper
+    return jsonify(func(self, **kwargs))
+  File "/Users/herui/Desktop/flask-restful/resources/user.py", line 22, in post
+    user = UserHandler.create(**kwargs)
+  File "/Users/herui/Desktop/flask-restful/handlers/user.py", line 36, in create
+    raise ObjectsDuplicated("邮件为 <%s> 的用户已经注册" % email)
+exceptions.exceptions.ObjectsDuplicated: 邮件为 <super76rui@icloud.com> 的用户已经注册
+[2021-01-06 16:33:49,750] [ERROR] [app.py.handle_exception: 73] [41348::140500785718128] 邮件为 <super76rui@icloud.com> 的用户已经注册
+Traceback (most recent call last):
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask_restful/__init__.py", line 468, in wrapper
+    resp = resource(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/views.py", line 89, in view
+    return self.dispatch_request(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask_restful/__init__.py", line 583, in dispatch_request
+    resp = meth(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/resources/__init__.py", line 38, in wrapper
+    return jsonify(func(self, **kwargs))
+  File "/Users/herui/Desktop/flask-restful/resources/user.py", line 22, in post
+    user = UserHandler.create(**kwargs)
+  File "/Users/herui/Desktop/flask-restful/handlers/user.py", line 36, in create
+    raise ObjectsDuplicated("邮件为 <%s> 的用户已经注册" % email)
+exceptions.exceptions.ObjectsDuplicated: 邮件为 <super76rui@icloud.com> 的用户已经注册
+[2021-01-06 16:35:07,925] [ERROR] [app.py.log_exception:1891] [41348::140500785718128] Exception on /api/users [POST]
+Traceback (most recent call last):
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask_restful/__init__.py", line 468, in wrapper
+    resp = resource(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/views.py", line 89, in view
+    return self.dispatch_request(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask_restful/__init__.py", line 583, in dispatch_request
+    resp = meth(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/resources/__init__.py", line 38, in wrapper
+    return jsonify(func(self, **kwargs))
+  File "/Users/herui/Desktop/flask-restful/resources/user.py", line 22, in post
+    user = UserHandler.create(**kwargs)
+  File "/Users/herui/Desktop/flask-restful/handlers/user.py", line 45, in create
+    raise ArgumentInvalid(PassWordChecker.ERROR_MSG)
+exceptions.exceptions.ArgumentInvalid: 密码至少8个字符，至少1个大写字母，1个小写字母，1个数字和1个特殊字符,不能含有空格
+[2021-01-06 16:35:08,003] [ERROR] [app.py.handle_exception: 73] [41348::140500785718128] 密码至少8个字符，至少1个大写字母，1个小写字母，1个数字和1个特殊字符,不能含有空格
+Traceback (most recent call last):
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask_restful/__init__.py", line 468, in wrapper
+    resp = resource(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/views.py", line 89, in view
+    return self.dispatch_request(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask_restful/__init__.py", line 583, in dispatch_request
+    resp = meth(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/resources/__init__.py", line 38, in wrapper
+    return jsonify(func(self, **kwargs))
+  File "/Users/herui/Desktop/flask-restful/resources/user.py", line 22, in post
+    user = UserHandler.create(**kwargs)
+  File "/Users/herui/Desktop/flask-restful/handlers/user.py", line 45, in create
+    raise ArgumentInvalid(PassWordChecker.ERROR_MSG)
+exceptions.exceptions.ArgumentInvalid: 密码至少8个字符，至少1个大写字母，1个小写字母，1个数字和1个特殊字符,不能含有空格
+[2021-01-06 16:35:21,012] [ERROR] [app.py.log_exception:1891] [41348::140500785718128] Exception on /api/users [POST]
+Traceback (most recent call last):
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask_restful/__init__.py", line 468, in wrapper
+    resp = resource(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/views.py", line 89, in view
+    return self.dispatch_request(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask_restful/__init__.py", line 583, in dispatch_request
+    resp = meth(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/resources/__init__.py", line 38, in wrapper
+    return jsonify(func(self, **kwargs))
+  File "/Users/herui/Desktop/flask-restful/resources/user.py", line 22, in post
+    user = UserHandler.create(**kwargs)
+  File "/Users/herui/Desktop/flask-restful/handlers/user.py", line 45, in create
+    raise ArgumentInvalid(PassWordChecker.ERROR_MSG)
+exceptions.exceptions.ArgumentInvalid: 密码至少8个字符，至少1个大写字母，1个小写字母，1个数字和1个特殊字符,不能含有空格
+[2021-01-06 16:35:21,013] [ERROR] [app.py.handle_exception: 73] [41348::140500785718128] 密码至少8个字符，至少1个大写字母，1个小写字母，1个数字和1个特殊字符,不能含有空格
+Traceback (most recent call last):
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask_restful/__init__.py", line 468, in wrapper
+    resp = resource(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/views.py", line 89, in view
+    return self.dispatch_request(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask_restful/__init__.py", line 583, in dispatch_request
+    resp = meth(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/resources/__init__.py", line 38, in wrapper
+    return jsonify(func(self, **kwargs))
+  File "/Users/herui/Desktop/flask-restful/resources/user.py", line 22, in post
+    user = UserHandler.create(**kwargs)
+  File "/Users/herui/Desktop/flask-restful/handlers/user.py", line 45, in create
+    raise ArgumentInvalid(PassWordChecker.ERROR_MSG)
+exceptions.exceptions.ArgumentInvalid: 密码至少8个字符，至少1个大写字母，1个小写字母，1个数字和1个特殊字符,不能含有空格
+[2021-01-06 16:35:40,939] [INFO] [token.py.verify_password: 26] [41348::140500784425152] 用户 <User<None>> 登陆>
+[2021-01-06 16:35:52,010] [INFO] [token.py.verify_password: 26] [41348::140500784425152] 用户 <User<None>> 登陆>
+[2021-01-06 16:58:03,821] [INFO] [server.py.run: 18] [90866::140282457762448] Server start at 0.0.0.0:24579
+[2021-01-06 16:58:11,045] [ERROR] [app.py.log_exception:1891] [90866::140282470546144] Exception on /api/users [POST]
+Traceback (most recent call last):
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask_restful/__init__.py", line 468, in wrapper
+    resp = resource(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/views.py", line 89, in view
+    return self.dispatch_request(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask_restful/__init__.py", line 583, in dispatch_request
+    resp = meth(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/resources/__init__.py", line 36, in wrapper
+    self.response_model = response_model
+  File "/Applications/PyCharm.app/Contents/plugins/python/helpers/pydev/_pydevd_frame_eval/pydevd_frame_tracing.py", line 55, in _pydev_stop_at_break
+    if t.additional_info.is_tracing:
+AttributeError: '_DummyThread' object has no attribute 'additional_info'
+[2021-01-06 16:58:11,058] [ERROR] [app.py.handle_exception: 73] [90866::140282470546144] '_DummyThread' object has no attribute 'additional_info'
+Traceback (most recent call last):
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask_restful/__init__.py", line 468, in wrapper
+    resp = resource(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/views.py", line 89, in view
+    return self.dispatch_request(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask_restful/__init__.py", line 583, in dispatch_request
+    resp = meth(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/resources/__init__.py", line 36, in wrapper
+    self.response_model = response_model
+  File "/Applications/PyCharm.app/Contents/plugins/python/helpers/pydev/_pydevd_frame_eval/pydevd_frame_tracing.py", line 55, in _pydev_stop_at_break
+    if t.additional_info.is_tracing:
+AttributeError: '_DummyThread' object has no attribute 'additional_info'
+[2021-01-06 17:01:22,030] [ERROR] [app.py.log_exception:1891] [90866::140282470546144] Exception on /api/users [POST]
+Traceback (most recent call last):
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/orm/base.py", line 406, in _entity_descriptor
+    return getattr(entity, key)
+AttributeError: type object 'User' has no attribute 'deleted'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask_restful/__init__.py", line 468, in wrapper
+    resp = resource(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/views.py", line 89, in view
+    return self.dispatch_request(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask_restful/__init__.py", line 583, in dispatch_request
+    resp = meth(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/resources/__init__.py", line 38, in wrapper
+    return jsonify(func(self, **kwargs))
+  File "/Users/herui/Desktop/flask-restful/resources/user.py", line 22, in post
+    user = UserHandler.create(**kwargs)
+  File "/Users/herui/Desktop/flask-restful/handlers/user.py", line 34, in create
+    user = User.query.filter_by(deleted=False).filter_by(email=email).first()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 1921, in filter_by
+    clauses = [
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 1922, in <listcomp>
+    _entity_descriptor(zero, key) == value
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/orm/base.py", line 408, in _entity_descriptor
+    util.raise_(
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/util/compat.py", line 182, in raise_
+    raise exception
+sqlalchemy.exc.InvalidRequestError: Entity '<class 'models.orm.user.User'>' has no property 'deleted'
+[2021-01-06 17:01:22,046] [ERROR] [app.py.handle_exception: 73] [90866::140282470546144] Entity '<class 'models.orm.user.User'>' has no property 'deleted'
+Traceback (most recent call last):
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/orm/base.py", line 406, in _entity_descriptor
+    return getattr(entity, key)
+AttributeError: type object 'User' has no attribute 'deleted'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask_restful/__init__.py", line 468, in wrapper
+    resp = resource(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/views.py", line 89, in view
+    return self.dispatch_request(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask_restful/__init__.py", line 583, in dispatch_request
+    resp = meth(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/resources/__init__.py", line 38, in wrapper
+    return jsonify(func(self, **kwargs))
+  File "/Users/herui/Desktop/flask-restful/resources/user.py", line 22, in post
+    user = UserHandler.create(**kwargs)
+  File "/Users/herui/Desktop/flask-restful/handlers/user.py", line 34, in create
+    user = User.query.filter_by(deleted=False).filter_by(email=email).first()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 1921, in filter_by
+    clauses = [
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 1922, in <listcomp>
+    _entity_descriptor(zero, key) == value
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/orm/base.py", line 408, in _entity_descriptor
+    util.raise_(
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/util/compat.py", line 182, in raise_
+    raise exception
+sqlalchemy.exc.InvalidRequestError: Entity '<class 'models.orm.user.User'>' has no property 'deleted'
+[2021-01-06 17:02:14,667] [INFO] [server.py.run: 18] [98685::140584632186656] Server start at 0.0.0.0:24579
+[2021-01-06 17:02:25,883] [INFO] [server.py.run: 18] [99013::140321331858064] Server start at 0.0.0.0:24579
+[2021-01-06 17:02:53,013] [INFO] [server.py.run: 18] [99934::140251461842720] Server start at 0.0.0.0:24579
+[2021-01-06 17:02:55,726] [ERROR] [app.py.log_exception:1891] [99934::140251476978400] Exception on /api/users [POST]
+Traceback (most recent call last):
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask_restful/__init__.py", line 468, in wrapper
+    resp = resource(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/views.py", line 89, in view
+    return self.dispatch_request(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask_restful/__init__.py", line 583, in dispatch_request
+    resp = meth(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/resources/__init__.py", line 36, in wrapper
+    self.response_model = response_model
+  File "/Applications/PyCharm.app/Contents/plugins/python/helpers/pydev/_pydevd_frame_eval/pydevd_frame_tracing.py", line 55, in _pydev_stop_at_break
+    if t.additional_info.is_tracing:
+AttributeError: '_DummyThread' object has no attribute 'additional_info'
+[2021-01-06 17:02:55,770] [ERROR] [app.py.handle_exception: 73] [99934::140251476978400] '_DummyThread' object has no attribute 'additional_info'
+Traceback (most recent call last):
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask_restful/__init__.py", line 468, in wrapper
+    resp = resource(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/views.py", line 89, in view
+    return self.dispatch_request(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask_restful/__init__.py", line 583, in dispatch_request
+    resp = meth(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/resources/__init__.py", line 36, in wrapper
+    self.response_model = response_model
+  File "/Applications/PyCharm.app/Contents/plugins/python/helpers/pydev/_pydevd_frame_eval/pydevd_frame_tracing.py", line 55, in _pydev_stop_at_break
+    if t.additional_info.is_tracing:
+AttributeError: '_DummyThread' object has no attribute 'additional_info'
+[2021-01-06 17:05:13,266] [ERROR] [app.py.log_exception:1891] [99934::140251476978400] Exception on /api/users [POST]
+Traceback (most recent call last):
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/orm/base.py", line 406, in _entity_descriptor
+    return getattr(entity, key)
+AttributeError: type object 'User' has no attribute 'deleted'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask_restful/__init__.py", line 468, in wrapper
+    resp = resource(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/views.py", line 89, in view
+    return self.dispatch_request(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask_restful/__init__.py", line 583, in dispatch_request
+    resp = meth(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/resources/__init__.py", line 38, in wrapper
+    return jsonify(func(self, **kwargs))
+  File "/Users/herui/Desktop/flask-restful/resources/user.py", line 22, in post
+    user = UserHandler.create(**kwargs)
+  File "/Users/herui/Desktop/flask-restful/handlers/user.py", line 34, in create
+    user = User.query.filter_by(deleted=False).filter_by(email=email).first()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 1921, in filter_by
+    clauses = [
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 1922, in <listcomp>
+    _entity_descriptor(zero, key) == value
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/orm/base.py", line 408, in _entity_descriptor
+    util.raise_(
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/util/compat.py", line 182, in raise_
+    raise exception
+sqlalchemy.exc.InvalidRequestError: Entity '<class 'models.orm.user.User'>' has no property 'deleted'
+[2021-01-06 17:05:13,279] [ERROR] [app.py.handle_exception: 73] [99934::140251476978400] Entity '<class 'models.orm.user.User'>' has no property 'deleted'
+Traceback (most recent call last):
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/orm/base.py", line 406, in _entity_descriptor
+    return getattr(entity, key)
+AttributeError: type object 'User' has no attribute 'deleted'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask_restful/__init__.py", line 468, in wrapper
+    resp = resource(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/views.py", line 89, in view
+    return self.dispatch_request(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask_restful/__init__.py", line 583, in dispatch_request
+    resp = meth(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/resources/__init__.py", line 38, in wrapper
+    return jsonify(func(self, **kwargs))
+  File "/Users/herui/Desktop/flask-restful/resources/user.py", line 22, in post
+    user = UserHandler.create(**kwargs)
+  File "/Users/herui/Desktop/flask-restful/handlers/user.py", line 34, in create
+    user = User.query.filter_by(deleted=False).filter_by(email=email).first()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 1921, in filter_by
+    clauses = [
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 1922, in <listcomp>
+    _entity_descriptor(zero, key) == value
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/orm/base.py", line 408, in _entity_descriptor
+    util.raise_(
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/util/compat.py", line 182, in raise_
+    raise exception
+sqlalchemy.exc.InvalidRequestError: Entity '<class 'models.orm.user.User'>' has no property 'deleted'
+[2021-01-06 17:05:49,091] [INFO] [server.py.run: 18] [5673::140596711778080] Server start at 0.0.0.0:24579
+[2021-01-06 17:06:51,481] [INFO] [server.py.run: 18] [7871::140386837198624] Server start at 0.0.0.0:24579
+[2021-01-06 17:06:54,431] [ERROR] [app.py.log_exception:1891] [7871::140386851052256] Exception on /api/users [POST]
+Traceback (most recent call last):
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask_restful/__init__.py", line 468, in wrapper
+    resp = resource(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/views.py", line 89, in view
+    return self.dispatch_request(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask_restful/__init__.py", line 583, in dispatch_request
+    resp = meth(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/resources/__init__.py", line 37, in wrapper
+    self.parsed_args = self.query_model.parse_and_process_args(**kwargs)
+  File "/Users/herui/Desktop/flask-restful/models/query/base.py", line 85, in parse_and_process_args
+    @classmethod
+  File "/Applications/PyCharm.app/Contents/plugins/python/helpers/pydev/_pydevd_frame_eval/pydevd_frame_tracing.py", line 55, in _pydev_stop_at_break
+    if t.additional_info.is_tracing:
+AttributeError: '_DummyThread' object has no attribute 'additional_info'
+[2021-01-06 17:06:54,454] [ERROR] [app.py.handle_exception: 73] [7871::140386851052256] '_DummyThread' object has no attribute 'additional_info'
+Traceback (most recent call last):
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask_restful/__init__.py", line 468, in wrapper
+    resp = resource(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/views.py", line 89, in view
+    return self.dispatch_request(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask_restful/__init__.py", line 583, in dispatch_request
+    resp = meth(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/resources/__init__.py", line 37, in wrapper
+    self.parsed_args = self.query_model.parse_and_process_args(**kwargs)
+  File "/Users/herui/Desktop/flask-restful/models/query/base.py", line 85, in parse_and_process_args
+    @classmethod
+  File "/Applications/PyCharm.app/Contents/plugins/python/helpers/pydev/_pydevd_frame_eval/pydevd_frame_tracing.py", line 55, in _pydev_stop_at_break
+    if t.additional_info.is_tracing:
+AttributeError: '_DummyThread' object has no attribute 'additional_info'
+[2021-01-06 17:14:23,091] [ERROR] [app.py.log_exception:1891] [7871::140386851803472] Exception on /api/users [POST]
+Traceback (most recent call last):
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/orm/base.py", line 406, in _entity_descriptor
+    return getattr(entity, key)
+AttributeError: type object 'User' has no attribute 'deleted'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask_restful/__init__.py", line 468, in wrapper
+    resp = resource(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/views.py", line 89, in view
+    return self.dispatch_request(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask_restful/__init__.py", line 583, in dispatch_request
+    resp = meth(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/resources/__init__.py", line 38, in wrapper
+    return jsonify(func(self, **kwargs))
+  File "/Users/herui/Desktop/flask-restful/resources/user.py", line 22, in post
+    user = UserHandler.create(**kwargs)
+  File "/Users/herui/Desktop/flask-restful/handlers/user.py", line 34, in create
+    user = User.query.filter_by(deleted=False).filter_by(email=email).first()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 1921, in filter_by
+    clauses = [
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 1922, in <listcomp>
+    _entity_descriptor(zero, key) == value
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/orm/base.py", line 408, in _entity_descriptor
+    util.raise_(
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/util/compat.py", line 182, in raise_
+    raise exception
+sqlalchemy.exc.InvalidRequestError: Entity '<class 'models.orm.user.User'>' has no property 'deleted'
+[2021-01-06 17:14:23,123] [ERROR] [app.py.handle_exception: 73] [7871::140386851803472] Entity '<class 'models.orm.user.User'>' has no property 'deleted'
+Traceback (most recent call last):
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/orm/base.py", line 406, in _entity_descriptor
+    return getattr(entity, key)
+AttributeError: type object 'User' has no attribute 'deleted'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask_restful/__init__.py", line 468, in wrapper
+    resp = resource(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/views.py", line 89, in view
+    return self.dispatch_request(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask_restful/__init__.py", line 583, in dispatch_request
+    resp = meth(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/resources/__init__.py", line 38, in wrapper
+    return jsonify(func(self, **kwargs))
+  File "/Users/herui/Desktop/flask-restful/resources/user.py", line 22, in post
+    user = UserHandler.create(**kwargs)
+  File "/Users/herui/Desktop/flask-restful/handlers/user.py", line 34, in create
+    user = User.query.filter_by(deleted=False).filter_by(email=email).first()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 1921, in filter_by
+    clauses = [
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 1922, in <listcomp>
+    _entity_descriptor(zero, key) == value
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/orm/base.py", line 408, in _entity_descriptor
+    util.raise_(
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/util/compat.py", line 182, in raise_
+    raise exception
+sqlalchemy.exc.InvalidRequestError: Entity '<class 'models.orm.user.User'>' has no property 'deleted'
+[2021-01-06 17:40:11,301] [ERROR] [app.py.log_exception:1891] [7871::140386851052256] Exception on /api/users [POST]
+Traceback (most recent call last):
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/orm/base.py", line 406, in _entity_descriptor
+    return getattr(entity, key)
+AttributeError: type object 'User' has no attribute 'deleted'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask_restful/__init__.py", line 468, in wrapper
+    resp = resource(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/views.py", line 89, in view
+    return self.dispatch_request(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask_restful/__init__.py", line 583, in dispatch_request
+    resp = meth(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/resources/__init__.py", line 38, in wrapper
+    return jsonify(func(self, **kwargs))
+  File "/Users/herui/Desktop/flask-restful/resources/user.py", line 22, in post
+    user = UserHandler.create(**kwargs)
+  File "/Users/herui/Desktop/flask-restful/handlers/user.py", line 34, in create
+    user = User.query.filter_by(deleted=False).filter_by(email=email).first()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 1921, in filter_by
+    clauses = [
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 1922, in <listcomp>
+    _entity_descriptor(zero, key) == value
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/orm/base.py", line 408, in _entity_descriptor
+    util.raise_(
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/util/compat.py", line 182, in raise_
+    raise exception
+sqlalchemy.exc.InvalidRequestError: Entity '<class 'models.orm.user.User'>' has no property 'deleted'
+[2021-01-06 17:40:11,364] [ERROR] [app.py.handle_exception: 73] [7871::140386851052256] Entity '<class 'models.orm.user.User'>' has no property 'deleted'
+Traceback (most recent call last):
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/orm/base.py", line 406, in _entity_descriptor
+    return getattr(entity, key)
+AttributeError: type object 'User' has no attribute 'deleted'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask_restful/__init__.py", line 468, in wrapper
+    resp = resource(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/views.py", line 89, in view
+    return self.dispatch_request(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask_restful/__init__.py", line 583, in dispatch_request
+    resp = meth(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/resources/__init__.py", line 38, in wrapper
+    return jsonify(func(self, **kwargs))
+  File "/Users/herui/Desktop/flask-restful/resources/user.py", line 22, in post
+    user = UserHandler.create(**kwargs)
+  File "/Users/herui/Desktop/flask-restful/handlers/user.py", line 34, in create
+    user = User.query.filter_by(deleted=False).filter_by(email=email).first()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 1921, in filter_by
+    clauses = [
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 1922, in <listcomp>
+    _entity_descriptor(zero, key) == value
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/orm/base.py", line 408, in _entity_descriptor
+    util.raise_(
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/sqlalchemy/util/compat.py", line 182, in raise_
+    raise exception
+sqlalchemy.exc.InvalidRequestError: Entity '<class 'models.orm.user.User'>' has no property 'deleted'
+[2021-01-06 17:40:52,051] [INFO] [server.py.run: 18] [70335::140616934881056] Server start at 0.0.0.0:24579
+[2021-01-06 17:40:58,355] [ERROR] [app.py.log_exception:1891] [70335::140616950561504] Exception on /api/users [POST]
+Traceback (most recent call last):
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask_restful/__init__.py", line 468, in wrapper
+    resp = resource(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/views.py", line 89, in view
+    return self.dispatch_request(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask_restful/__init__.py", line 583, in dispatch_request
+    resp = meth(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/resources/__init__.py", line 37, in wrapper
+    self.parsed_args = self.query_model.parse_and_process_args(**kwargs)
+  File "/Users/herui/Desktop/flask-restful/models/query/base.py", line 85, in parse_and_process_args
+    @classmethod
+  File "/Applications/PyCharm.app/Contents/plugins/python/helpers/pydev/_pydevd_frame_eval/pydevd_frame_tracing.py", line 55, in _pydev_stop_at_break
+    if t.additional_info.is_tracing:
+AttributeError: '_DummyThread' object has no attribute 'additional_info'
+[2021-01-06 17:40:58,365] [ERROR] [app.py.handle_exception: 73] [70335::140616950561504] '_DummyThread' object has no attribute 'additional_info'
+Traceback (most recent call last):
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask_restful/__init__.py", line 468, in wrapper
+    resp = resource(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/views.py", line 89, in view
+    return self.dispatch_request(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask_restful/__init__.py", line 583, in dispatch_request
+    resp = meth(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/resources/__init__.py", line 37, in wrapper
+    self.parsed_args = self.query_model.parse_and_process_args(**kwargs)
+  File "/Users/herui/Desktop/flask-restful/models/query/base.py", line 85, in parse_and_process_args
+    @classmethod
+  File "/Applications/PyCharm.app/Contents/plugins/python/helpers/pydev/_pydevd_frame_eval/pydevd_frame_tracing.py", line 55, in _pydev_stop_at_break
+    if t.additional_info.is_tracing:
+AttributeError: '_DummyThread' object has no attribute 'additional_info'
+[2021-01-06 17:46:28,515] [INFO] [server.py.run: 18] [80844::140307195124368] Server start at 0.0.0.0:24579
+[2021-01-06 17:47:44,491] [ERROR] [app.py.log_exception:1891] [80844::140307210722288] Exception on /api/users [POST]
+Traceback (most recent call last):
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask_restful/__init__.py", line 468, in wrapper
+    resp = resource(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/views.py", line 89, in view
+    return self.dispatch_request(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask_restful/__init__.py", line 583, in dispatch_request
+    resp = meth(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/resources/__init__.py", line 38, in wrapper
+    return jsonify(func(self, **kwargs))
+  File "/Users/herui/Desktop/flask-restful/resources/user.py", line 22, in post
+    user = UserHandler.create(**kwargs)
+  File "/Users/herui/Desktop/flask-restful/handlers/user.py", line 36, in create
+    raise ObjectsDuplicated("邮件为 <%s> 的用户已经注册" % email)
+exceptions.exceptions.ObjectsDuplicated: 邮件为 <super76rui@icloud.com> 的用户已经注册
+[2021-01-06 17:47:44,498] [ERROR] [app.py.handle_exception: 73] [80844::140307210722288] 邮件为 <super76rui@icloud.com> 的用户已经注册
+Traceback (most recent call last):
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask_restful/__init__.py", line 468, in wrapper
+    resp = resource(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/views.py", line 89, in view
+    return self.dispatch_request(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask_restful/__init__.py", line 583, in dispatch_request
+    resp = meth(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/resources/__init__.py", line 38, in wrapper
+    return jsonify(func(self, **kwargs))
+  File "/Users/herui/Desktop/flask-restful/resources/user.py", line 22, in post
+    user = UserHandler.create(**kwargs)
+  File "/Users/herui/Desktop/flask-restful/handlers/user.py", line 36, in create
+    raise ObjectsDuplicated("邮件为 <%s> 的用户已经注册" % email)
+exceptions.exceptions.ObjectsDuplicated: 邮件为 <super76rui@icloud.com> 的用户已经注册
+[2021-01-06 17:48:53,230] [INFO] [server.py.run: 18] [85419::140378800832352] Server start at 0.0.0.0:24579
+[2021-01-06 17:49:20,550] [INFO] [server.py.run: 18] [86622::140532975159072] Server start at 0.0.0.0:24579
+[2021-01-06 17:49:39,446] [INFO] [server.py.run: 18] [86982::140332713891616] Server start at 0.0.0.0:24579
+[2021-01-06 17:49:46,192] [ERROR] [app.py.log_exception:1891] [86982::140332729027296] Exception on /api/users [POST]
+Traceback (most recent call last):
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask_restful/__init__.py", line 468, in wrapper
+    resp = resource(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/views.py", line 89, in view
+    return self.dispatch_request(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask_restful/__init__.py", line 583, in dispatch_request
+    resp = meth(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/resources/__init__.py", line 37, in wrapper
+    self.parsed_args = self.query_model.parse_and_process_args(**kwargs)
+  File "/Users/herui/Desktop/flask-restful/models/query/base.py", line 85, in parse_and_process_args
+    @classmethod
+  File "/Applications/PyCharm.app/Contents/plugins/python/helpers/pydev/_pydevd_frame_eval/pydevd_frame_tracing.py", line 55, in _pydev_stop_at_break
+    if t.additional_info.is_tracing:
+AttributeError: '_DummyThread' object has no attribute 'additional_info'
+[2021-01-06 17:49:46,213] [ERROR] [app.py.handle_exception: 73] [86982::140332729027296] '_DummyThread' object has no attribute 'additional_info'
+Traceback (most recent call last):
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask_restful/__init__.py", line 468, in wrapper
+    resp = resource(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/views.py", line 89, in view
+    return self.dispatch_request(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask_restful/__init__.py", line 583, in dispatch_request
+    resp = meth(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/resources/__init__.py", line 37, in wrapper
+    self.parsed_args = self.query_model.parse_and_process_args(**kwargs)
+  File "/Users/herui/Desktop/flask-restful/models/query/base.py", line 85, in parse_and_process_args
+    @classmethod
+  File "/Applications/PyCharm.app/Contents/plugins/python/helpers/pydev/_pydevd_frame_eval/pydevd_frame_tracing.py", line 55, in _pydev_stop_at_break
+    if t.additional_info.is_tracing:
+AttributeError: '_DummyThread' object has no attribute 'additional_info'
+[2021-01-06 17:50:10,142] [ERROR] [app.py.log_exception:1891] [86982::140332730831184] Exception on /api/users [POST]
+Traceback (most recent call last):
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask_restful/__init__.py", line 468, in wrapper
+    resp = resource(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/views.py", line 89, in view
+    return self.dispatch_request(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask_restful/__init__.py", line 583, in dispatch_request
+    resp = meth(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/resources/__init__.py", line 38, in wrapper
+    return jsonify(func(self, **kwargs))
+  File "/Users/herui/Desktop/flask-restful/resources/user.py", line 22, in post
+    user = UserHandler.create(**kwargs)
+  File "/Users/herui/Desktop/flask-restful/handlers/user.py", line 36, in create
+    raise ObjectsDuplicated("邮件为 <%s> 的用户已经注册" % email)
+exceptions.exceptions.ObjectsDuplicated: 邮件为 <super76rui@icloud.com> 的用户已经注册
+[2021-01-06 17:50:10,146] [ERROR] [app.py.handle_exception: 73] [86982::140332730831184] 邮件为 <super76rui@icloud.com> 的用户已经注册
+Traceback (most recent call last):
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask_restful/__init__.py", line 468, in wrapper
+    resp = resource(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/views.py", line 89, in view
+    return self.dispatch_request(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask_restful/__init__.py", line 583, in dispatch_request
+    resp = meth(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/resources/__init__.py", line 38, in wrapper
+    return jsonify(func(self, **kwargs))
+  File "/Users/herui/Desktop/flask-restful/resources/user.py", line 22, in post
+    user = UserHandler.create(**kwargs)
+  File "/Users/herui/Desktop/flask-restful/handlers/user.py", line 36, in create
+    raise ObjectsDuplicated("邮件为 <%s> 的用户已经注册" % email)
+exceptions.exceptions.ObjectsDuplicated: 邮件为 <super76rui@icloud.com> 的用户已经注册
+[2021-01-06 17:50:12,962] [ERROR] [app.py.log_exception:1891] [86982::140332730831184] Exception on /api/users [POST]
+Traceback (most recent call last):
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask_restful/__init__.py", line 468, in wrapper
+    resp = resource(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/views.py", line 89, in view
+    return self.dispatch_request(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask_restful/__init__.py", line 583, in dispatch_request
+    resp = meth(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/resources/__init__.py", line 38, in wrapper
+    return jsonify(func(self, **kwargs))
+  File "/Users/herui/Desktop/flask-restful/resources/user.py", line 22, in post
+    user = UserHandler.create(**kwargs)
+  File "/Users/herui/Desktop/flask-restful/handlers/user.py", line 36, in create
+    raise ObjectsDuplicated("邮件为 <%s> 的用户已经注册" % email)
+exceptions.exceptions.ObjectsDuplicated: 邮件为 <super76rui@icloud.com> 的用户已经注册
+[2021-01-06 17:50:12,963] [ERROR] [app.py.handle_exception: 73] [86982::140332730831184] 邮件为 <super76rui@icloud.com> 的用户已经注册
+Traceback (most recent call last):
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask_restful/__init__.py", line 468, in wrapper
+    resp = resource(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/views.py", line 89, in view
+    return self.dispatch_request(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask_restful/__init__.py", line 583, in dispatch_request
+    resp = meth(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/resources/__init__.py", line 38, in wrapper
+    return jsonify(func(self, **kwargs))
+  File "/Users/herui/Desktop/flask-restful/resources/user.py", line 22, in post
+    user = UserHandler.create(**kwargs)
+  File "/Users/herui/Desktop/flask-restful/handlers/user.py", line 36, in create
+    raise ObjectsDuplicated("邮件为 <%s> 的用户已经注册" % email)
+exceptions.exceptions.ObjectsDuplicated: 邮件为 <super76rui@icloud.com> 的用户已经注册
+[2021-01-06 17:51:40,346] [INFO] [server.py.run: 18] [91114::140573785720608] Server start at 0.0.0.0:24579
+[2021-01-06 17:51:44,008] [ERROR] [app.py.log_exception:1891] [91114::140573801904864] Exception on /api/users [POST]
+Traceback (most recent call last):
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask_restful/__init__.py", line 468, in wrapper
+    resp = resource(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/views.py", line 89, in view
+    return self.dispatch_request(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask_restful/__init__.py", line 583, in dispatch_request
+    resp = meth(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/resources/__init__.py", line 37, in wrapper
+    self.parsed_args = self.query_model.parse_and_process_args(**kwargs)
+  File "/Users/herui/Desktop/flask-restful/models/query/base.py", line 85, in parse_and_process_args
+    @classmethod
+  File "/Applications/PyCharm.app/Contents/plugins/python/helpers/pydev/_pydevd_frame_eval/pydevd_frame_tracing.py", line 55, in _pydev_stop_at_break
+    if t.additional_info.is_tracing:
+AttributeError: '_DummyThread' object has no attribute 'additional_info'
+[2021-01-06 17:51:44,047] [ERROR] [app.py.handle_exception: 73] [91114::140573801904864] '_DummyThread' object has no attribute 'additional_info'
+Traceback (most recent call last):
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask_restful/__init__.py", line 468, in wrapper
+    resp = resource(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/views.py", line 89, in view
+    return self.dispatch_request(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask_restful/__init__.py", line 583, in dispatch_request
+    resp = meth(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/resources/__init__.py", line 37, in wrapper
+    self.parsed_args = self.query_model.parse_and_process_args(**kwargs)
+  File "/Users/herui/Desktop/flask-restful/models/query/base.py", line 85, in parse_and_process_args
+    @classmethod
+  File "/Applications/PyCharm.app/Contents/plugins/python/helpers/pydev/_pydevd_frame_eval/pydevd_frame_tracing.py", line 55, in _pydev_stop_at_break
+    if t.additional_info.is_tracing:
+AttributeError: '_DummyThread' object has no attribute 'additional_info'
+[2021-01-06 17:54:39,619] [ERROR] [app.py.log_exception:1891] [91114::140573801905136] Exception on /api/users [POST]
+Traceback (most recent call last):
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask_restful/__init__.py", line 468, in wrapper
+    resp = resource(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/views.py", line 89, in view
+    return self.dispatch_request(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask_restful/__init__.py", line 583, in dispatch_request
+    resp = meth(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/resources/__init__.py", line 38, in wrapper
+    return jsonify(func(self, **kwargs))
+  File "/Users/herui/Desktop/flask-restful/resources/user.py", line 22, in post
+    user = UserHandler.create(**kwargs)
+  File "/Users/herui/Desktop/flask-restful/handlers/user.py", line 36, in create
+    raise ObjectsDuplicated("邮件为 <%s> 的用户已经注册" % email)
+exceptions.exceptions.ObjectsDuplicated: 邮件为 <suer76rui@icloud.com> 的用户已经注册
+[2021-01-06 17:54:39,628] [ERROR] [app.py.handle_exception: 73] [91114::140573801905136] 邮件为 <suer76rui@icloud.com> 的用户已经注册
+Traceback (most recent call last):
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask_restful/__init__.py", line 468, in wrapper
+    resp = resource(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/views.py", line 89, in view
+    return self.dispatch_request(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask_restful/__init__.py", line 583, in dispatch_request
+    resp = meth(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/resources/__init__.py", line 38, in wrapper
+    return jsonify(func(self, **kwargs))
+  File "/Users/herui/Desktop/flask-restful/resources/user.py", line 22, in post
+    user = UserHandler.create(**kwargs)
+  File "/Users/herui/Desktop/flask-restful/handlers/user.py", line 36, in create
+    raise ObjectsDuplicated("邮件为 <%s> 的用户已经注册" % email)
+exceptions.exceptions.ObjectsDuplicated: 邮件为 <suer76rui@icloud.com> 的用户已经注册
+[2021-01-06 17:54:53,263] [ERROR] [app.py.log_exception:1891] [91114::140573801905136] Exception on /api/users [POST]
+Traceback (most recent call last):
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask_restful/__init__.py", line 468, in wrapper
+    resp = resource(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/views.py", line 89, in view
+    return self.dispatch_request(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask_restful/__init__.py", line 583, in dispatch_request
+    resp = meth(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/resources/__init__.py", line 38, in wrapper
+    return jsonify(func(self, **kwargs))
+  File "/Users/herui/Desktop/flask-restful/resources/user.py", line 22, in post
+    user = UserHandler.create(**kwargs)
+  File "/Users/herui/Desktop/flask-restful/handlers/user.py", line 36, in create
+    raise ObjectsDuplicated("邮件为 <%s> 的用户已经注册" % email)
+exceptions.exceptions.ObjectsDuplicated: 邮件为 <suer76ruii@icloud.com> 的用户已经注册
+[2021-01-06 17:54:53,297] [ERROR] [app.py.handle_exception: 73] [91114::140573801905136] 邮件为 <suer76ruii@icloud.com> 的用户已经注册
+Traceback (most recent call last):
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask_restful/__init__.py", line 468, in wrapper
+    resp = resource(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/views.py", line 89, in view
+    return self.dispatch_request(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask_restful/__init__.py", line 583, in dispatch_request
+    resp = meth(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/resources/__init__.py", line 38, in wrapper
+    return jsonify(func(self, **kwargs))
+  File "/Users/herui/Desktop/flask-restful/resources/user.py", line 22, in post
+    user = UserHandler.create(**kwargs)
+  File "/Users/herui/Desktop/flask-restful/handlers/user.py", line 36, in create
+    raise ObjectsDuplicated("邮件为 <%s> 的用户已经注册" % email)
+exceptions.exceptions.ObjectsDuplicated: 邮件为 <suer76ruii@icloud.com> 的用户已经注册
+[2021-01-06 17:58:34,077] [ERROR] [app.py.log_exception:1891] [91114::140573801905136] Exception on /api/users [POST]
+Traceback (most recent call last):
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask_restful/__init__.py", line 468, in wrapper
+    resp = resource(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/views.py", line 89, in view
+    return self.dispatch_request(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask_restful/__init__.py", line 583, in dispatch_request
+    resp = meth(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/resources/__init__.py", line 38, in wrapper
+    return jsonify(func(self, **kwargs))
+  File "/Users/herui/Desktop/flask-restful/resources/user.py", line 22, in post
+    user = UserHandler.create(**kwargs)
+  File "/Users/herui/Desktop/flask-restful/handlers/user.py", line 36, in create
+    raise ObjectsDuplicated("邮件为 <%s> 的用户已经注册" % email)
+exceptions.exceptions.ObjectsDuplicated: 邮件为 <suer76ruii@icloud.com> 的用户已经注册
+[2021-01-06 17:58:34,085] [ERROR] [app.py.handle_exception: 73] [91114::140573801905136] 邮件为 <suer76ruii@icloud.com> 的用户已经注册
+Traceback (most recent call last):
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask_restful/__init__.py", line 468, in wrapper
+    resp = resource(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/views.py", line 89, in view
+    return self.dispatch_request(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask_restful/__init__.py", line 583, in dispatch_request
+    resp = meth(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/resources/__init__.py", line 38, in wrapper
+    return jsonify(func(self, **kwargs))
+  File "/Users/herui/Desktop/flask-restful/resources/user.py", line 22, in post
+    user = UserHandler.create(**kwargs)
+  File "/Users/herui/Desktop/flask-restful/handlers/user.py", line 36, in create
+    raise ObjectsDuplicated("邮件为 <%s> 的用户已经注册" % email)
+exceptions.exceptions.ObjectsDuplicated: 邮件为 <suer76ruii@icloud.com> 的用户已经注册
+[2021-01-06 17:58:58,373] [INFO] [server.py.run: 18] [4568::140475202766624] Server start at 0.0.0.0:24579
+[2021-01-06 17:59:07,605] [ERROR] [app.py.log_exception:1891] [4568::140475217918688] Exception on /api/users [POST]
+Traceback (most recent call last):
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask_restful/__init__.py", line 468, in wrapper
+    resp = resource(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/views.py", line 89, in view
+    return self.dispatch_request(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask_restful/__init__.py", line 583, in dispatch_request
+    resp = meth(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/resources/__init__.py", line 37, in wrapper
+    self.parsed_args = self.query_model.parse_and_process_args(**kwargs)
+  File "/Users/herui/Desktop/flask-restful/models/query/base.py", line 85, in parse_and_process_args
+    @classmethod
+  File "/Applications/PyCharm.app/Contents/plugins/python/helpers/pydev/_pydevd_frame_eval/pydevd_frame_tracing.py", line 55, in _pydev_stop_at_break
+    if t.additional_info.is_tracing:
+AttributeError: '_DummyThread' object has no attribute 'additional_info'
+[2021-01-06 17:59:07,613] [ERROR] [app.py.handle_exception: 73] [4568::140475217918688] '_DummyThread' object has no attribute 'additional_info'
+Traceback (most recent call last):
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask_restful/__init__.py", line 468, in wrapper
+    resp = resource(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/views.py", line 89, in view
+    return self.dispatch_request(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask_restful/__init__.py", line 583, in dispatch_request
+    resp = meth(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/resources/__init__.py", line 37, in wrapper
+    self.parsed_args = self.query_model.parse_and_process_args(**kwargs)
+  File "/Users/herui/Desktop/flask-restful/models/query/base.py", line 85, in parse_and_process_args
+    @classmethod
+  File "/Applications/PyCharm.app/Contents/plugins/python/helpers/pydev/_pydevd_frame_eval/pydevd_frame_tracing.py", line 55, in _pydev_stop_at_break
+    if t.additional_info.is_tracing:
+AttributeError: '_DummyThread' object has no attribute 'additional_info'
+[2021-01-06 17:59:44,978] [INFO] [server.py.run: 18] [6218::4508552704] Server start at 0.0.0.0:24579
+[2021-01-06 18:02:41,642] [ERROR] [app.py.log_exception:1891] [6218::4508552704] Exception on /api/users [POST]
+Traceback (most recent call last):
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask_restful/__init__.py", line 468, in wrapper
+    resp = resource(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/views.py", line 89, in view
+    return self.dispatch_request(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask_restful/__init__.py", line 583, in dispatch_request
+    resp = meth(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/resources/__init__.py", line 38, in wrapper
+    return jsonify(func(self, **kwargs))
+  File "/Users/herui/Desktop/flask-restful/resources/user.py", line 22, in post
+    user = UserHandler.create(**kwargs)
+  File "/Users/herui/Desktop/flask-restful/handlers/user.py", line 36, in create
+    raise ObjectsDuplicated("邮件为 <%s> 的用户已经注册" % email)
+exceptions.exceptions.ObjectsDuplicated: 邮件为 <suer76ruiiiiii@icloud.com> 的用户已经注册
+[2021-01-06 18:02:41,649] [ERROR] [app.py.handle_exception: 73] [6218::4508552704] 邮件为 <suer76ruiiiiii@icloud.com> 的用户已经注册
+Traceback (most recent call last):
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask_restful/__init__.py", line 468, in wrapper
+    resp = resource(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/views.py", line 89, in view
+    return self.dispatch_request(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask_restful/__init__.py", line 583, in dispatch_request
+    resp = meth(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/resources/__init__.py", line 38, in wrapper
+    return jsonify(func(self, **kwargs))
+  File "/Users/herui/Desktop/flask-restful/resources/user.py", line 22, in post
+    user = UserHandler.create(**kwargs)
+  File "/Users/herui/Desktop/flask-restful/handlers/user.py", line 36, in create
+    raise ObjectsDuplicated("邮件为 <%s> 的用户已经注册" % email)
+exceptions.exceptions.ObjectsDuplicated: 邮件为 <suer76ruiiiiii@icloud.com> 的用户已经注册
+[2021-01-06 18:03:55,545] [ERROR] [app.py.log_exception:1891] [6218::4508552704] Exception on /api/users [POST]
+Traceback (most recent call last):
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask_restful/__init__.py", line 468, in wrapper
+    resp = resource(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/views.py", line 89, in view
+    return self.dispatch_request(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask_restful/__init__.py", line 583, in dispatch_request
+    resp = meth(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/resources/__init__.py", line 38, in wrapper
+    return jsonify(func(self, **kwargs))
+  File "/Users/herui/Desktop/flask-restful/resources/user.py", line 22, in post
+    user = UserHandler.create(**kwargs)
+  File "/Users/herui/Desktop/flask-restful/handlers/user.py", line 36, in create
+    raise ObjectsDuplicated("邮件为 <%s> 的用户已经注册" % email)
+exceptions.exceptions.ObjectsDuplicated: 邮件为 <suer76ruiiiiii@icloud.com> 的用户已经注册
+[2021-01-06 18:03:55,546] [ERROR] [app.py.handle_exception: 73] [6218::4508552704] 邮件为 <suer76ruiiiiii@icloud.com> 的用户已经注册
+Traceback (most recent call last):
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask_restful/__init__.py", line 468, in wrapper
+    resp = resource(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/views.py", line 89, in view
+    return self.dispatch_request(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask_restful/__init__.py", line 583, in dispatch_request
+    resp = meth(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/resources/__init__.py", line 38, in wrapper
+    return jsonify(func(self, **kwargs))
+  File "/Users/herui/Desktop/flask-restful/resources/user.py", line 22, in post
+    user = UserHandler.create(**kwargs)
+  File "/Users/herui/Desktop/flask-restful/handlers/user.py", line 36, in create
+    raise ObjectsDuplicated("邮件为 <%s> 的用户已经注册" % email)
+exceptions.exceptions.ObjectsDuplicated: 邮件为 <suer76ruiiiiii@icloud.com> 的用户已经注册
+[2021-01-06 18:06:13,787] [INFO] [server.py.run: 18] [18191::4716846592] Server start at 0.0.0.0:24579
+[2021-01-06 18:06:22,138] [ERROR] [app.py.log_exception:1891] [18191::4716846592] Exception on /api/users [POST]
+Traceback (most recent call last):
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask_restful/__init__.py", line 468, in wrapper
+    resp = resource(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/views.py", line 89, in view
+    return self.dispatch_request(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask_restful/__init__.py", line 583, in dispatch_request
+    resp = meth(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/resources/__init__.py", line 38, in wrapper
+    return jsonify(func(self, **kwargs))
+  File "/Users/herui/Desktop/flask-restful/resources/user.py", line 22, in post
+    user = UserHandler.create(**kwargs)
+  File "/Users/herui/Desktop/flask-restful/handlers/user.py", line 33, in create
+    raise ArgumentRequired("邮件地址不能为空")
+exceptions.exceptions.ArgumentRequired: 邮件地址不能为空
+[2021-01-06 18:06:22,149] [ERROR] [app.py.handle_exception: 73] [18191::4716846592] 邮件地址不能为空
+Traceback (most recent call last):
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask_restful/__init__.py", line 468, in wrapper
+    resp = resource(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/views.py", line 89, in view
+    return self.dispatch_request(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask_restful/__init__.py", line 583, in dispatch_request
+    resp = meth(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/resources/__init__.py", line 38, in wrapper
+    return jsonify(func(self, **kwargs))
+  File "/Users/herui/Desktop/flask-restful/resources/user.py", line 22, in post
+    user = UserHandler.create(**kwargs)
+  File "/Users/herui/Desktop/flask-restful/handlers/user.py", line 33, in create
+    raise ArgumentRequired("邮件地址不能为空")
+exceptions.exceptions.ArgumentRequired: 邮件地址不能为空
+[2021-01-06 18:06:37,301] [ERROR] [app.py.log_exception:1891] [18191::4716846592] Exception on /api/users [POST]
+Traceback (most recent call last):
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask_restful/__init__.py", line 468, in wrapper
+    resp = resource(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/views.py", line 89, in view
+    return self.dispatch_request(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask_restful/__init__.py", line 583, in dispatch_request
+    resp = meth(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/resources/__init__.py", line 38, in wrapper
+    return jsonify(func(self, **kwargs))
+  File "/Users/herui/Desktop/flask-restful/resources/user.py", line 22, in post
+    user = UserHandler.create(**kwargs)
+  File "/Users/herui/Desktop/flask-restful/handlers/user.py", line 33, in create
+    raise ArgumentRequired("邮件地址不能为空")
+exceptions.exceptions.ArgumentRequired: 邮件地址不能为空
+[2021-01-06 18:06:37,303] [ERROR] [app.py.handle_exception: 73] [18191::4716846592] 邮件地址不能为空
+Traceback (most recent call last):
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask_restful/__init__.py", line 468, in wrapper
+    resp = resource(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/views.py", line 89, in view
+    return self.dispatch_request(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask_restful/__init__.py", line 583, in dispatch_request
+    resp = meth(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/resources/__init__.py", line 38, in wrapper
+    return jsonify(func(self, **kwargs))
+  File "/Users/herui/Desktop/flask-restful/resources/user.py", line 22, in post
+    user = UserHandler.create(**kwargs)
+  File "/Users/herui/Desktop/flask-restful/handlers/user.py", line 33, in create
+    raise ArgumentRequired("邮件地址不能为空")
+exceptions.exceptions.ArgumentRequired: 邮件地址不能为空
+[2021-01-06 18:07:29,619] [INFO] [server.py.run: 18] [20457::4491791872] Server start at 0.0.0.0:24579
+[2021-01-06 18:07:37,735] [ERROR] [app.py.log_exception:1891] [20457::4491791872] Exception on /api/users [POST]
+Traceback (most recent call last):
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask_restful/__init__.py", line 468, in wrapper
+    resp = resource(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/views.py", line 89, in view
+    return self.dispatch_request(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask_restful/__init__.py", line 583, in dispatch_request
+    resp = meth(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/resources/__init__.py", line 38, in wrapper
+    return jsonify(func(self, **kwargs))
+  File "/Users/herui/Desktop/flask-restful/resources/user.py", line 22, in post
+    user = UserHandler.create(**kwargs)
+  File "/Users/herui/Desktop/flask-restful/handlers/user.py", line 33, in create
+    raise ArgumentRequired("邮件地址不能为空")
+exceptions.exceptions.ArgumentRequired: 邮件地址不能为空
+[2021-01-06 18:07:37,744] [ERROR] [app.py.handle_exception: 73] [20457::4491791872] 邮件地址不能为空
+Traceback (most recent call last):
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask_restful/__init__.py", line 468, in wrapper
+    resp = resource(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/views.py", line 89, in view
+    return self.dispatch_request(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask_restful/__init__.py", line 583, in dispatch_request
+    resp = meth(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/resources/__init__.py", line 38, in wrapper
+    return jsonify(func(self, **kwargs))
+  File "/Users/herui/Desktop/flask-restful/resources/user.py", line 22, in post
+    user = UserHandler.create(**kwargs)
+  File "/Users/herui/Desktop/flask-restful/handlers/user.py", line 33, in create
+    raise ArgumentRequired("邮件地址不能为空")
+exceptions.exceptions.ArgumentRequired: 邮件地址不能为空
+[2021-01-06 18:08:03,642] [ERROR] [app.py.log_exception:1891] [20457::4491791872] Exception on /api/users [POST]
+Traceback (most recent call last):
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask_restful/__init__.py", line 468, in wrapper
+    resp = resource(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/views.py", line 89, in view
+    return self.dispatch_request(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask_restful/__init__.py", line 583, in dispatch_request
+    resp = meth(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/resources/__init__.py", line 38, in wrapper
+    return jsonify(func(self, **kwargs))
+  File "/Users/herui/Desktop/flask-restful/resources/user.py", line 22, in post
+    user = UserHandler.create(**kwargs)
+  File "/Users/herui/Desktop/flask-restful/handlers/user.py", line 33, in create
+    raise ArgumentRequired("邮件地址不能为空")
+exceptions.exceptions.ArgumentRequired: 邮件地址不能为空
+[2021-01-06 18:08:03,644] [ERROR] [app.py.handle_exception: 73] [20457::4491791872] 邮件地址不能为空
+Traceback (most recent call last):
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask_restful/__init__.py", line 468, in wrapper
+    resp = resource(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask/views.py", line 89, in view
+    return self.dispatch_request(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.8/site-packages/flask_restful/__init__.py", line 583, in dispatch_request
+    resp = meth(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/resources/__init__.py", line 38, in wrapper
+    return jsonify(func(self, **kwargs))
+  File "/Users/herui/Desktop/flask-restful/resources/user.py", line 22, in post
+    user = UserHandler.create(**kwargs)
+  File "/Users/herui/Desktop/flask-restful/handlers/user.py", line 33, in create
+    raise ArgumentRequired("邮件地址不能为空")
+exceptions.exceptions.ArgumentRequired: 邮件地址不能为空
+[2021-01-06 18:09:09,112] [INFO] [server.py.run: 18] [23674::4616838656] Server start at 0.0.0.0:24579
+[2021-01-06 18:10:06,733] [INFO] [server.py.run: 18] [25305::4377185792] Server start at 0.0.0.0:24579
+[2021-01-06 18:11:27,051] [INFO] [server.py.run: 18] [27878::4384443904] Server start at 0.0.0.0:24579
+[2021-01-06 18:14:17,527] [INFO] [server.py.run: 18] [31742::4440231424] Server start at 0.0.0.0:24579
+[2021-01-06 18:22:22,553] [INFO] [server.py.run: 18] [48760::4601302528] Server start at 0.0.0.0:24579
+[2021-01-06 18:22:45,941] [ERROR] [app.py.log_exception:1891] [48760::4601302528] Exception on /api/users [POST]
+Traceback (most recent call last):
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.9/site-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.9/site-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.9/site-packages/flask_restful/__init__.py", line 468, in wrapper
+    resp = resource(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.9/site-packages/flask/views.py", line 89, in view
+    return self.dispatch_request(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.9/site-packages/flask_restful/__init__.py", line 583, in dispatch_request
+    resp = meth(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/resources/__init__.py", line 38, in wrapper
+    return jsonify(func(self, **kwargs))
+  File "/Users/herui/Desktop/flask-restful/resources/user.py", line 22, in post
+    user = UserHandler.create(**kwargs)
+  File "/Users/herui/Desktop/flask-restful/handlers/user.py", line 33, in create
+    raise ArgumentRequired("邮件地址不能为空")
+exceptions.exceptions.ArgumentRequired: 邮件地址不能为空
+[2021-01-06 18:22:45,952] [ERROR] [app.py.handle_exception: 73] [48760::4601302528] 邮件地址不能为空
+Traceback (most recent call last):
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.9/site-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.9/site-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.9/site-packages/flask_restful/__init__.py", line 468, in wrapper
+    resp = resource(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.9/site-packages/flask/views.py", line 89, in view
+    return self.dispatch_request(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.9/site-packages/flask_restful/__init__.py", line 583, in dispatch_request
+    resp = meth(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/resources/__init__.py", line 38, in wrapper
+    return jsonify(func(self, **kwargs))
+  File "/Users/herui/Desktop/flask-restful/resources/user.py", line 22, in post
+    user = UserHandler.create(**kwargs)
+  File "/Users/herui/Desktop/flask-restful/handlers/user.py", line 33, in create
+    raise ArgumentRequired("邮件地址不能为空")
+exceptions.exceptions.ArgumentRequired: 邮件地址不能为空
+[2021-01-06 18:22:54,042] [INFO] [server.py.run: 18] [49778::4643528192] Server start at 0.0.0.0:24579
+[2021-01-06 18:24:45,947] [INFO] [server.py.run: 18] [50117::4572995072] Server start at 0.0.0.0:24579
+[2021-01-06 18:25:02,030] [INFO] [server.py.run: 18] [53452::4690017792] Server start at 0.0.0.0:24579
+[2021-01-06 18:25:27,069] [ERROR] [app.py.log_exception:1891] [53452::4690017792] Exception on /api/users [POST]
+Traceback (most recent call last):
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.9/site-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.9/site-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.9/site-packages/flask_restful/__init__.py", line 468, in wrapper
+    resp = resource(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.9/site-packages/flask/views.py", line 89, in view
+    return self.dispatch_request(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.9/site-packages/flask_restful/__init__.py", line 583, in dispatch_request
+    resp = meth(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/resources/__init__.py", line 37, in wrapper
+    self.parsed_args = self.query_model.parse_and_process_args(**kwargs)
+  File "/Users/herui/Desktop/flask-restful/models/query/base.py", line 89, in parse_and_process_args
+    return cls.parse_args().process_args(**kwargs)
+  File "/Users/herui/Desktop/flask-restful/models/query/base.py", line 63, in parse_args
+    name = field.name
+AttributeError: name
+[2021-01-06 18:25:27,079] [ERROR] [app.py.handle_exception: 73] [53452::4690017792] name
+Traceback (most recent call last):
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.9/site-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.9/site-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.9/site-packages/flask_restful/__init__.py", line 468, in wrapper
+    resp = resource(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.9/site-packages/flask/views.py", line 89, in view
+    return self.dispatch_request(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/venv/lib/python3.9/site-packages/flask_restful/__init__.py", line 583, in dispatch_request
+    resp = meth(*args, **kwargs)
+  File "/Users/herui/Desktop/flask-restful/resources/__init__.py", line 37, in wrapper
+    self.parsed_args = self.query_model.parse_and_process_args(**kwargs)
+  File "/Users/herui/Desktop/flask-restful/models/query/base.py", line 89, in parse_and_process_args
+    return cls.parse_args().process_args(**kwargs)
+  File "/Users/herui/Desktop/flask-restful/models/query/base.py", line 63, in parse_args
+    name = field.name
+AttributeError: name
+[2021-01-06 18:28:36,744] [INFO] [server.py.run: 18] [60224::4517809664] Server start at 0.0.0.0:24579

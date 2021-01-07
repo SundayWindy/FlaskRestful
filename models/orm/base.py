@@ -19,29 +19,29 @@ T = TypeVar("T", bound=db.Model)
 
 
 class SurrogatePK:
-    """A mixin that adds a surrogate integer 'primary key' column named `id` to any declarative-mapped class."""
+    """A mixin that adds a surrogate integer 'primary key' column named `id`
+    to any declarative-mapped class."""
 
     query: BaseQuery
-    __table_args__ = {'extend_existing': True}
+
+    __table_args__ = {"extend_existing": True}
     id = Column(db.Integer, primary_key=True)
 
     @classmethod
     def get_by_id(cls, id_) -> Optional[SQLAlchemy]:
         """Get record by id."""
-        if any((isinstance(id_, (str, bytes)) and id_.isdigit(), isinstance(id_, (int, float)),)):
+        if any((isinstance(id_, (str, bytes)) and id_.isdigit(), isinstance(id_, (int, float)))):
             return cls.query.get(int(id_))
         return None
 
 
 class TimeMixin:
-    create_time = Column(DateTime(timezone=True), server_default=func.now(), comment="创建时间")
-    update_time = Column(
-        DateTime(timezone=True), server_default=func.now(), onupdate=func.now(), comment="更新时间"
-    )
+    create_time = Column(DateTime(timezone=True), server_default=func.now())
+    update_time = Column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now())
 
 
 class DeleteMixin:
-    deleted = Column(Boolean, server_default=expression.false(), nullable=False, comment="是否被删除")
+    deleted = Column(Boolean, server_default=expression.false(), nullable=False)
 
 
 class Base(db.Model, SurrogatePK):
@@ -113,11 +113,11 @@ class Base(db.Model, SurrogatePK):
         return {c: self._to_json(getattr(self, c)) for c in column_names}
 
 
-def reference_col(table_name, nullable=False, pk_name='id', **kwargs):
+def reference_col(table_name, nullable=False, pk_name="id", **kwargs):
     """
     Column that adds primary key foreign key reference.
     Usage:
         category_id = reference_col('category')
         category = relationship('Category', backref='categories')
     """
-    return Column(db.ForeignKey('{0}.{1}'.format(table_name, pk_name)), nullable=nullable, **kwargs)
+    return Column(db.ForeignKey("{0}.{1}".format(table_name, pk_name)), nullable=nullable, **kwargs)

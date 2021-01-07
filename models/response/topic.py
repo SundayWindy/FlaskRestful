@@ -1,22 +1,19 @@
-from models.base import Field
-from models.data_types import ApiDefineType, IntType, ListType, StringType
+from typing import List, Optional
 
-from .base import BaseResponseModel
-
-
-class TopicResponseModel(BaseResponseModel):
-    id = Field(IntType(), nullable=False)
-    name = Field(StringType(), nullable=False, comment="主题名称")
-    posts_count = Field(IntType(), nullable=True, comment="评论总数")
+from pyruicore import BaseModel, Field
 
 
-class RootTopicResponseModel(BaseResponseModel):
-    id = Field(IntType(), nullable=False)
-    name = Field(StringType(), nullable=False, comment="主题名称")
+class TopicResponseModel(BaseModel):
+    id: Optional[int]
+    name: Optional[str] = Field(comment="主题名称")
+    posts_count: Optional[int] = Field(comment="评论总数")
 
-    child_topics = Field(
-        ListType(ApiDefineType(TopicResponseModel)),
+
+class RootTopicResponseModel(BaseModel):
+    id: Optional[int]
+    name: Optional[str] = Field(comment="主题名称")
+    child_topics: Optional[List[TopicResponseModel]] = Field(
         nullable=False,
-        mock_func=lambda: [],
+        default_factory=lambda: [],
         comment="根topic下的所有子topic",
     )
