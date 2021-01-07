@@ -6,3 +6,4 @@ omit=
     */docs/
     */venv/*
     */server.py
+    */authentication

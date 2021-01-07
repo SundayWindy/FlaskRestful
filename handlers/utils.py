@@ -1,13 +1,13 @@
 import datetime
 import re
-from exceptions import exceptions
 
 from configures.const import DATE_FORMATS
+from exceptions import exceptions
 
 
 def str_to_datetime(value):
     ret = None
-    if value and value not in ['', 'null', 'None']:
+    if value and value not in ["", "null", "None"]:
         for format_ in DATE_FORMATS:
             try:
                 ret = datetime.datetime.strptime(value, format_)
@@ -28,8 +28,8 @@ class BaseChecker:
     # 字母数字下划线 \w  == 【A-Za-z0-9_】
     # 中文 \u4e00-\u9fa5
 
-    ALLOWED_PATTERN = r'^[\S]+$'
-    ERROR_MSG = '不允许出现空白字符'
+    ALLOWED_PATTERN = r"^[\S]+$"
+    ERROR_MSG = "不允许出现空白字符"
 
     @classmethod
     def is_allowed(cls, value: str) -> bool:
@@ -40,7 +40,7 @@ class BaseChecker:
 
 class EmailChecker(BaseChecker):
     ALLOWED_PATTERN = r"(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)"
-    ERROR_MSG = '邮箱格式错误'
+    ERROR_MSG = "邮箱格式错误"
 
 
 class PassWordChecker(BaseChecker):
@@ -49,13 +49,13 @@ class PassWordChecker(BaseChecker):
 
 
 class NameChecker(BaseChecker):
-    ALLOWED_PATTERN = '^[\\w\u4e00-\u9fa5-]+$'
-    ERROR_MSG = '名称中只允许出现【中文，英文，数字，下划线，连接符】,并且不允许全部是空白字符'
+    ALLOWED_PATTERN = "^[\\w\u4e00-\u9fa5-]+$"
+    ERROR_MSG = "名称中只允许出现【中文，英文，数字，下划线，连接符】,并且不允许全部是空白字符"
 
 
 class ContentChecker(BaseChecker):
-    ALLOWED_PATTERN = r'[\S]+'
-    ERROR_MSG = '不允许全部是空白字符，即至少有一个非空白字符'
+    ALLOWED_PATTERN = r"[\S]+"
+    ERROR_MSG = "不允许全部是空白字符，即至少有一个非空白字符"
 
 
 def assert_name_is_valid(message="名称不能为空", **kwargs) -> None:

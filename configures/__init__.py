@@ -1,6 +1,5 @@
 import enum
-
-from typing import ValuesView, TypeVar, AbstractSet
+from typing import AbstractSet, TypeVar, ValuesView
 
 T = TypeVar("T", bound=enum.Enum)
 
@@ -16,4 +15,4 @@ class BaseEnumType(enum.Enum):
 
     @classmethod
     def to_doc(cls) -> str:
-        return '；'.join([':'.join([str(ins.name), str(ins.value)]) for ins in cls])
+        return "；".join([":".join([str(ins.name), str(ins.value)]) for ins in cls])

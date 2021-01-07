@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+
+  server:
+    build: .
+    container_name: flask
+    ports:
+      - 24579:24579
+    depends_on:
+      - mysql
+    command: ["python", "server.py"]
+
+  mysql:
+    image: mysql:8.0
+    ports:
+      - 3307:3306
+    container_name: flask_mysql
+    environment:
+      MYSQL_USER: root
+      MYSQL_ALLOW_EMPTY_PASSWORD: 1
+      MYSQL_DATABASE: flask_restful
