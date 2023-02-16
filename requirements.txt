@@ -76,5 +76,5 @@ typing-extensions==3.7.4.2
 urllib3==1.26.5
 virtualenv==20.0.20
 wcwidth==0.1.9
-Werkzeug==1.0.1
+Werkzeug==2.2.3
 wrapt==1.11.2
