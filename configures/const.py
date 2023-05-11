@@ -2,7 +2,7 @@ from configures import BaseEnumType
 
 PER_PAGE = 50
 POST_MINIMUM_WORDS = 5
-BLANK = ""
+BLANK = ''
 
 DATE_FORMATS = [
     '%Y-%m-%dT%H:%M:%S',

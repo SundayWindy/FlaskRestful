@@ -1,0 +1,46 @@
+
+[tool.black]
+line-length = 120
+skip-string-normalization = true
+
+[tool.isort]
+skip_gitignore = true
+profile = "black"
+line_length = 120
+multi_line_output = 3
+
+
+[tool.pylint.'MASTER']
+ignore-paths = [
+    ".git/",
+    "venv/",
+    ".venv/",
+    ".mypy_cache/",
+    "__pycache__/",
+    ".pytest_cache/",
+    "alembic/"
+]
+extension-pkg-whitelist = ["pydantic"]
+
+[tool.pylint.'BASIC']
+variable-rgx = "^[a-z][a-zA-Z0-9_]*$"
+argument-rgx = "^[a-z][a-zA-Z0-9_]*$"
+class-rgx = "^(_?[A-Z][a-zA-Z0-9]*)*$"
+
+[tool.pylint.'MESSAGES CONTROL']
+disable = [
+    "missing-module-docstring",
+    "missing-function-docstring",
+    "missing-class-docstring",
+    "too-many-instance-attributes",
+    "too-many-arguments",
+    "too-few-public-methods",
+    "no-else-return",
+    "no-else-raise",
+    "fixme",
+    "duplicate-code",
+    "redefined-builtin",
+]
+
+[tool.pylint.'FORMAT']
+max-line-length = 120

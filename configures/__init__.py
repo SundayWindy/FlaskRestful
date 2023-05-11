@@ -1,8 +1,7 @@
 import enum
+from typing import AbstractSet, TypeVar, ValuesView
 
-from typing import ValuesView, TypeVar, AbstractSet
-
-T = TypeVar("T", bound=enum.Enum)
+T = TypeVar('T', bound=enum.Enum)
 
 
 class BaseEnumType(enum.Enum):

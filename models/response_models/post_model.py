@@ -15,5 +15,3 @@ class ResponsePostModel(BaseResponseModel):
 
     create_time = Field(DateTimeType(), nullable=False)
     update_time = Field(DateTimeType(), nullable=False)
-
-

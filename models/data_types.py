@@ -1,16 +1,14 @@
-import random
 import importlib
-from uuid import uuid1
-from datetime import datetime
+import random
 from collections.abc import Iterable
+from datetime import datetime
+from typing import Any, Callable, Dict, List, Optional, Tuple, Type
+from uuid import uuid1
 
-from typing import Optional, List, Any, Dict, Callable, Tuple, Type
-
+from exceptions.exceptions import ServerException
+from handlers.utils import str_to_datetime
 from models.base_model import ApiDataType
 from models.response_models.base_model import BaseResponseModel
-
-from handlers.utils import str_to_datetime
-from exceptions.exceptions import ServerException
 
 
 class IntType(ApiDataType):
@@ -18,7 +16,7 @@ class IntType(ApiDataType):
         return random.randint(0, 10)
 
     def marshal(self, value) -> Optional[int]:
-        return int(value) if value is not None and value != "" else None
+        return int(value) if value is not None and value != '' else None
 
     def validate(self, value) -> None:
         assert value is None or isinstance(value, int)
@@ -29,7 +27,7 @@ class FloatType(ApiDataType):
         return int(random.random() * 100) / 10
 
     def marshal(self, value) -> Optional[float]:
-        return float(value) if value is not None and value != "" else None
+        return float(value) if value is not None and value != '' else None
 
     def validate(self, value) -> None:
         assert value is None or isinstance(value, float)
@@ -40,7 +38,7 @@ class StringType(ApiDataType):
         return uuid1().hex
 
     def marshal(self, value) -> Optional[str]:
-        return str(value) if value not in (None, "") else None
+        return str(value) if value not in (None, '') else None
 
     def validate(self, value) -> None:
         assert value is None or isinstance(value, str)
@@ -51,18 +49,18 @@ class BooleanType(ApiDataType):
         return random.choice([True, False])
 
     def marshal(self, value) -> bool:
-        if value == "":
+        if value == '':
             value = None
         if isinstance(value, str):
-            if value.lower() == "true":
+            if value.lower() == 'true':
                 value = True
-            elif value.lower() == "false":
+            elif value.lower() == 'false':
                 value = False
         assert value in (
             True,
             False,
             None,
-        ), "[Boolean] should be [True] or [False]. Actual: [{}]".format(type(value))
+        ), '[Boolean] should be [True] or [False]. Actual: [{}]'.format(type(value))
 
         return value
 
@@ -76,13 +74,13 @@ class DateTimeType(ApiDataType):
 
     def marshal(self, value) -> Optional[datetime]:
         date = None
-        if value and value not in ("", "null", "None"):
+        if value and value not in ('', 'null', 'None'):
             if isinstance(value, datetime):
                 date = value
             elif isinstance(value, str):
                 date = str_to_datetime(value)
             else:
-                raise TypeError("Invalid datetime format")
+                raise TypeError('Invalid datetime format')
 
         return date
 
@@ -106,7 +104,7 @@ class ListType(ApiDataType):
             self.element_type.validate(v)
 
     def __str__(self):
-        return "List<{}>".format(self.element_type)
+        return 'List<{}>'.format(self.element_type)
 
 
 class DictType(ApiDataType):
@@ -136,7 +134,7 @@ class LazyWrapper:
 
 
 class ApiDefineType(ApiDataType):
-    mod = LazyWrapper(lambda: importlib.import_module("models.response_models"))
+    mod = LazyWrapper(lambda: importlib.import_module('models.response_models'))
 
     def __init__(self, schema: Tuple[str, BaseResponseModel]):
         if isinstance(schema, str):
@@ -146,7 +144,7 @@ class ApiDefineType(ApiDataType):
             self.schema_name = schema.__name__
             self._real_data_type = schema
         else:
-            raise ServerException("schema of ApiDefineType should be a Model or name of a Model")
+            raise ServerException('schema of ApiDefineType should be a Model or name of a Model')
 
         self._real_data = None
 
@@ -178,7 +176,5 @@ class ApiDefineType(ApiDataType):
         return self.schema_name
 
     def validate(self, data: Any) -> None:
-        assert isinstance(data, self.data_type), "Expect: {} - Actual: {}".format(
-            self.data_type.__name__, type(data)
-        )
+        assert isinstance(data, self.data_type), 'Expect: {} - Actual: {}'.format(self.data_type.__name__, type(data))
         self.marshal(data)

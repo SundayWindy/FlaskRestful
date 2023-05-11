@@ -1,9 +1,9 @@
 import logging
+
+from gevent import monkey
 from gevent.pywsgi import WSGIServer
 
 from app import create_app, init_logging
-
-from gevent import monkey
 
 monkey.patch_all()
 
@@ -15,9 +15,9 @@ def run():
     init_logging()
     http_server = WSGIServer((host, port), create_app())
 
-    logging.getLogger(__name__).info("Server start at %s:%s" % (host, port))
+    logging.getLogger(__name__).info('Server start at %s:%s' % (host, port))
     http_server.serve_forever()
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     run()

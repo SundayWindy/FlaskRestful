@@ -1,7 +1,7 @@
 import enum
 from datetime import datetime
+from typing import Dict, List, Optional, TypeVar
 
-from typing import Optional, Dict, List, TypeVar
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.ext.declarative import declarative_base
 
@@ -13,7 +13,7 @@ db = SQLAlchemy(model_class=Meta)
 Column = db.Column
 relationship = db.relationship
 
-T = TypeVar("T", bound=db.Model)
+T = TypeVar('T', bound=db.Model)
 
 
 class SurrogatePK:
@@ -27,10 +27,10 @@ class SurrogatePK:
     def get_by_id(cls, record_id) -> Optional[SQLAlchemy]:
         """Get record by ID."""
         if any(
-                (
-                        isinstance(record_id, (str, bytes)) and record_id.isdigit(),
-                        isinstance(record_id, (int, float)),
-                )
+            (
+                isinstance(record_id, (str, bytes)) and record_id.isdigit(),
+                isinstance(record_id, (int, float)),
+            )
         ):
             return cls.query.get(int(record_id))
         return None
@@ -80,7 +80,7 @@ class Base(db.Model, SurrogatePK):
         return self
 
     def _to_json(self, value):
-        if hasattr(value, "as_dict"):
+        if hasattr(value, 'as_dict'):
             return value.as_dict()
         elif isinstance(value, datetime):
             return value.strftime(date_format)

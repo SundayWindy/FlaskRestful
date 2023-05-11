@@ -1,12 +1,12 @@
 import pprint
+from typing import Any, Callable, Dict, TypeVar
 
 from flask_restful import reqparse
-from typing import Callable, TypeVar, Dict, Any
 
 from exceptions.exceptions import ArgumentInvalid
 from models.base_model import ApiDataType, BaseModel, Field
 
-T = TypeVar("T", bound=BaseModel)
+T = TypeVar('T', bound=BaseModel)
 
 
 class QueryField(Field):
@@ -25,16 +25,16 @@ class QueryField(Field):
     )
 
     def __init__(
-            self,
-            field_type: ApiDataType,
-            location: str,
-            parser_func: Callable = None,
-            required: bool = False,
-            mock_func: bool = False,
-            enum_values: tuple = (),
-            comment: str = "",
-            nullable: bool = True,
-            **kwargs
+        self,
+        field_type: ApiDataType,
+        location: str,
+        parser_func: Callable = None,
+        required: bool = False,
+        mock_func: bool = False,
+        enum_values: tuple = (),
+        comment: str = '',
+        nullable: bool = True,
+        **kwargs
     ) -> None:
         super().__init__(field_type, mock_func, enum_values, comment, nullable)
         self.location = location
@@ -62,9 +62,7 @@ class BaseQueryModel(BaseModel):
             location = field.location
             required = field.required
             nullable = field.nullable
-            parser.add_argument(
-                name, location=location, required=required, nullable=nullable, **field.parser_kwargs
-            )
+            parser.add_argument(name, location=location, required=required, nullable=nullable, **field.parser_kwargs)
 
         parsed = parser.parse_args()
 
@@ -72,9 +70,7 @@ class BaseQueryModel(BaseModel):
             if field.enum_values and field.name in parsed:
                 value = parsed[field.name]
                 if value is not None and value not in field.enum_values:
-                    raise ArgumentInvalid(
-                        "参数 [{}] 的值必须在 [{}] 中".format(field.name, field.enum_values)
-                    )
+                    raise ArgumentInvalid('参数 [{}] 的值必须在 [{}] 中'.format(field.name, field.enum_values))
 
         instance = cls(**parsed)
         return instance
@@ -96,9 +92,7 @@ class BaseQueryModel(BaseModel):
         return item in self.__storage__
 
     def __str__(self):
-        return '[<{}>: \n{}]'.format(
-            self.__class__.__name__, pprint.pformat(self.__storage__, indent=4)
-        )
+        return '[<{}>: \n{}]'.format(self.__class__.__name__, pprint.pformat(self.__storage__, indent=4))
 
 
 class NoArgs(BaseQueryModel):

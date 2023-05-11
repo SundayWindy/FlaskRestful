@@ -27,7 +27,7 @@ class Token(Resource):
 def verify_password(username_or_token, password):
     # first try to authenticate by token
     user = User.verify_auth_token(username_or_token)
-    print("here", username_or_token)
+    print('here', username_or_token)
     print(user)
     if not user:
         # try to authenticate with username/password

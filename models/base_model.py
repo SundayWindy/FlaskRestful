@@ -1,6 +1,5 @@
 import pprint
-
-from typing import Callable, Dict, Any
+from typing import Any, Callable, Dict
 
 
 class ApiDataType:
@@ -20,16 +19,24 @@ class ApiDataType:
 
 
 class Field:
-    __slots__ = ("name", "field_type", "mock_func", "enum_values", "comment", "nullable", "marshal")
+    __slots__ = (
+        'name',
+        'field_type',
+        'mock_func',
+        'enum_values',
+        'comment',
+        'nullable',
+        'marshal',
+    )
 
     def __init__(
-            self,
-            field_type: ApiDataType,
-            mock_func: Callable = None,
-            enum_values: tuple = (),
-            comment: str = "",
-            nullable: bool = True,
-            marshal: Callable = None,
+        self,
+        field_type: ApiDataType,
+        mock_func: Callable = None,
+        enum_values: tuple = (),
+        comment: str = '',
+        nullable: bool = True,
+        marshal: Callable = None,
     ) -> None:
         self.name = ''
         self.field_type = field_type
@@ -40,10 +47,10 @@ class Field:
         self.marshal = marshal or self.field_type.marshal
 
     def __str__(self):
-        return "<Field [{}]: {}>".format(self.name, self.field_type)
+        return '<Field [{}]: {}>'.format(self.name, self.field_type)
 
     def __repr__(self):
-        return "Field({})".format(self.field_type)
+        return 'Field({})'.format(self.field_type)
 
 
 class ModelMetaClass(type):
@@ -51,7 +58,7 @@ class ModelMetaClass(type):
         __fields_map__ = {}
 
         for base in bases:
-            for field in getattr(base, "__fields__", ()):
+            for field in getattr(base, '__fields__', ()):
                 if field.name not in __fields_map__:
                     __fields_map__[field.name] = field
 
@@ -61,9 +68,9 @@ class ModelMetaClass(type):
                 __fields_map__[field_name] = field
                 attrs.pop(field_name)
 
-        attrs["__fields__"] = tuple(__fields_map__.values())
-        attrs["__fields_map__"] = __fields_map__
-        attrs["__slots__"] = tuple(list(__fields_map__.keys()) + ["__storage__"])
+        attrs['__fields__'] = tuple(__fields_map__.values())
+        attrs['__fields_map__'] = __fields_map__
+        attrs['__slots__'] = tuple(list(__fields_map__.keys()) + ['__storage__'])
 
         return type.__new__(mcs, name, bases, attrs)
 
@@ -76,7 +83,7 @@ class BaseModel(object, metaclass=ModelMetaClass):
         for field_name, field in self.__fields_map__.items():
             value = kwargs.get(field_name)
             if not drop_missing and not field.nullable and value is None:
-                raise Exception("field [{}] must be initialized".format(field_name))
+                raise Exception('field [{}] must be initialized'.format(field_name))
             setattr(self, field_name, value)
 
     def marshal(self, values=None) -> Dict[str, str]:
@@ -94,8 +101,6 @@ class BaseModel(object, metaclass=ModelMetaClass):
         return getattr(self, item, default)
 
     def __str__(self):
-        return "[<{}>: \n{}]".format(
-            self.__class__.__name__, pprint.pformat(self.marshal(), indent=4)
-        )
+        return '[<{}>: \n{}]'.format(self.__class__.__name__, pprint.pformat(self.marshal(), indent=4))
 
     __repr__ = __str__

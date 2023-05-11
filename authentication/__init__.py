@@ -1,3 +1,3 @@
 from authentication.token import auth
 
-__all__ = ["auth"]
+__all__ = ['auth']

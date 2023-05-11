@@ -13,7 +13,6 @@ stop:
 test:
 	coverage run  -m pytest tests/
 	coverage report -m
-	
+
 pre-com:
 	pre-commit install
-

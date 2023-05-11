@@ -1,5 +1,5 @@
 from models.base_model import Field
-from models.data_types import IntType, StringType, DateTimeType
+from models.data_types import DateTimeType, IntType, StringType
 from models.response_models import BaseResponseModel
 
 

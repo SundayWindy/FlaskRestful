@@ -1,15 +1,15 @@
 import inspect
+from functools import wraps
+from typing import Any, Callable, Dict, TypeVar
 
 from flask import jsonify
-from functools import wraps
-from typing import Callable, Any, TypeVar, Dict
 
 from models.base_model import ApiDataType
 from models.query_models.base_model import BaseQueryModel
 from models.response_models.base_model import NoValue
 
 schema_mapping = {}
-Api = TypeVar("Api")
+Api = TypeVar('Api')
 
 
 class ResourceSchema:
@@ -47,7 +47,7 @@ class ApiResponse:
     def ok(self, data: Any = None) -> Api:
         self.set_data(data)
         self.error_code = 0
-        self.error_msg = "success"
+        self.error_msg = 'success'
         return self
 
     def error(self, error_code, error_msg) -> Api:
@@ -63,9 +63,9 @@ class ApiResponse:
 
     def get(self) -> Dict[str, Any]:
         if self.error_code is None or self.error_msg is None:
-            raise Exception("ApiResponse not ready.")
+            raise Exception('ApiResponse not ready.')
         return {
-            "data": self.data,
-            "error_code": self.error_code,
-            "error_msg": self.error_msg,
+            'data': self.data,
+            'error_code': self.error_code,
+            'error_msg': self.error_msg,
         }
