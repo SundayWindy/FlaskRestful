@@ -4,22 +4,21 @@ from typing import Any, Callable, Dict, TypeVar
 
 from flask import jsonify
 
-from models.base_model import ApiDataType
 from models.query_models.base_model import BaseQueryModel
-from models.response_models.base_model import NoValue
+from models.response_models.base_model import NoValue, BaseResponseModel
 
 schema_mapping = {}
 Api = TypeVar('Api')
 
 
 class ResourceSchema:
-    def __init__(self, query_model: BaseQueryModel, response_model: ApiDataType, path_parameters) -> None:
+    def __init__(self, query_model: type[BaseQueryModel], response_model: type[BaseResponseModel], path_parameters) -> None:
         self.query_model = query_model
         self.response_model = response_model
         self.path_parameters = path_parameters
 
 
-def schema(query_model: BaseQueryModel, response_model: ApiDataType):
+def schema(query_model: type[BaseQueryModel], response_model: type[BaseResponseModel]):
     def decorator(func):
         params = list(inspect.signature(func).parameters)
         params.remove('self')
