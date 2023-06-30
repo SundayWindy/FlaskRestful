@@ -12,7 +12,8 @@ Api = TypeVar('Api')
 
 
 class ResourceSchema:
-    def __init__(self, query_model: type[BaseQueryModel], response_model: type[BaseResponseModel], path_parameters) -> None:
+    def __init__(self, query_model: type[BaseQueryModel], response_model: type[BaseResponseModel],
+                 path_parameters) -> None:
         self.query_model = query_model
         self.response_model = response_model
         self.path_parameters = path_parameters

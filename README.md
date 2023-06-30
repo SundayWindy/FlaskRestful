@@ -63,7 +63,7 @@
 2. modify ```SQLALCHEMY_DATABASE_URI``` and ```SQLALCHEMY_DATABASE_BASE``` in file ```settings.py``` to your own setting.
 3. run:
 ```shell script
-python3.8 -m venv --clear venv
+python3.11 -m venv --clear venv
 ```
 ```shell script
 source ./venv/bin/active
@@ -352,7 +352,7 @@ for user in users:
 * **[shields.io](https://shields.io/)**, provide beautiful metadata badge for your project. You can just simply put your GitHub repository URL in blank, it will automatically generate suggested badges for you.
 
 ## 14. A Word
-* This project is coded in Python3.8 using flask-restful framework, you can treat it as **a template to learn web-framework** or just simply a **start to use python writing web project**.
+* This project is coded in Python3.11 using flask-restful framework, you can treat it as **a template to learn web-framework** or just simply a **start to use python writing web project**.
 * I try to explain the framework clearly above, but if you find any mistake or want to improve the code, you are **welcomed to contact me at hrui835@gmail.com**.
 * If this project is helpful, **please click a Star**.
 ##  Maintainers
